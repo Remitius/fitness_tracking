@@ -25,4 +25,19 @@ class WorkoutTest < ActiveSupport::TestCase
     assert @workout.valid?
   end
 
+  test "date should be present" do
+    @workout.date = nil
+    assert_not @workout.valid?
+  end
+
+  test "date should not be too far in the past" do
+    @workout.date = '1999-12-31'
+    assert_not @workout.valid?    
+  end
+
+  test "date should not be too far ahead" do
+    @workout.date = 2.years.from_now + 1.day
+    assert_not @workout.valid?
+  end
+  
 end
