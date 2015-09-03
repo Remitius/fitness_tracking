@@ -3,7 +3,7 @@ require 'test_helper'
 class ExerciseTest < ActiveSupport::TestCase
   def setup
     @exercise = Exercise.new(name: "bench press", sets: 3, repetitions: 10, 
-                                            seconds: 60.2, note: "PR")
+                             seconds: 60.2, note: "PR")
   end
 
   test "should be valid" do
