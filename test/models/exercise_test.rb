@@ -3,7 +3,8 @@ require 'test_helper'
 class ExerciseTest < ActiveSupport::TestCase
   def setup
     @exercise = Exercise.new(name: "bench press", sets: 3, repetitions: 10, 
-                             seconds: 60.2, note: "PR")
+                             seconds: 60.2, note: "PR", workout_id: 1)
+    w = Workout.create(id: 1, name: "sprints", date: "2012-3-20")
   end
 
   test "should be valid" do
@@ -62,8 +63,17 @@ class ExerciseTest < ActiveSupport::TestCase
   end
 
   test "sets, repetitions, seconds, and note should be optional" do
-    @exercise = Exercise.new(name: "sprints")
+    @exercise = Exercise.new(name: "sprints", workout_id: 1)
     assert @exercise.valid?
+  end
+
+  test "workout id should exist" do
+    @exercise.workout_id = nil
+    assert_not @exercise.valid?
+  end
+  test "workout id should correspond to an existing workout record" do
+    @exercise.workout_id = 90
+    assert_not @exercise.valid?
   end
 
 end
