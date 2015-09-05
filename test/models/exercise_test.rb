@@ -67,13 +67,20 @@ class ExerciseTest < ActiveSupport::TestCase
     assert @exercise.valid?
   end
 
-  test "workout id should exist" do
-    @exercise.workout_id = nil
+  test "workout should exist" do
+    @exercise.workout = nil
     assert_not @exercise.valid?
   end
-  test "workout id should correspond to an existing workout record" do
-    @exercise.workout_id = 90
+
+  test "workout should exist in the database" do
+    @exercise.workout = Workout.new(name: "lunges", date: "2009-1-3")
     assert_not @exercise.valid?
+  end
+
+  test "exercise should be deleted from the db when its workout is" do
+    @exercise.save
+    @exercise.workout.destroy
+    assert_not Exercise.find_by(id: @exercise.id)
   end
 
 end

@@ -1,12 +1,13 @@
 class ExerciseValidator < ActiveModel::Validator
   def validate(exercise)
-    unless Workout.exists?(exercise.workout_id)
+    unless exercise.workout && Workout.exists?(exercise.workout.id)
       exercise.errors[:workout_id] << 'workout_id is invalid'
     end
   end
 end
 
 class Exercise < ActiveRecord::Base
+  belongs_to :workout
   include ActiveModel::Validations
   before_save { name.downcase! }
   validates :name, presence: true, length: { maximum: 40 }
@@ -24,6 +25,5 @@ class Exercise < ActiveRecord::Base
 
  
   validates_with ExerciseValidator
-  #dependent: destroy
 end
 

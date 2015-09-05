@@ -11,17 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150903182749) do
+ActiveRecord::Schema.define(version: 20150905054952) do
 
   create_table "exercises", force: :cascade do |t|
     t.string   "name"
     t.integer  "sets"
     t.integer  "repetitions"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
     t.string   "note"
     t.float    "seconds"
     t.integer  "workout_id"
+    t.float    "weight"
+    t.string   "weight_units"
+    t.float    "distance"
   end
 
   add_index "exercises", ["workout_id"], name: "index_exercises_on_workout_id"
