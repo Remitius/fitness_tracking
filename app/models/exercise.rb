@@ -8,6 +8,8 @@ end
 
 class Exercise < ActiveRecord::Base
   belongs_to :workout
+  has_one :distance 
+  has_one :weight
   include ActiveModel::Validations
   before_save { name.downcase! }
   validates :name, presence: true, length: { maximum: 40 }
@@ -25,5 +27,10 @@ class Exercise < ActiveRecord::Base
 
  
   validates_with ExerciseValidator
+
+  #weight
+
+  #distance
+
 end
 

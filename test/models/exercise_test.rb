@@ -67,6 +67,10 @@ class ExerciseTest < ActiveSupport::TestCase
     assert @exercise.valid?
   end
 
+  test "the distance and weight foreign keys should be optional" do
+    #
+  end
+
   test "workout should exist" do
     @exercise.workout = nil
     assert_not @exercise.valid?
