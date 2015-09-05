@@ -2,9 +2,9 @@ require 'test_helper'
 
 class ExerciseTest < ActiveSupport::TestCase
   def setup
+    workout = Workout.create(id: 1, name: "sprints", date: "2012-3-20")
     @exercise = Exercise.new(name: "bench press", sets: 3, repetitions: 10, 
-                             seconds: 60.2, note: "PR", workout_id: 1)
-    w = Workout.create(id: 1, name: "sprints", date: "2012-3-20")
+                             seconds: 60.2, note: "PR", workout: workout)
   end
 
   test "should be valid" do
@@ -63,12 +63,9 @@ class ExerciseTest < ActiveSupport::TestCase
   end
 
   test "sets, repetitions, seconds, and note should be optional" do
+    #weight_in_pounds, #distance_in_meters
     @exercise = Exercise.new(name: "sprints", workout_id: 1)
     assert @exercise.valid?
-  end
-
-  test "the distance and weight foreign keys should be optional" do
-    #
   end
 
   test "workout should exist" do
