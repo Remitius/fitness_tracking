@@ -2,9 +2,9 @@ require 'test_helper'
 
 class ExerciseTest < ActiveSupport::TestCase
   def setup
-    workout = Workout.create(id: 1, name: "sprints", date: "2012-3-20")
+    @workout = Workout.create(id: 1, name: "sprints", date: "2012-3-20")
     @exercise = Exercise.new(name: "bench press", sets: 3, repetitions: 10, 
-                             seconds: 60.2, note: "PR", workout: workout)
+                             seconds: 60.2, note: "PR", workout: @workout)
   end
 
   test "should be valid" do
@@ -62,9 +62,8 @@ class ExerciseTest < ActiveSupport::TestCase
     assert_not @exercise.valid?
   end
 
-  test "sets, repetitions, seconds, and note should be optional" do
-    #weight_in_pounds, #distance_in_meters
-    @exercise = Exercise.new(name: "sprints", workout_id: 1)
+  test "all attributes except name and workout should be optional" do
+    @exercise = Exercise.new(name: "sprints", workout: @workout)
     assert @exercise.valid?
   end
 
@@ -82,6 +81,26 @@ class ExerciseTest < ActiveSupport::TestCase
     @exercise.save
     @exercise.workout.destroy
     assert_not Exercise.find_by(id: @exercise.id)
+  end
+
+  test "distance_in_meters should not be negative" do
+    @exercise.distance_in_meters = -0.1
+    assert_not @exercise.valid?
+  end
+
+  test "distance_in_meters should not be too large" do
+    @exercise.distance_in_meters = 200000
+    assert_not @exercise.valid?
+  end
+
+  test "weight_in_pounds should not be negative" do
+    @exercise.weight_in_pounds = -0.1
+    assert_not @exercise.valid?
+  end
+
+  test "weight_in_pounds should not be too large" do
+    @exercise.weight_in_pounds = 10000
+    assert_not @exercise.valid?
   end
 
 end

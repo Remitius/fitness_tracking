@@ -22,7 +22,13 @@ class Exercise < ActiveRecord::Base
             greater_than_or_equal_to: 0}
 
   validates :note, allow_nil: true, length: { maximum: 99 }
-
  
+  validates :weight_in_pounds, allow_nil: true, 
+                               numericality: { less_than: 10000,
+                               greater_than_or_equal_to: 0 }
+
+  validates :distance_in_meters, allow_nil: true, 
+                               numericality: { less_than: 200000,
+                               greater_than_or_equal_to: 0 }
   validates_with ExerciseValidator
  end
