@@ -1,14 +1,11 @@
 Rails.application.routes.draw do
-  get 'workouts/index'
-
+  root 'workouts#index'
   get 'workouts/new'
-
   get 'workouts/edit'
-
   get 'workouts/show'
 
-  resources :workouts
-  
+  # resources :workouts
+
 end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

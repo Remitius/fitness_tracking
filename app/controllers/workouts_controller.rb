@@ -1,6 +1,6 @@
 class WorkoutsController < ApplicationController
   def index
-    @workouts = Workouts.all
+    @workouts = Workout.all
   end
 
   def new
