@@ -1,5 +1,6 @@
-<% unless @workouts.empty? %>
+<% if @workouts %>
   <% @workouts.each do |w| %>
-  <h3><%= w.name %>&nbsp;&nbsp;<%= w.date.to_formatted_s(:long) %></h2>
+  <h3><span id='workout_name'><%= w.name %></span>&nbsp;
+      <%= w.date.to_formatted_s(:long) %></h3>
   <% end %>
 <% end %> 
