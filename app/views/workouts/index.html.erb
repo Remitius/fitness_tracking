@@ -1,6 +1,6 @@
 <% if @workouts %>
   <% @workouts.each do |w| %>
   <h3><span id='workout_name'><%= w.name %></span>&nbsp;
-      <%= w.date.to_formatted_s(:long) %></h3>
+      <%= w.date.strftime("%a, %b %d, %Y") %></h3>
   <% end %>
 <% end %> 
