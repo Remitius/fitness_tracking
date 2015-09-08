@@ -1,10 +1,10 @@
 class WorkoutsController < ApplicationController
   def index
-    if params['page'] && Workout.first
+    if params['page'] && Workout.any?
       p = params['page'].to_i * 10
-      @workouts = Workout.order(:date)[(p-10)...p]
+      @workouts = Workout.order('date DESC')[(p-10)...p]
     else
-      @workouts = Workout.order(:date).first(10)
+      @workouts = Workout.order('date DESC').first(10)
     end
   end
 
