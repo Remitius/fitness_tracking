@@ -9,6 +9,16 @@ class WorkoutsController < ApplicationController
   end
 
   def new
+    @workout = Workout.new
+  end
+
+  def create
+    @workout = Workout.new(params.require(:workout).permit(:name, :date))
+    if @workout.save
+      redirect_to :root
+    else
+      render 'new'
+    end
   end
 
   def edit

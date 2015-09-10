@@ -1,10 +1,9 @@
 Rails.application.routes.draw do
   root 'workouts#index'
-  get 'workouts/new'
+  get 'create_workout' => 'workouts#new'
   get 'workouts/edit'
   get 'workouts/show'
-
-  # resources :workouts
+  resources :workouts
 
 end
   # The priority is based upon order of creation: first created -> highest priority.

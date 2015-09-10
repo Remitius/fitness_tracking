@@ -1,4 +1,5 @@
 <% provide(:title, 'Index') %> 
+<%= link_to 'Create', :create_workout %> 
 <% if @workouts %>
   <% @workouts.each do |w| %>
   <h3><span id='workout_name'><%= w.name %></span>&nbsp;
