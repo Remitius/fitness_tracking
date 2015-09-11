@@ -13,3 +13,11 @@
  *= require_tree .
  *= require_self
  */
+body{
+  background-color: black;
+  background-image: url(dark_embroidery.png)
+}
+
+input{
+  color: black;
+}
