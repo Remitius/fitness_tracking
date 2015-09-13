@@ -8,11 +8,4 @@
 
 
 
-<%= form_for(@workout) do |f| %> 
-  <%= f.label :name %> 
-  <%= f.text_field :name %> 
-  <br>
-  <%= f.label :date %> 
-  <%= f.text_field :date %> 
-  <%= f.submit %> 
-<% end %> 
+<%= render 'layouts/workout_form' %> 

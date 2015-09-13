@@ -13,7 +13,7 @@ class WorkoutsController < ApplicationController
   end
 
   def create
-    @workout = Workout.new(params.require(:workout).permit(:name, :date))
+    @workout = Workout.new(user_params)
     if @workout.save
       redirect_to :root
     else
@@ -31,5 +31,18 @@ class WorkoutsController < ApplicationController
       redirect_to :root
       flash[:error] = "Workout not found"
     end
+  end
+
+  def update
+    @workout = Workout.find(params[:id])
+    unless @workout.update_attributes(user_params)
+      flash[:error] = "Workout update was unsuccessful"
+    end
+    redirect_to @workout
+
+  end
+
+  def user_params
+    params.require(:workout).permit(:name, :date)
   end
 end

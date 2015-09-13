@@ -5,6 +5,11 @@
     <li>Note: <%= @workout.note %></li>
   </ul>
   </div>
+
+  <ul class='edit_workout_form'>
+    <%= render 'layouts/workout_form' %>
+  </ul>
+
 <% else %> 
   Workout not found
 <% end %> 

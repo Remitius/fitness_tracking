@@ -34,7 +34,7 @@ class WorkoutsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "show action should include workout info if id param is correct" do
+  test "show should include workout info if id param is correct" do
     workout_name = "Upper Body"
     Workout.create(id: 900, name: workout_name, date: 5.days.ago)
     get :show, id: 900
@@ -42,9 +42,26 @@ class WorkoutsControllerTest < ActionController::TestCase
     assert_select 'ul.workout_info', /#{workout_name}/, count: 1
   end
 
-  test "show action should redirect to root and display error flash" do
+  test "show should redirect to root if invalid id" do
     get :show, id: 900
     assert_redirected_to :root 
+  end
+
+  test "successful update action should correctly update attributes" do
+    w = Workout.create(id: 800, name: "Lower Body", date: 6.days.ago)
+    get :show, id: w
+    put :update, id: w, workout: { name: "HIIT", date: 4.days.ago}
+    assert_equal 'HIIT', Workout.find(800).name
+    assert_equal 4.days.ago.to_date, Workout.find(800).date
+    assert_redirected_to w
+  end
+
+  test "unsuccessful update action should render show template" do
+    w = Workout.create(id: 800, name: "Lower Body", date: 6.days.ago)
+    get :show, id: w
+    put :update, id: w, workout: { name: '' }
+    assert_equal 'Lower Body', Workout.find(800).name
+    assert_redirected_to w
   end
 
 end
