@@ -34,9 +34,17 @@ class WorkoutsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should get show" do
-    get :show
-    assert_response :success
+  test "show action should include workout info if id param is correct" do
+    workout_name = "Upper Body"
+    Workout.create(id: 900, name: workout_name, date: 5.days.ago)
+    get :show, id: 900
+    assert_template :show
+    assert_select 'ul.workout_info', /#{workout_name}/, count: 1
+  end
+
+  test "show action should redirect to root and display error flash" do
+    get :show, id: 900
+    assert_redirected_to :root 
   end
 
 end

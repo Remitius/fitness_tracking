@@ -1,8 +1,12 @@
+<% unless flash.empty? %> 
+  <div class="error_flash"><%= flash[:error] %></div>
+<% end %> 
+
 <% provide(:title, 'Index') %> 
 <%= link_to 'Create', :create_workout %> 
 <% if @workouts %>
   <% @workouts.each do |w| %>
-  <h3><span id='workout_name'><%= w.name %></span>&nbsp;
+  <h3><span id='workout_name'><%= link_to(w.name, w) %></span>&nbsp;
       <%= w.date.strftime("%a, %b %d, %Y") %></h3>
   <% end %>
 <% end %> 

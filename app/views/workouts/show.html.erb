@@ -1,2 +1,10 @@
-<h1>Workouts#show</h1>
-<p>Find me in app/views/workouts/show.html.erb</p>
+<% if @workout %>
+  <ul class='workout_info'>
+    <li>Name: <%= @workout.name %></li>
+    <li>Date: <%= @workout.date %></li>
+    <li>Note: <%= @workout.note %></li>
+  </ul>
+  </div>
+<% else %> 
+  Workout not found
+<% end %> 
