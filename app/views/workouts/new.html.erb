@@ -1,11 +1,1 @@
-<h1>Workouts#new</h1>
-<p>Find me in app/views/workouts/new.html.erb</p>
-<% if (e = @workout.errors).any? %>  
-  <%= "Workout name was invalid" if e.has_key?(:name) %> 
-  <br>
-  <%= "The date entered was invalid" if e.has_key?(:date) %> 
-<% end %> 
-
-
-
-<%= render 'layouts/workout_form' %> 
+<%= render 'layouts/workout_form' %>

@@ -1,8 +1,22 @@
-<%= form_for(@workout) do |f| %> 
-  <%= f.label :name %> 
-  <%= f.text_field :name %> 
-  <br>
-  <%= f.label :date %> 
-  <%= f.text_field :date %> 
-  <%= f.submit %> 
+<% if @workout.errors.any? %> 
+  <div class="workout_form_errors">
+    <% @workout.errors.full_messages.each do |e| %> 
+      <%= e %><br>
+    <% end %> 
+  </div>
 <% end %> 
+
+<div class="workout_form">
+  <%= form_for(@workout) do |f| %> 
+    <%= f.label :name %> 
+    <%= f.text_field :name %> 
+    <br>
+    <%= f.label :date %> 
+    <%= f.text_field :date %> 
+    <br>
+    <%= f.label :note %> 
+    <%= f.text_field :note %> 
+    <br>
+    <%= f.submit %> 
+  <% end %> 
+</div>
