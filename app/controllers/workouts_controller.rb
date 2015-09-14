@@ -35,14 +35,16 @@ class WorkoutsController < ApplicationController
 
   def update
     @workout = Workout.find(params[:id])
+    old_attributes = @workout.attributes
     unless @workout.update_attributes(user_params)
-      flash[:error] = "Workout update was unsuccessful"
+      @workout.name = old_attributes['name']
+      @workout.date = old_attributes['date']
+      @workout.note = old_attributes['note']
     end
-    redirect_to @workout
-
+    render :show
   end
 
   def user_params
-    params.require(:workout).permit(:name, :date)
+    params.require(:workout).permit(:name, :date, :note)
   end
 end

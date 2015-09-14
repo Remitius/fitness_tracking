@@ -53,7 +53,7 @@ class WorkoutsControllerTest < ActionController::TestCase
     put :update, id: w, workout: { name: "HIIT", date: 4.days.ago}
     assert_equal 'HIIT', Workout.find(800).name
     assert_equal 4.days.ago.to_date, Workout.find(800).date
-    assert_redirected_to w
+    assert_template :show, id: 800
   end
 
   test "unsuccessful update action should render show template" do
@@ -61,7 +61,7 @@ class WorkoutsControllerTest < ActionController::TestCase
     get :show, id: w
     put :update, id: w, workout: { name: '' }
     assert_equal 'Lower Body', Workout.find(800).name
-    assert_redirected_to w
+    assert_template :show, id: 800
   end
 
 end
