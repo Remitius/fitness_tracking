@@ -1,9 +1,11 @@
 <% if @workout.errors.any? %> 
-  <div class="workout_form_errors">
+  <ul class="workout_form_errors">
     <% @workout.errors.full_messages.each do |e| %> 
-      <%= e %><br>
+      <li>
+        <%= e %><br>
+      </li>
     <% end %> 
-  </div>
+  </ul>
 <% end %> 
 
 <div class="workout_form">
