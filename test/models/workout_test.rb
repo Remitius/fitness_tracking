@@ -25,6 +25,11 @@ class WorkoutTest < ActiveSupport::TestCase
     assert @workout.valid?
   end
 
+  test "note should not be too long" do
+    @workout.note = 'a' * 301
+    assert_not @workout.valid?
+  end
+
   test "date should be present" do
     @workout.date = nil
     assert_not @workout.valid?
