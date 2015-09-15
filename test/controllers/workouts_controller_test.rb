@@ -64,4 +64,19 @@ class WorkoutsControllerTest < ActionController::TestCase
     assert_template :show, id: 800
   end
 
+  test "saved attributes should display upon unsuccessful update" do
+    w = Workout.create(id: 700, name: "Lower Body", date: 4.days.ago)
+    workout_name = w.name
+    workout_date = w.date
+    put :update, id: w, workout: { name: '', date: 'hi' }
+    assert_select 'ul.workout_info', /#{workout_date}/, count: 1
+    assert_select 'ul.workout_info', /#{workout_name}/, count: 1
+  end
+
+  test "proper form error messages should display on failed save" do
+    w = Workout.create(id: 700, name: "Lower Body", date: 4.days.ago)
+    put :update, id: w, workout: { name: '', note: 'a' * 301 }
+    assert_select 'ul.workout_form_errors', /Name can't be blank/
+    assert_select 'ul.workout_form_errors', /Note is too long/    
+  end
 end
