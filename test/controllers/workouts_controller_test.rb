@@ -8,15 +8,15 @@ class WorkoutsControllerTest < ActionController::TestCase
 
   test "index should show first 10 workouts by default" do
     get :index
-    assert_select 'span#workout_name', count: 10
+    assert_select 'h3.workout_name', count: 10
+    assert_select 'section>h3.workout_name:first-child', /Workout 22/
   end
 
   test "index should show workouts based on page parameter" do
-    #based on 22 fixtures
     get :index, page: 2
-    assert_select 'span#workout_name', count: 10
+    assert_select 'h3.workout_name', count: 10
     get :index, page: 3
-    assert_select 'span#workout_name', count: 2
+    assert_select 'h3.workout_name', count: 2
   end
 
   test "index response should be valid if workout list is empty" do
