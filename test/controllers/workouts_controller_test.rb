@@ -29,11 +29,6 @@ class WorkoutsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should get edit" do
-    get :edit
-    assert_response :success
-  end
-
   test "show should include workout info if id param is correct" do
     workout_name = "Upper Body"
     Workout.create(id: 900, name: workout_name, date: 5.days.ago)

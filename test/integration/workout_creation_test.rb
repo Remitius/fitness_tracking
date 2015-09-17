@@ -2,7 +2,7 @@ require 'test_helper'
 
 class WorkoutCreationTest < ActionDispatch::IntegrationTest
   test "valid creation" do
-    get create_workout_path
+    get create_path
 
     assert_difference 'Workout.count', 1 do 
       post_via_redirect workouts_path, workout: { name: 'Max Lower', 
@@ -14,7 +14,7 @@ class WorkoutCreationTest < ActionDispatch::IntegrationTest
   end
 
   test "invalid creation" do
-    get create_workout_path
+    get create_path
 
     assert_no_difference 'Workout.count' do 
       post workouts_path, workout: { date: 'hi' }
