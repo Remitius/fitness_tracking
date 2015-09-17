@@ -9,6 +9,9 @@
   <ul class='edit_workout_form'>
     <%= render 'layouts/workout_form' %>
   </ul>
+  
+  <%= link_to "delete", @workout, method: :delete, 
+                                  data: { confirm: "You sure?" }%> 
 
 <% else %> 
   Workout not found

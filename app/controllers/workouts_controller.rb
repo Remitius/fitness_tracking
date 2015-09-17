@@ -44,4 +44,9 @@ class WorkoutsController < ApplicationController
   def user_params
     params.require(:workout).permit(:name, :date, :note)
   end
+
+  def destroy
+    Workout.find(params[:id]).destroy
+    redirect_to :root
+  end
 end

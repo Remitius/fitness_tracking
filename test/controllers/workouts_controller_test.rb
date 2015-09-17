@@ -69,9 +69,26 @@ class WorkoutsControllerTest < ActionController::TestCase
   end
 
   test "proper form error messages should display on failed save" do
-    w = Workout.create(id: 700, name: "Lower Body", date: 4.days.ago)
+    w = Workout.create(id: 600, name: "Lower Body", date: 4.days.ago)
     put :update, id: w, workout: { name: '', note: 'a' * 301 }
     assert_select 'ul.workout_form_errors', /Name can't be blank/
     assert_select 'ul.workout_form_errors', /Note is too long/    
   end
+
+  test "correct destroy link should exist on show template" do
+    w = Workout.create(id: 500, name: "Lower Body", date: 4.days.ago)
+    get :show, id: 500
+    assert_select 'a[data-method=delete]'
+    assert_select "a[href='/workouts/#{w.id}']"
+  end
+
+  test "destroy action should remove record from the database" do
+    w = Workout.create(id: 400, name: "Lower Body", date: 4.days.ago)
+    id = w.id
+    delete :destroy, id: w
+    assert_raises(ActiveRecord::RecordNotFound) do  
+      Workout.find(id)
+    end 
+  end
+
 end
