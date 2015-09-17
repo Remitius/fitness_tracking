@@ -1,6 +1,12 @@
 require 'test_helper'
 
 class WorkoutsControllerTest < ActionController::TestCase
+  def setup
+    @valid_workout = Workout.create(id: 100, name: "Lower Body", 
+                                 date: 2.days.ago, note: "great")
+    @attr = @valid_workout.attributes
+  end
+
   test "should get index" do
     get :index
     assert_response :success
@@ -9,7 +15,7 @@ class WorkoutsControllerTest < ActionController::TestCase
   test "index should show first 10 workouts by default" do
     get :index
     assert_select 'h3.workout_name', count: 10
-    assert_select 'section>h3.workout_name:first-child', /Workout 22/
+    assert_select 'section>h3.workout_name:first-child', @attr[:name]
   end
 
   test "index should show workouts based on page parameter" do
@@ -30,64 +36,52 @@ class WorkoutsControllerTest < ActionController::TestCase
   end
 
   test "show should include workout info if id param is correct" do
-    workout_name = "Upper Body"
-    Workout.create(id: 900, name: workout_name, date: 5.days.ago)
-    get :show, id: 900
+    get :show, id: @attr['id']
     assert_template :show
-    assert_select 'ul.workout_info', /#{workout_name}/, count: 1
+    assert_select 'ul.workout_info', /#{@attr['name']}/, count: 1
   end
 
   test "show should redirect to root if invalid id" do
-    get :show, id: 900
+    get :show, id: 9000
     assert_redirected_to :root 
   end
 
   test "successful update action should correctly update attributes" do
-    w = Workout.create(id: 800, name: "Lower Body", date: 6.days.ago)
-    get :show, id: w
-    put :update, id: w, workout: { name: "HIIT", date: 4.days.ago}
-    assert_equal 'HIIT', Workout.find(800).name
-    assert_equal 4.days.ago.to_date, Workout.find(800).date
-    assert_template :show, id: 800
+    get :show, id: @attr['id']
+    put :update, id: @attr['id'], workout: {name: "HIIT", date: 1.day.ago}
+    assert_equal 'HIIT', Workout.find(@attr['id']).name
+    assert_equal 1.day.ago.to_date, Workout.find(@attr['id']).date
+    assert_template :show, id: @attr['id']
   end
 
   test "unsuccessful update action should render show template" do
-    w = Workout.create(id: 800, name: "Lower Body", date: 6.days.ago)
-    get :show, id: w
-    put :update, id: w, workout: { name: '' }
-    assert_equal 'Lower Body', Workout.find(800).name
-    assert_template :show, id: 800
+    put :update, id: @attr['id'], workout: { name: '' }
+    assert_equal 'Lower Body', Workout.find(@attr['id']).name
+    assert_template :show, id: @attr['id']
   end
 
   test "saved attributes should display upon unsuccessful update" do
-    w = Workout.create(id: 700, name: "Lower Body", date: 4.days.ago)
-    workout_name = w.name
-    workout_date = w.date
-    put :update, id: w, workout: { name: '', date: 'hi' }
-    assert_select 'ul.workout_info', /#{workout_date}/, count: 1
-    assert_select 'ul.workout_info', /#{workout_name}/, count: 1
+    put :update, id: @attr['id'], workout: { name: '', date: 'hi' }
+    assert_select 'ul.workout_info', /#{@attr['name']}/, count: 1
+    assert_select 'ul.workout_info', /#{@attr['date']}/, count: 1
   end
 
   test "proper form error messages should display on failed save" do
-    w = Workout.create(id: 600, name: "Lower Body", date: 4.days.ago)
-    put :update, id: w, workout: { name: '', note: 'a' * 301 }
+    put :update, id: @attr['id'], workout: { name: '', note: 'a' * 301 }
     assert_select 'ul.workout_form_errors', /Name can't be blank/
     assert_select 'ul.workout_form_errors', /Note is too long/    
   end
 
   test "correct destroy link should exist on show template" do
-    w = Workout.create(id: 500, name: "Lower Body", date: 4.days.ago)
-    get :show, id: 500
+    get :show, id: @attr['id']
     assert_select 'a[data-method=delete]'
-    assert_select "a[href='/workouts/#{w.id}']"
+    assert_select "a[href='/workouts/#{@attr['id']}']"
   end
 
   test "destroy action should remove record from the database" do
-    w = Workout.create(id: 400, name: "Lower Body", date: 4.days.ago)
-    id = w.id
-    delete :destroy, id: w
+    delete :destroy, id: @attr['id']
     assert_raises(ActiveRecord::RecordNotFound) do  
-      Workout.find(id)
+      Workout.find(@attr['id'])
     end 
   end
 
