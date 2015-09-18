@@ -6,10 +6,8 @@
   </ul>
   </div>
 
-  <ul class='edit_workout_form'>
-    <%= render 'layouts/workout_form' %>
-  </ul>
-  
+  <%= render 'layouts/workout_form' %>
+    
   <%= link_to "delete", @workout, method: :delete, 
                                   data: { confirm: "You sure?" }%> 
 
