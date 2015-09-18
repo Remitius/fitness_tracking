@@ -35,6 +35,16 @@ class WorkoutsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "should get show" do
+    get :show, id: 100
+    assert_response :success
+  end  
+
+  test "should redirect to index" do
+    get :show, id: 99
+    assert_response :redirect
+  end
+
   test "show should include workout info if id param is correct" do
     get :show, id: @attr['id']
     assert_template :show
