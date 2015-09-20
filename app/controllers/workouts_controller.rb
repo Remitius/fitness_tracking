@@ -13,7 +13,7 @@ class WorkoutsController < ApplicationController
   end
 
   def create
-    @workout = Workout.new(user_params)
+    @workout = Workout.new(workout_params)
     if @workout.save
       redirect_to :root
     else
@@ -33,7 +33,7 @@ class WorkoutsController < ApplicationController
   def update
     @workout = Workout.find(params[:id])
     old_attributes = @workout.attributes
-    unless @workout.update_attributes(user_params)
+    unless @workout.update_attributes(workout_params)
       @workout.name = old_attributes['name']
       @workout.date = old_attributes['date']
       @workout.note = old_attributes['note']
@@ -41,7 +41,7 @@ class WorkoutsController < ApplicationController
     render :show
   end
 
-  def user_params
+  def workout_params
     params.require(:workout).permit(:name, :date, :note)
   end
 
