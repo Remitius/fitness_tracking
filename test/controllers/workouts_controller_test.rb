@@ -9,6 +9,7 @@ class WorkoutsControllerTest < ActionController::TestCase
 
   test "should get index" do
     get :index
+    assert_select 'title', 'Tracking | Index'
     assert_response :success
   end
 
@@ -32,11 +33,14 @@ class WorkoutsControllerTest < ActionController::TestCase
 
   test "should get new" do
     get :new
+    assert_select 'title', 'Tracking | New Workout'
     assert_response :success
   end
 
   test "should get show" do
-    get :show, id: 100
+    w = Workout.create(id: 101, name: 'a' * 14, date: 1.day.ago)
+    get :show, id: w.id
+    assert_select 'title', "Tracking | #{'a' * 13}"
     assert_response :success
   end  
 
@@ -48,7 +52,7 @@ class WorkoutsControllerTest < ActionController::TestCase
   test "show should include workout info if id param is correct" do
     get :show, id: @attr['id']
     assert_template :show
-    assert_select 'ul.workout_info', /#{@attr['name']}/, count: 1
+    assert_select 'ul.workout_info', /#{@attr['name']}/i, count: 1
   end
 
   test "show should redirect to root if invalid id" do
@@ -58,8 +62,8 @@ class WorkoutsControllerTest < ActionController::TestCase
 
   test "successful update action should correctly update attributes" do
     get :show, id: @attr['id']
-    put :update, id: @attr['id'], workout: {name: "HIIT", date: 1.day.ago}
-    assert_equal 'HIIT', Workout.find(@attr['id']).name
+    put :update, id: @attr['id'], workout: {name: "HIT", date: 1.day.ago}
+    assert_equal 'HIT', Workout.find(@attr['id']).name
     assert_equal 1.day.ago.to_date, Workout.find(@attr['id']).date
     assert_template :show, id: @attr['id']
   end
@@ -72,14 +76,14 @@ class WorkoutsControllerTest < ActionController::TestCase
 
   test "saved attributes should display upon unsuccessful update" do
     put :update, id: @attr['id'], workout: { name: '', date: 'hi' }
-    assert_select 'ul.workout_info', /#{@attr['name']}/, count: 1
-    assert_select 'ul.workout_info', /#{@attr['date']}/, count: 1
+    assert_select 'ul.workout_info', /#{@attr['name']}/i, count: 1
+    assert_select 'ul.workout_info', /#{@attr['date']}/i, count: 1
   end
 
   test "proper form error messages should display on failed save" do
     put :update, id: @attr['id'], workout: { name: '', note: 'a' * 301 }
-    assert_select 'ul.workout_form_errors', /Name can't be blank/
-    assert_select 'ul.workout_form_errors', /Note is too long/    
+    assert_select 'ul.workout_form_errors', /Name can't be blank/i
+    assert_select 'ul.workout_form_errors', /Note is too long/i
   end
 
   test "correct destroy link should exist on show template" do

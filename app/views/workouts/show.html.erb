@@ -1,3 +1,5 @@
+<% provide(:title, @workout.name.first(13)) %> 
+
 <% if @workout %>
   <ul class='workout_info'>
     <li>Name: <%= @workout.name %></li>
