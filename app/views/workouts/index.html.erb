@@ -2,7 +2,7 @@
 
 <%= link_to 'Create', :create %> 
 <br>
-<% if params[:page] %> 
+<% if params[:page] && params[:page].to_i > 1 %> 
   <%= link_to 'Previous Page', root_path(page: params[:page].to_i - 1)%> 
   <%= link_to 'Next Page', root_path(page: params[:page].to_i + 1) %> 
 <% else %> 

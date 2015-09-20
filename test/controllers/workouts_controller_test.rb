@@ -13,6 +13,12 @@ class WorkoutsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "should get index when no workouts exist" do
+    Workout.all.each{ |x| x.destroy }
+    get :index
+    assert_response :success
+  end
+
   test "index should show first 10 workouts by default" do
     get :index
     assert_select 'h3.workout_name', count: 10
@@ -25,6 +31,23 @@ class WorkoutsControllerTest < ActionController::TestCase
     get :index, page: 3
     assert_select 'h3.workout_name', count: 2
   end
+
+  test "index should contain links to previous and next page" do
+    get :index, page: 2
+    assert_select "a[href='#{root_path}?page=1']"
+    assert_select "a[href='#{root_path}?page=3']"
+  end
+
+  test "first page of index should contain next page link" do
+    get :index
+    assert_select "a[href='#{root_path}?page=2']"
+    assert_select "a[href='#{root_path}?page=0']", false
+
+    get :index, page: 1
+    assert_select "a[href='#{root_path}?page=2']"
+    assert_select "a[href='#{root_path}?page=0']", false
+  end
+
 
   test "index response should be valid if workout list is empty" do
     get :index, page: 5000

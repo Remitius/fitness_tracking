@@ -1,6 +1,6 @@
 class WorkoutsController < ApplicationController
   def index
-    if params['page'] && Workout.any?
+    if params['page']
       p = params['page'].to_i * 10
       @workouts = Workout.order('date DESC')[(p-10)...p]
     else
@@ -41,12 +41,13 @@ class WorkoutsController < ApplicationController
     render :show
   end
 
-  def workout_params
-    params.require(:workout).permit(:name, :date, :note)
-  end
-
   def destroy
     Workout.find(params[:id]).destroy
     redirect_to :root
   end
+  
+  def workout_params
+    params.require(:workout).permit(:name, :date, :note)
+  end
+
 end
