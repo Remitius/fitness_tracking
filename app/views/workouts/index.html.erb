@@ -1,5 +1,16 @@
 <% provide(:title, 'Index') %> 
+
 <%= link_to 'Create', :create %> 
+<br>
+<% if params[:page] %> 
+  <%= link_to 'Previous Page', root_path(page: params[:page].to_i - 1)%> 
+  <%= link_to 'Next Page', root_path(page: params[:page].to_i + 1) %> 
+<% else %> 
+  <span>Previous Page</span>
+  <%= link_to 'Next Page', root_path(page: 2) %> 
+<% end %> 
+
+
 <% if @workouts %>
   <section>
     <% @workouts.each do |w| %>
