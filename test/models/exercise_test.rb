@@ -3,8 +3,9 @@ require 'test_helper'
 class ExerciseTest < ActiveSupport::TestCase
   def setup
     @workout = Workout.create(id: 1, name: "sprints", date: "2012-3-20")
-    @exercise = Exercise.new(name: "bench press", sets: 3, repetitions: 10, 
-                             seconds: 60.2, note: "PR", workout: @workout)
+    @exercise = Exercise.new(name: "bench press", sets: 3, 
+                             repetitions: 10, seconds: 60.2,
+                             note: "PR", workout: @workout)
   end
 
   test "should be valid" do
