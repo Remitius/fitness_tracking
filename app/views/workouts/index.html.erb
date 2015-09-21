@@ -1,6 +1,6 @@
 <% provide(:title, 'Index') %> 
 
-<%= link_to 'Create', :create %> 
+<%= link_to 'Create', :new %> 
 <br>
 <% if params[:page] && params[:page].to_i > 1 %> 
   <%= link_to 'Previous Page', root_path(page: params[:page].to_i - 1)%> 

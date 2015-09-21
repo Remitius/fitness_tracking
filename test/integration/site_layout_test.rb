@@ -2,7 +2,7 @@ require 'test_helper'
 
 class SiteLayoutTest < ActionDispatch::IntegrationTest
   test "universal header and footer" do
-    get create_path
+    get new_path
     assert_select 'a[href="/"]', count: 1
   end
 

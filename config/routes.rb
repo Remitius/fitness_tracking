@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   root 'workouts#index'
-  get 'create' => 'workouts#new'
+  get 'workouts/new', as: 'new'
   resources :workouts, only: [:show, :create, :update, :destroy]
 
 end
