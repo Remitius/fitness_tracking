@@ -84,16 +84,6 @@ class ExerciseTest < ActiveSupport::TestCase
     assert_not Exercise.find_by(id: @exercise.id)
   end
 
-  test "distance_in_meters should not be negative" do
-    @exercise.distance_in_meters = -0.1
-    assert_not @exercise.valid?
-  end
-
-  test "distance_in_meters should not be too large" do
-    @exercise.distance_in_meters = 200000
-    assert_not @exercise.valid?
-  end
-
   test "weight_in_pounds should not be negative" do
     @exercise.weight_in_pounds = -0.1
     assert_not @exercise.valid?
