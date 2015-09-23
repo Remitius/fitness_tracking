@@ -1,23 +1,16 @@
 Rails.application.routes.draw do
   root 'workouts#index'
   get 'workouts/new', as: 'new'
-  resources :workouts, only: [:show, :create, :update, :destroy]
+  resources :workouts, only: [:show, :create, :update, :destroy] do
+    resources :exercises, only: [:create, :update, :destroy]
+  end
 
 end
-  # The priority is based upon order of creation: first created -> highest priority.
-  # See how all your routes lay out with "rake routes".
-
-  # You can have the root of your site routed with "root"
-  # root 'welcome#index'
+  # The priority is based upon order of creation: 
+  #first created -> highest priority.
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
-
-  # Example of named route that can be invoked with purchase_url(id: product.id)
-  #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
-
-  # Example resource route (maps HTTP verbs to controller actions automatically):
-  #   resources :products
 
   # Example resource route with options:
   #   resources :products do
