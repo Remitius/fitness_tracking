@@ -1,3 +1,15 @@
 <% if flash[:error] %> 
-  <div class="error_flash"><%= flash[:error] %></div>
+  <div class="error_flash">
+
+    <% if flash[:error].class == Array %> 
+      <% flash[:error].each do |e| %> 
+        <%= e %> 
+        <br>
+      <% end %> 
+      
+    <% elsif flash[:error].class == String %> 
+      <%= flash[:error] %> 
+    <% end %> 
+  
+  </div>
 <% end %> 

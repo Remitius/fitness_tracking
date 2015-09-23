@@ -14,7 +14,7 @@ class WorkoutsControllerTest < ActionController::TestCase
   end
 
   test "should get index when no workouts exist" do
-    Workout.all.each{ |x| x.destroy }
+    Workout.all.each { |x| x.destroy }
     get :index
     assert_response :success
   end

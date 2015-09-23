@@ -38,7 +38,7 @@ class WorkoutsController < ApplicationController
       @workout.date = old_attributes['date']
       @workout.note = old_attributes['note']
     end
-    render :show
+    render 'show'
   end
 
   def destroy

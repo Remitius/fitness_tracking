@@ -1,0 +1,11 @@
+<div class="exercise_form">
+  <%= form_for [@workout, @workout.exercises.build] do |f| %> 
+    <%= f.label :name %> 
+    <%= f.text_field :name %> 
+    <br>
+    <%= f.label :note %> 
+    <%= f.text_field :note %> 
+    <br>
+    <%= f.submit %> 
+  <% end %> 
+</div>

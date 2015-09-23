@@ -6,10 +6,23 @@
     <li>Date: <%= @workout.date %></li>
     <li>Note: <%= @workout.note %></li>
   </ul>
-  </div>
+
 
   <%= render 'layouts/workout_form' %>
     
   <%= link_to "delete", @workout, method: :delete, 
                                   data: { confirm: "You sure?" }%> 
+
+  <%= render 'layouts/exercise_form' %>
 <% end %> 
+
+<section>
+  <% if (@workout.exercise_ids - [nil]).any? %>
+      <% @workout.exercises.each do |e| %>
+        <%= e.name + '2' if e.id %>
+        <br>
+      <% end %>
+  <% else %> 
+    No exercises present
+  <% end %> 
+</section>
