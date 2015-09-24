@@ -21,6 +21,6 @@ class WorkoutCreationTest < ActionDispatch::IntegrationTest
       after_count = Workout.count
     end
 
-    assert_template "workouts/new"
+    assert_template 'workouts/new'
   end
 end

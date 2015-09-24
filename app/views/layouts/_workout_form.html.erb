@@ -1,26 +1,24 @@
-<div class='workout_form'>
-  <% if @workout.errors.any? %> 
-    <ul class="workout_form_errors">
-      <% @workout.errors.full_messages.each do |e| %> 
-        <li>
-          <%= e %><br>
-        </li>
-      <% end %> 
-    </ul>
-  <% end %> 
-
-  <div class="workout_form">
-    <%= form_for(@workout) do |f| %> 
-      <%= f.label :name %> 
-      <%= f.text_field :name %> 
-      <br>
-      <%= f.label :date %> 
-      <%= f.date_select :date, start_year: 2012, end_year: 1.year.from_now.year %>
-      <br>
-      <%= f.label :note %> 
-      <%= f.text_field :note %> 
-      <br>
-      <%= f.submit %> 
+<% if @workout.errors.any? %>
+  <ul class="workout_form_errors">
+    <% @workout.errors.full_messages.each do |e| %> 
+      <li>
+        <%= e %><br>
+      </li>
     <% end %> 
-  </div>
+  </ul>
+<% end %> 
+
+<div class="workout_form">
+  <%= form_for(@workout) do |f| %> 
+    <%= f.label :name %> 
+    <%= f.text_field :name %> 
+    <br>
+    <%= f.label :date %> 
+    <%= f.date_select :date, start_year: 2012, end_year: 1.year.from_now.year %>
+    <br>
+    <%= f.label :note %> 
+    <%= f.text_field :note %> 
+    <br>
+    <%= f.submit %> 
+  <% end %> 
 </div>
