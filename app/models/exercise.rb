@@ -15,7 +15,7 @@ class Exercise < ActiveRecord::Base
   validates :sets, allow_nil: true, numericality: { less_than: 1000, 
             greater_than_or_equal_to: 0 }
 
-  validates :repetitions, allow_nil: true, 
+  validates :reps, allow_nil: true, 
             numericality: { less_than: 1000, greater_than_or_equal_to: 0 }
 
   validates :seconds, allow_nil: true, numericality: { less_than: 100000, 
@@ -23,7 +23,7 @@ class Exercise < ActiveRecord::Base
 
   validates :note, allow_nil: true, length: { maximum: 99 }
  
-  validates :weight_in_pounds, allow_nil: true, 
+  validates :pounds, allow_nil: true, 
                                numericality: { less_than: 10000,
                                greater_than_or_equal_to: 0 }
   validates_with ExerciseValidator

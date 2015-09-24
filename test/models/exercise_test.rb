@@ -4,7 +4,7 @@ class ExerciseTest < ActiveSupport::TestCase
   def setup
     @workout = Workout.create(id: 1, name: "sprints", date: "2012-3-20")
     @exercise = Exercise.new(name: "bench press", sets: 3, 
-                             repetitions: 10, seconds: 60.2,
+                             reps: 10, seconds: 60.2,
                              note: "PR", workout: @workout)
   end
 
@@ -38,13 +38,13 @@ class ExerciseTest < ActiveSupport::TestCase
     assert_not @exercise.valid?
   end
 
-  test "number of repetitions should not be too large" do
-    @exercise.repetitions = 1000
+  test "number of reps should not be too large" do
+    @exercise.reps = 1000
     assert_not @exercise.valid?
   end
 
-  test "number of repetitions should be positive" do
-    @exercise.repetitions = -1
+  test "number of reps should be positive" do
+    @exercise.reps = -1
     assert_not @exercise.valid?
   end
 
@@ -84,13 +84,13 @@ class ExerciseTest < ActiveSupport::TestCase
     assert_not Exercise.find_by(id: @exercise.id)
   end
 
-  test "weight_in_pounds should not be negative" do
-    @exercise.weight_in_pounds = -0.1
+  test "pounds should not be negative" do
+    @exercise.pounds = -0.1
     assert_not @exercise.valid?
   end
 
-  test "weight_in_pounds should not be too large" do
-    @exercise.weight_in_pounds = 10000
+  test "pounds should not be too large" do
+    @exercise.pounds = 10000
     assert_not @exercise.valid?
   end
 
