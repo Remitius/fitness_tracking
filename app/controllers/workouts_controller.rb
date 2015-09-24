@@ -1,6 +1,6 @@
 class WorkoutsController < ApplicationController
   def index
-    if params['page']
+    if params['page'] && params['page'].to_i > 0
       p = params['page'].to_i * 10
       @workouts = Workout.order('date DESC')[(p-10)...p]
     else
