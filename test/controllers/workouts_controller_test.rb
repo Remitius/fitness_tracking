@@ -48,7 +48,6 @@ class WorkoutsControllerTest < ActionController::TestCase
     assert_select "a[href='#{root_path}?page=0']", false
   end
 
-
   test "index response should be valid if workout list is empty" do
     get :index, page: 5000
     assert_response :success 
@@ -120,6 +119,25 @@ class WorkoutsControllerTest < ActionController::TestCase
     assert_raises(ActiveRecord::RecordNotFound) do  
       Workout.find(@attr['id'])
     end 
+  end
+
+  test "valid creation" do
+    get :new
+    assert_difference 'Workout.count', 1 do 
+      post :create, workout: { name: 'Max Lower', date: 1.days.ago }
+      after_count = Workout.count
+    end
+    assert_redirected_to :root
+  end
+
+  test "invalid creation" do
+    get :new
+    assert_no_difference 'Workout.count' do 
+      post :create, workout: { date: 'hi' }
+      after_count = Workout.count
+    end
+    assert_response :success
+    assert_template :new
   end
 
 end
