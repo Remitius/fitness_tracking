@@ -9,18 +9,31 @@ class WorkoutsControllerTest < ActionController::TestCase
 
   test "should get index" do
     get :index
-    assert_select 'title', 'Tracking | Index'
     assert_response :success
+    assert_select 'title', 'Tracking | Index'
   end
 
   test "should get index when no workouts exist" do
-    Workout.all.each { |x| x.destroy }
+    destroy_all_workouts
     get :index
     assert_response :success
+  end
+
+  test "should get first page of index if invalid page param given" do
+    get :index, page: -2
+    assert_response :success
+    assert_select 'h3.workout_name', count: 10
+    assert_select 'section>h3.workout_name:first-child', @attr[:name]
+
+    get :index, page: 'hah'
+    assert_response :success
+    assert_select 'h3.workout_name', count: 10
+    assert_select 'section>h3.workout_name:first-child', @attr[:name]
   end
 
   test "index should show first 10 workouts by default" do
     get :index
+    assert_response :success
     assert_select 'h3.workout_name', count: 10
     assert_select 'section>h3.workout_name:first-child', @attr[:name]
   end
