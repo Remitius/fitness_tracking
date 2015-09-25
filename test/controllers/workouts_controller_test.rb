@@ -123,11 +123,12 @@ class WorkoutsControllerTest < ActionController::TestCase
 
   test "valid creation" do
     get :new
-    assert_difference 'Workout.count', 1 do 
-      post :create, workout: { name: 'Max Lower', date: 1.days.ago }
+    destroy_all_workouts
+    assert_difference 'Workout.count', 1 do
+      w = post :create, workout: { name: 'HIIT', date: '2015-1-1' }
       after_count = Workout.count
     end
-    assert_redirected_to :root
+    assert_redirected_to workout_path(Workout.first)
   end
 
   test "invalid creation" do
@@ -138,6 +139,10 @@ class WorkoutsControllerTest < ActionController::TestCase
     end
     assert_response :success
     assert_template :new
+  end
+
+  def destroy_all_workouts
+    Workout.all.each { |w| w.destroy }
   end
 
 end
