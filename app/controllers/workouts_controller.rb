@@ -17,6 +17,10 @@ class WorkoutsController < ApplicationController
     if @workout.save
       redirect_to @workout
     else
+      flash[:error] = []
+      @workout.errors.full_messages.each do |e|
+        flash[:error] << e
+      end
       render 'new'
     end
   end
@@ -32,11 +36,15 @@ class WorkoutsController < ApplicationController
 
   def update
     @workout = Workout.find(params[:id])
-    old_attributes = @workout.attributes
+    old_attr = @workout.attributes
     unless @workout.update_attributes(workout_params)
-      @workout.name = old_attributes['name']
-      @workout.date = old_attributes['date']
-      @workout.note = old_attributes['note']
+      @workout.name = old_attr['name']
+      @workout.date = old_attr['date']
+      @workout.note = old_attr['note']
+      flash[:error] = []
+      @workout.errors.full_messages.each do |e|
+        flash[:error] << e
+      end
     end
     render 'show'
   end

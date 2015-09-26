@@ -1,13 +1,3 @@
-<% if @workout.errors.any? %>
-  <ul class="workout_form_errors">
-    <% @workout.errors.full_messages.each do |e| %> 
-      <li>
-        <%= e %><br>
-      </li>
-    <% end %> 
-  </ul>
-<% end %> 
-
 <div class="workout_form">
   <%= form_for(@workout) do |f| %> 
     <%= f.label :name %> 

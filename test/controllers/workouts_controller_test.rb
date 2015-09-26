@@ -21,12 +21,10 @@ class WorkoutsControllerTest < ActionController::TestCase
 
   test "should get first page of index if invalid page param given" do
     get :index, page: -2
-    assert_response :success
     assert_select 'h3.workout_name', count: 10
     assert_select 'section>h3.workout_name:first-child', @attr[:name]
 
     get :index, page: 'hah'
-    assert_response :success
     assert_select 'h3.workout_name', count: 10
     assert_select 'section>h3.workout_name:first-child', @attr[:name]
   end
@@ -117,8 +115,8 @@ class WorkoutsControllerTest < ActionController::TestCase
 
   test "proper form error messages should display on failed save" do
     put :update, id: @attr['id'], workout: { name: '', note: 'a' * 301 }
-    assert_select 'ul.workout_form_errors', /Name can't be blank/i
-    assert_select 'ul.workout_form_errors', /Note is too long/i
+    assert_select "div[class='flash_error']", /Name can't be blank/i
+    assert_select "div[class='flash_error']", /Note is too long/i
   end
 
   test "correct destroy link should exist on show template" do
