@@ -19,7 +19,7 @@
   <% if (@workout.exercise_ids - [nil]).any? %>
       <% @workout.exercises.each do |e| %>
         <% next unless e.id %> 
-        <h3><%= e.name %></h3>
+        <h3 class='exercise_name'><%= e.name %></h3>
         <ul class='exercise'>
           <% if e.sets %> 
             

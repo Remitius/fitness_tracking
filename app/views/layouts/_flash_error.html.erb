@@ -1,13 +1,21 @@
 <% if flash[:error] %> 
-  <div class="error_flash">
-
+  <div class="flash_error">
+  
     <% if flash[:error].class == Array %> 
-      <% flash[:error].each do |e| %> 
-        <%= e %> 
-        <br>
+      <% if flash[:error].length > 1 %> 
+        <ol>
+        <% flash[:error].each do |e| %> 
+          <li>
+            <%= e %> 
+            <br>
+          </li>
+        <% end %> 
+        </ol>
+      <% else %> 
+        <%= flash[:error][0] %> 
       <% end %> 
-      
-    <% elsif flash[:error].class == String %> 
+
+    <% else %>
       <%= flash[:error] %> 
     <% end %> 
   
