@@ -145,11 +145,12 @@ class WorkoutsControllerTest < ActionController::TestCase
   test "invalid creation" do
     get :new
     assert_no_difference 'Workout.count' do 
-      post :create, workout: { date: 'hi' }
+      post :create, workout: { date: '2040-1-1' }
       after_count = Workout.count
     end
     assert_template :new
     assert_select "div[class='flash_error']", /Name can't be blank/i
+    assert_select "div[class='flash_error']", /Date must be on or/i
   end
 
   def destroy_all_workouts
