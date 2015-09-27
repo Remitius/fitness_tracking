@@ -148,8 +148,8 @@ class WorkoutsControllerTest < ActionController::TestCase
       post :create, workout: { date: 'hi' }
       after_count = Workout.count
     end
-    assert_response :success
     assert_template :new
+    assert_select "div[class='flash_error']", /Name can't be blank/i
   end
 
   def destroy_all_workouts
