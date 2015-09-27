@@ -7,7 +7,7 @@ class ExercisesController < ApplicationController
         flash[:error] << e
       end
     end
-    redirect_to workout_url(params['workout_id']), notice: notice
+    redirect_to workout_url(params['workout_id'])
   end
 
   def update

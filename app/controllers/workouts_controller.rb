@@ -17,9 +17,9 @@ class WorkoutsController < ApplicationController
     if @workout.save
       redirect_to @workout
     else
-      flash[:error] = []
+      flash.now[:error] = []
       @workout.errors.full_messages.each do |e|
-        flash[:error] << e
+        flash.now[:error] << e
       end
       render 'new'
     end
@@ -29,8 +29,8 @@ class WorkoutsController < ApplicationController
     begin
     @workout = Workout.find(params[:id])
     rescue ActiveRecord::RecordNotFound => rnf
-      redirect_to :root
       flash[:error] = "Workout not found"
+      redirect_to :root
     end
   end
 
@@ -41,9 +41,9 @@ class WorkoutsController < ApplicationController
       @workout.name = old_attr['name']
       @workout.date = old_attr['date']
       @workout.note = old_attr['note']
-      flash[:error] = []
+      flash.now[:error] = []
       @workout.errors.full_messages.each do |e|
-        flash[:error] << e
+        flash.now[:error] << e
       end
     end
     render 'show'
