@@ -77,23 +77,18 @@ class WorkoutsControllerTest < ActionController::TestCase
     assert_response :success
   end  
 
-  test "should redirect to index" do
-    get :show, id: 99
-    assert_response :redirect
-  end
-
   test "show should include workout info if id param is correct" do
     get :show, id: @attr['id']
     assert_template :show
     assert_select 'ul.workout_info', /#{@attr['name']}/i, count: 1
   end
 
-  test "show should redirect to root if invalid id" do
+  test "show should redirect to root if id is invalid" do
     get :show, id: 9000
     assert_redirected_to :root 
   end
 
-  test "successful update action should correctly update attributes" do
+  test "successful update should properly update attributes" do
     get :show, id: @attr['id']
     put :update, id: @attr['id'], workout: {name: "HIT", date: 1.day.ago}
     assert_equal 'HIT', Workout.find(@attr['id']).name
@@ -101,7 +96,7 @@ class WorkoutsControllerTest < ActionController::TestCase
     assert_template :show, id: @attr['id']
   end
 
-  test "unsuccessful update action should render show template" do
+  test "unsuccessful update should render show template" do
     put :update, id: @attr['id'], workout: { name: '' }
     assert_equal 'Lower Body', Workout.find(@attr['id']).name
     assert_template :show, id: @attr['id']
@@ -119,13 +114,13 @@ class WorkoutsControllerTest < ActionController::TestCase
     assert_select "div[class='flash_error']", /Note is too long/i
   end
 
-  test "correct destroy link should exist on show template" do
+  test "destroy link should exist on show template" do
     get :show, id: @attr['id']
     assert_select 'a[data-method=delete]'
     assert_select "a[href='/workouts/#{@attr['id']}']"
   end
 
-  test "destroy action should remove record from the database" do
+  test "destroy should remove record from the database" do
     delete :destroy, id: @attr['id']
     assert_raises(ActiveRecord::RecordNotFound) do  
       Workout.find(@attr['id'])
