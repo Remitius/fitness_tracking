@@ -21,9 +21,6 @@
         <% next unless e.id %> 
         <h3 class='exercise_name'><%= e.name %></h3>
         <ul class='exercise'>
-          <%= "<li>#{h e.reps} reps</li>".html_safe if e.reps %> 
-          <%= "<li>#{h e.seconds} sec</li>".html_safe if e.seconds %> 
-          <%= "<li>#{h e.pounds} pounds</li>".html_safe if e.pounds %>
           <%= "<li>Note: #{h e.note}</li>".html_safe unless e.note.blank? %>
         </ul>
       <% end %>
