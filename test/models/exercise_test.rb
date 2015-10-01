@@ -22,12 +22,6 @@ class ExerciseTest < ActiveSupport::TestCase
     assert_not @exercise.valid?
   end
 
-  test "upon saving, name should be downcase" do
-    @exercise.name = "LUNGES"
-    @exercise.save
-    assert @exercise.name = "lunges"
-  end
-
   test "number of sets should not be too large" do
     @exercise.sets = 1000
     assert_not @exercise.valid?

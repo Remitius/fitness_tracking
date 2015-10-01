@@ -9,7 +9,7 @@ end
 class Exercise < ActiveRecord::Base
   belongs_to :workout
   include ActiveModel::Validations
-  before_save { name.downcase! }
+
   validates :name, presence: true, length: { maximum: 40 }
 
   validates :sets, allow_nil: true, numericality: { less_than: 1000, 
