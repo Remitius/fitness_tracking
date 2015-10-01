@@ -19,7 +19,7 @@ class ExercisesController < ApplicationController
   private
 
   def exercise_params
-    params.require(:exercise).permit(:name, :sets, :reps, :note, 
+    params.require(:exercise).permit(:name, :reps, :note, 
      :seconds, :pounds).merge({workout_id: params[:workout_id]})
   end 
 end

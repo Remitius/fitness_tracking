@@ -3,9 +3,8 @@ require 'test_helper'
 class ExerciseTest < ActiveSupport::TestCase
   def setup
     @workout = Workout.create(id: 1, name: "sprints", date: "2012-3-20")
-    @exercise = Exercise.new(name: "bench press", sets: 3, 
-                             reps: 10, seconds: 60.2,
-                             note: "PR", workout: @workout)
+    @exercise = Exercise.new(name: "bench press", reps: 10,
+                             seconds: 60.2, note: "PR", workout: @workout)
   end
 
   test "should be valid" do
@@ -19,16 +18,6 @@ class ExerciseTest < ActiveSupport::TestCase
 
   test "name should not be empty" do
     @exercise.name = ''
-    assert_not @exercise.valid?
-  end
-
-  test "number of sets should not be too large" do
-    @exercise.sets = 1000
-    assert_not @exercise.valid?
-  end
-
-  test "number of sets should be positive" do
-    @exercise.sets = -1
     assert_not @exercise.valid?
   end
 

@@ -2,10 +2,8 @@
 
 one:
   name: MyString
-  sets: 1
   reps: 1
 
 two:
   name: MyString
-  sets: 1
   reps: 1

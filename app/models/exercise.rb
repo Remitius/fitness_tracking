@@ -12,9 +12,6 @@ class Exercise < ActiveRecord::Base
 
   validates :name, presence: true, length: { maximum: 40 }
 
-  validates :sets, allow_nil: true, numericality: { less_than: 1000, 
-            greater_than_or_equal_to: 0 }
-
   validates :reps, allow_nil: true, 
             numericality: { less_than: 1000, greater_than_or_equal_to: 0 }
 
