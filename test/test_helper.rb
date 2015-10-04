@@ -3,8 +3,24 @@ require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 
 class ActiveSupport::TestCase
-  # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
+  # Setup all fixtures in test/fixtures/*.yml for all tests in a-z order
   fixtures :all
 
-  # Add more helper methods to be used by all tests here...
+  def valid_workout(save: false)
+    w = Workout.new(name: 'lower body', date: '2015-3-3')
+    w.save if :save
+    w
+  end
+
+  def valid_exercise(workout, save: false)
+    e = Exercise.new(name: 'barbell flies', workout: workout)
+    e.save if :save
+    e
+  end
+
+  def valid_exercise_set(exercise, save: false)
+    es = ExerciseSet.new(pounds: 500.5, reps: 1, exercise: exercise)
+    es.save if :save
+    es
+  end
 end
