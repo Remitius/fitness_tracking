@@ -31,11 +31,6 @@ class ExerciseTest < ActiveSupport::TestCase
     assert @exercise.valid?
   end
 
-  test "workout should exist" do
-    @exercise.workout = nil
-    assert_not @exercise.valid?
-  end
-
   test "workout should exist in the database" do
     @exercise.workout = Workout.new(name: "lunges", date: "2009-1-3")
     assert_not @exercise.valid?
