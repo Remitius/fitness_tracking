@@ -13,7 +13,7 @@ class ActiveSupport::TestCase
   end
 
   def valid_exercise(workout, save: false)
-    e = Exercise.new(name: 'barbell flies', workout: workout)
+    e = Exercise.new(name: 'barbell flies', note: 'hi', workout: workout)
     e.save if :save
     e
   end
