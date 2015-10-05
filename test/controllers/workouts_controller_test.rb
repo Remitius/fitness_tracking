@@ -132,7 +132,6 @@ class WorkoutsControllerTest < ActionController::TestCase
     destroy_all_workouts
     assert_difference 'Workout.count', 1 do
       w = post :create, workout: { name: 'HIIT', date: '2015-1-1' }
-      after_count = Workout.count
     end
     assert_redirected_to workout_path(Workout.first)
   end
@@ -141,7 +140,6 @@ class WorkoutsControllerTest < ActionController::TestCase
     get :new
     assert_no_difference 'Workout.count' do 
       post :create, workout: { date: '2040-1-1' }
-      after_count = Workout.count
     end
     assert_template :new
     assert_select "div[class='flash_error']", /Name can't be blank/i
