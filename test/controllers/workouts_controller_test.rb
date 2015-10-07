@@ -14,7 +14,7 @@ class WorkoutsControllerTest < ActionController::TestCase
   end
 
   test "should get index when no workouts exist" do
-    destroy_all_workouts
+    Workout.destroy_all
     get :index
     assert_response :success
   end
@@ -129,7 +129,7 @@ class WorkoutsControllerTest < ActionController::TestCase
 
   test "valid creation" do
     get :new
-    destroy_all_workouts
+    Workout.destroy_all
     assert_difference 'Workout.count', 1 do
       w = post :create, workout: { name: 'HIIT', date: '2015-1-1' }
     end
@@ -144,10 +144,6 @@ class WorkoutsControllerTest < ActionController::TestCase
     assert_template :new
     assert_select "div[class='flash_error']", /Name can't be blank/i
     assert_select "div[class='flash_error']", /Date must be on or/i
-  end
-
-  def destroy_all_workouts
-    Workout.all.each { |w| w.destroy }
   end
 
 end
