@@ -1,11 +1,1 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  pounds: 1.5
-  reps: 1
-  exercise_id: 
-
-two:
-  pounds: 1.5
-  reps: 1
-  exercise_id: 
+#

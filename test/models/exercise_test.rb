@@ -36,9 +36,22 @@ class ExerciseTest < ActiveSupport::TestCase
   end
 
   test "exercise should be deleted from the db when its workout is" do
-    @exercise.save
-    @exercise.workout.destroy
+    assert_no_difference 'Exercise.count' do 
+      @exercise.save
+      @workout.destroy
+    end
     assert_not Exercise.find_by(id: @exercise.id)
+  end
+
+  test "amount of sets should not be too large" do
+    @exercise.save
+
+    10.times { valid_exercise_set(@exercise, save: true) }
+    assert_equal 10, @exercise.exercise_sets.count
+
+    valid_exercise_set(@exercise, save: true)
+    assert_equal 10, @exercise.exercise_sets.count
+    assert @exercise.valid?
   end
 
 end

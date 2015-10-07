@@ -43,8 +43,10 @@ class ExerciseSetTest < ActiveSupport::TestCase
   end
 
   test "set should be deleted from the db when its exercise is" do
-    @set.save
-    @set.exercise.destroy
+    assert_no_difference "ExerciseSet.count" do
+      @set.save
+      @set.exercise.destroy
+    end
     assert_not ExerciseSet.find_by(id: @set.id)
   end
 
