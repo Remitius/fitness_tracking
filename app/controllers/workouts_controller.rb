@@ -26,9 +26,8 @@ class WorkoutsController < ApplicationController
   end
 
   def show
-    begin
-    @workout = Workout.find(params[:id])
-    rescue ActiveRecord::RecordNotFound => rnf
+    @workout = Workout.find_by(id: params[:id])
+    unless @workout
       flash[:error] = "Workout not found"
       redirect_to :root
     end
