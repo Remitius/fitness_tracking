@@ -11,9 +11,16 @@ class ExerciseSetTest < ActiveSupport::TestCase
     assert @set.valid?, @set.errors.inspect
   end
 
-  test "pounds and reps should be optional" do
+  test "either sets or reps should be required" do
     @set.reps = nil
     @set.pounds = nil
+    assert_not @set.valid?, @set.errors.inspect
+
+    @set.reps = 2
+    assert @set.valid?, @set.errors.inspect
+    @set.reps = nil
+
+    @set.pounds = 50
     assert @set.valid?, @set.errors.inspect
   end
 
