@@ -44,5 +44,16 @@ class WorkoutTest < ActiveSupport::TestCase
     @workout.date = 2.years.from_now + 1.day
     assert_not @workout.valid?
   end
-  
+
+  test "amount of exercises should not be too large" do
+    @workout.save
+
+    12.times { valid_exercise(@workout, save: true) }
+    assert_equal 12, @workout.exercises.count
+
+    valid_exercise(@workout, save: true)
+    assert_equal 12, @workout.exercises.count
+    assert @workout.valid?
+
+  end  
 end

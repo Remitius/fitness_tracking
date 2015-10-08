@@ -3,6 +3,9 @@ class ExerciseValidator < ActiveModel::Validator
     unless exercise.workout && Workout.exists?(exercise.workout.id)
       exercise.errors[:workout_id] << 'workout_id is invalid'
     end
+    unless exercise.workout.exercises.count < Workout::MAX_EXERCISES
+      exercise.errors[:base] << 'max number of exercises reached'
+    end
   end
 
 end
