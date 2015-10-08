@@ -11,6 +11,7 @@ class ExerciseValidator < ActiveModel::Validator
 end
 
 class Exercise < ActiveRecord::Base
+  MAX_SETS = 10
   include ActiveModel::Validations
   belongs_to :workout
   has_many :exercise_sets, dependent: :destroy

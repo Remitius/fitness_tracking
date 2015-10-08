@@ -3,8 +3,8 @@ class ExerciseSetValidator < ActiveModel::Validator
     unless set.exercise && Exercise.exists?(set.exercise.id)
       set.errors[:exercise_id] << 'exercise_id is invalid'
     end
-    unless set.exercise.exercise_sets.count < 10
-      set.errors[:exercise_sets] << 'max number of sets reached'
+    unless set.exercise.exercise_sets.count < Exercise::MAX_SETS
+      set.errors[:base] << 'max number of sets reached'
     end
     unless set.pounds || set.reps
       set.errors[:base] << 'set must include pounds, reps, or both'
