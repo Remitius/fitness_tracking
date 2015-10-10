@@ -89,7 +89,6 @@ class WorkoutsControllerTest < ActionController::TestCase
   end
 
   test "successful update should properly update attributes" do
-    get :show, id: @attr['id']
     put :update, id: @attr['id'], workout: {name: "HIT", date: 1.day.ago}
     assert_equal 'HIT', Workout.find(@attr['id']).name
     assert_equal 1.day.ago.to_date, Workout.find(@attr['id']).date
@@ -120,7 +119,7 @@ class WorkoutsControllerTest < ActionController::TestCase
     assert_select "a[href='/workouts/#{@attr['id']}']"
   end
 
-  test "destroy should remove record from the database" do
+  test "destroy should remove workout from the database" do
     delete :destroy, id: @attr['id']
     assert_raises(ActiveRecord::RecordNotFound) do  
       Workout.find(@attr['id'])

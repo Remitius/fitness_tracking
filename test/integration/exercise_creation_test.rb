@@ -6,7 +6,6 @@ class ExerciseCreationTest < ActionDispatch::IntegrationTest
   end
 
   test "valid creation" do
-    get workout_path(@workout)
     post_via_redirect workout_exercises_path(@workout), 
                       exercise: { name: "sprints", workout: @workout }
     assert_template 'workouts/show'
@@ -15,7 +14,6 @@ class ExerciseCreationTest < ActionDispatch::IntegrationTest
   end
 
   test "invalid creation" do
-    get workout_path(@workout)
     post_via_redirect workout_exercises_path(@workout), 
                       exercise: { name: "", workout: @workout }
     assert_template 'workouts/show'
@@ -24,7 +22,6 @@ class ExerciseCreationTest < ActionDispatch::IntegrationTest
   end
 
   test "invalid creation error messages" do
-    get workout_path(@workout)
     post_via_redirect workout_exercises_path(@workout), 
                       exercise: { name: "", workout: @workout }
     assert_select "div[class='flash_error']", /Name can't be blank/i
