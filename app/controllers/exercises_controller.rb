@@ -10,10 +10,11 @@ class ExercisesController < ApplicationController
     redirect_to workout_url(params['workout_id'])
   end
 
-  def update
-  end
-
   def destroy
+    exercise = Exercise.find(params[:id])
+    workout = exercise.workout
+    exercise.destroy
+    redirect_to workout_path(workout.id)
   end
 
   private

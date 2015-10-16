@@ -1,8 +1,8 @@
 require 'test_helper'
 
-class ExerciseCreationTest < ActionDispatch::IntegrationTest
+class WorkoutExerciseRelationTest < ActionDispatch::IntegrationTest
   def setup
-    @workout = Workout.create(id: 1, name: "sprints", date: "2012-3-20")
+    @workout = valid_workout(save: true)
   end
 
   test "valid creation" do
@@ -19,12 +19,14 @@ class ExerciseCreationTest < ActionDispatch::IntegrationTest
     assert_template 'workouts/show'
     assert_select "ul[class='exercise']", count: 0
     assert_select "h3[class='exercise_name']", count: 0
+    assert_select "div[class='flash_error']", /Name can't be blank/i
   end
 
-  test "invalid creation error messages" do
-    post_via_redirect workout_exercises_path(@workout), 
-                      exercise: { name: "", workout: @workout }
-    assert_select "div[class='flash_error']", /Name can't be blank/i
-
+  test "valid destruction" do
+    exercise = valid_exercise(@workout, save: true)
+    id = exercise.id
+    delete workout_exercise_path(@workout.id, id)
+    assert_redirected_to workout_path(@workout.id)
+    assert_not Exercise.find_by(id: id)
   end
 end
