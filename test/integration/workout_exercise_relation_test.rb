@@ -9,16 +9,16 @@ class WorkoutExerciseRelationTest < ActionDispatch::IntegrationTest
     post_via_redirect workout_exercises_path(@workout), 
                       exercise: { name: "sprints", workout: @workout }
     assert_template 'workouts/show'
-    assert_select "ul[class='exercise']", count: 1
-    assert_select "h3[class='exercise_name']", count: 1
+    assert_select "ul[class='exercise_sets']", count: 1
+    assert_select "h4[class='exercise_name']", count: 1
   end
 
   test "invalid creation" do
     post_via_redirect workout_exercises_path(@workout), 
                       exercise: { name: "", workout: @workout }
     assert_template 'workouts/show'
-    assert_select "ul[class='exercise']", count: 0
-    assert_select "h3[class='exercise_name']", count: 0
+    assert_select "ul[class='exercise_sets']", count: 0
+    assert_select "h4[class='exercise_name']", count: 0
     assert_select "div[class='flash_error']", /Name can't be blank/i
   end
 

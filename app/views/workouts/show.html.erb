@@ -15,16 +15,33 @@
 
 <section>
   <% if (@workout.exercises).any? %>
-      <% @workout.exercises.each do |e| %>
-        <% next unless e.id %> 
-        <h3 class='exercise_name'>
-          <%= e.name %>
-          <%= link_to "delete", [@workout, e], method: :delete, 
+      <% @workout.exercises.each do |exercise| %>
+        <% next unless exercise.id %> 
+        <h4 class='exercise_name'>
+          <%= "#{h exercise.name}".html_safe %>
+          <%= link_to "delete", [@workout, exercise], method: :delete, 
                                    data: { confirm: "Are you sure?"} %> 
-        </h3>
-        <ul class='exercise'>
-          <%= "<li>#{h e.note}</li>".html_safe unless e.note.blank? %>
+        </h4>
+
+        <ul class='exercise_sets'>
+          <% unless exercise.note.blank? %> 
+            <li><%= "Note: #{h exercise.note}".html_safe%></li>
+          <% end %> 
+
+          <% exercise.exercise_sets.each do |set| %> 
+            <li>
+              <% if set.pounds %> 
+                <%= "#{h set.pounds}".html_safe + " pounds"%> 
+              <% end %> 
+
+              <% if set.reps %> 
+                <%= "#{h set.reps}".html_safe + " reps"%> 
+              <% end %> 
+            </li>
+          <% end %> 
+          
         </ul>
+
       <% end %>
   <% else %> 
     No exercises present
