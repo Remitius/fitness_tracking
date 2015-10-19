@@ -1,10 +1,10 @@
 require 'test_helper'
 
-class ExerciseSetTest < ActiveSupport::TestCase
+class ESetTest < ActiveSupport::TestCase
   def setup
     @workout = valid_workout(save: true)
     @exercise = valid_exercise(@workout, save: true)
-    @set = valid_exercise_set(@exercise)
+    @set = valid_e_set(@exercise)
   end
 
   test "should be valid" do
@@ -50,11 +50,11 @@ class ExerciseSetTest < ActiveSupport::TestCase
   end
 
   test "set should be deleted from the db when its exercise is" do
-    assert_no_difference "ExerciseSet.count" do
+    assert_no_difference "ESet.count" do
       @set.save
       @set.exercise.destroy
     end
-    assert_not ExerciseSet.find_by(id: @set.id)
+    assert_not ESet.find_by(id: @set.id)
   end
 
 end

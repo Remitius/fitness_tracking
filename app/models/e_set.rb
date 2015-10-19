@@ -1,9 +1,9 @@
-class ExerciseSetValidator < ActiveModel::Validator
+class ESetValidator < ActiveModel::Validator
   def validate(set)
     unless set.exercise && Exercise.exists?(set.exercise.id)
       set.errors[:exercise_id] << 'exercise_id is invalid'
     end
-    unless set.exercise.exercise_sets.count < Exercise::MAX_SETS
+    unless set.exercise.e_sets.count < Exercise::MAX_SETS
       set.errors[:base] << 'max number of sets reached'
     end
     unless set.pounds || set.reps
@@ -12,7 +12,7 @@ class ExerciseSetValidator < ActiveModel::Validator
   end
 end
   
-class ExerciseSet < ActiveRecord::Base
+class ESet < ActiveRecord::Base
   include ActiveModel::Validations
   belongs_to :exercise
 
@@ -22,5 +22,5 @@ class ExerciseSet < ActiveRecord::Base
   validates :pounds, allow_nil: true, 
             numericality: { less_than: 5000, greater_than_or_equal_to: 0 }
 
-  validates_with ExerciseSetValidator                             
+  validates_with ESetValidator                             
 end

@@ -14,7 +14,7 @@ class Exercise < ActiveRecord::Base
   MAX_SETS = 10
   include ActiveModel::Validations
   belongs_to :workout
-  has_many :exercise_sets, dependent: :destroy
+  has_many :e_sets, dependent: :destroy
 
   validates :name, presence: true, length: { maximum: 40 }
   validates :note, allow_nil: true, length: { maximum: 99 }

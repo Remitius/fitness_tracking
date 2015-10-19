@@ -18,8 +18,8 @@ class ActiveSupport::TestCase
     e
   end
 
-  def valid_exercise_set(exercise, save: false)
-    es = ExerciseSet.new(pounds: 500.5, reps: 1, exercise: exercise)
+  def valid_e_set(exercise, save: false)
+    es = ESet.new(pounds: 500.5, reps: 1, exercise: exercise)
     es.save if save
     es
   end

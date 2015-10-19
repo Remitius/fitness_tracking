@@ -23,13 +23,13 @@
                                    data: { confirm: "Are you sure?"} %> 
         </h4>
 
-        <% if exercise.note.present? || exercise.exercise_sets.present? %> 
+        <% if exercise.note.present? || exercise.e_sets.present? %> 
           <ul class='exercise_note_and_sets'>
             <% unless exercise.note.blank? %> 
               <li><%= "Note: #{h exercise.note}".html_safe%></li>
             <% end %> 
 
-            <% exercise.exercise_sets.each do |set| %> 
+            <% exercise.e_sets.each do |set| %> 
               <li>
                 <% if set.pounds %> 
                   <%= "#{h set.pounds}".html_safe + " pounds"%> 

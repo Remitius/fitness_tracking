@@ -46,11 +46,11 @@ class ExerciseTest < ActiveSupport::TestCase
   test "amount of sets should not be too large" do
     @exercise.save
 
-    10.times { valid_exercise_set(@exercise, save: true) }
-    assert_equal 10, @exercise.exercise_sets.count
+    10.times { valid_e_set(@exercise, save: true) }
+    assert_equal 10, @exercise.e_sets.count
 
-    valid_exercise_set(@exercise, save: true)
-    assert_equal 10, @exercise.exercise_sets.count
+    valid_e_set(@exercise, save: true)
+    assert_equal 10, @exercise.e_sets.count
     assert @exercise.valid?
   end
 
