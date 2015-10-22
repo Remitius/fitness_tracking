@@ -38,6 +38,8 @@
                 <% if set.reps %> 
                   <%= "#{h set.reps}".html_safe + " reps"%> 
                 <% end %> 
+
+                <%= link_to "delete set", [@workout, exercise, set], method: :delete %> 
               </li>
             <% end %> 
           </ul>

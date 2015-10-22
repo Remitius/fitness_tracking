@@ -43,10 +43,9 @@ class WorkoutExerciseRelationTest < ActionDispatch::IntegrationTest
 
   test "valid exercise destruction - without e_sets" do
     e = valid_exercise(@workout, save: true)
-    exer_id = e.id
-    delete workout_exercise_path(@workout.id, exer_id)
+    delete workout_exercise_path(@workout.id, e.id)
     assert_redirected_to workout_path(@workout.id)
-    assert_not Exercise.find_by(id: exer_id)
+    assert_not Exercise.find_by(id: e.id)
   end
 
   test "valid exercise destruction - with e_sets" do
@@ -57,6 +56,14 @@ class WorkoutExerciseRelationTest < ActionDispatch::IntegrationTest
     delete workout_exercise_path(@workout.id, e.id)
     e_sets_ids.each { |i| assert_not ESet.find_by(id: i) }
     
+  end
+
+  test "e_set destruction" do
+    e = valid_exercise(@workout, save:true)
+    s = valid_e_set(e, save: true)
+    delete workout_exercise_e_set_path(@workout.id, e.id, s.id)
+    assert_redirected_to workout_path(@workout.id)
+    assert_not ESet.find_by(id: s.id)
   end
 
 end

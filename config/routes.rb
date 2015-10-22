@@ -2,7 +2,9 @@ Rails.application.routes.draw do
   root 'workouts#index'
   get 'workouts/new', as: 'new'
   resources :workouts, only: [:show, :create, :update, :destroy, :index] do
-    resources :exercises, only: [:create, :update, :destroy]
+    resources :exercises, only: [:create, :update, :destroy] do
+      resources :e_sets, only: [:destroy]
+    end
   end
 
 end
