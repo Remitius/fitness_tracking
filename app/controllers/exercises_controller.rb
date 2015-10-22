@@ -11,10 +11,8 @@ class ExercisesController < ApplicationController
   end
 
   def destroy
-    exercise = Exercise.find(params[:id])
-    workout = exercise.workout
-    exercise.destroy
-    redirect_to workout_path(workout.id)
+    Exercise.find(params[:id]).destroy
+    redirect_to workout_path(params[:workout_id])
   end
 
   private
