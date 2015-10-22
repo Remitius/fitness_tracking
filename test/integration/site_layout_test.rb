@@ -30,11 +30,8 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
 
   test "correct e_set form elements on workouts#show" do
     get workout_path(@workout)
-    assert_select "div.e_sets", count: 1
-    assert_select "label", "Pounds", count: 1
-    assert_select "label", "Reps", count: 1
-    assert_select "a", "add set"
-    assert_select "a", "remove set"
+    assert_select "div.e_sets"
+    assert_select "a", "add set", count: 1
  end
 
 end
