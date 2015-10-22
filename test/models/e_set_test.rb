@@ -44,11 +44,6 @@ class ESetTest < ActiveSupport::TestCase
     assert_not @set.valid?, @set.errors.inspect
   end
 
-  test "exercise should exist in the db" do
-    @set.exercise = Exercise.new
-    assert_not @set.valid?
-  end
-
   test "set should be deleted from the db when its exercise is" do
     assert_no_difference "ESet.count" do
       @set.save

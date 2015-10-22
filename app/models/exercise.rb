@@ -11,11 +11,12 @@ class ExerciseValidator < ActiveModel::Validator
 end
 
 class Exercise < ActiveRecord::Base
-  MAX_SETS = 10
-  include ActiveModel::Validations
   belongs_to :workout
   has_many :e_sets, dependent: :destroy
+  accepts_nested_attributes_for :e_sets
 
+  MAX_SETS = 10
+  include ActiveModel::Validations
   validates :name, presence: true, length: { maximum: 40 }
   validates :note, allow_nil: true, length: { maximum: 99 }
   validates_with ExerciseValidator

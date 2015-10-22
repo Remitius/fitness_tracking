@@ -54,4 +54,11 @@ class ExerciseTest < ActiveSupport::TestCase
     assert @exercise.valid?
   end
 
+  test "nested e_sets" do
+    assert_difference 'ESet.count', 1 do 
+      Exercise.create(workout: @workout, name: 'x', e_sets_attributes: 
+                                      { 0 => {pounds: 22, reps: 10} })
+    end
+  end
+
 end
