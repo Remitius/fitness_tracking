@@ -8,7 +8,6 @@
     <br>
     <div class='e_sets'>
       <%= f.fields_for :e_sets, ESet.new do |s| %> 
-        <%= render 'e_set_fields', f: s %> 
         <%= link_to_add_association 'add set', f, :e_sets %>
       <% end %> 
     </div>
