@@ -1,5 +1,6 @@
 <div class="exercise_form">
-  <%= form_for [@workout, @workout.exercises.build] do |f| %> 
+  <% e = @exercise || @workout.exercises.build %> 
+  <%= form_for [@workout, e] do |f| %> 
     <%= f.label :name %> 
     <%= f.text_field :name %> 
     <br>

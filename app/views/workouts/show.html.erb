@@ -15,21 +15,22 @@
 
 <section>
   <% if (@workout.exercises).any? %>
-      <% @workout.exercises.each do |exercise| %>
-        <% next unless exercise.id %> 
+      <% @workout.exercises.each do |exer| %>
+        <% next unless exer.id %> 
         <h4 class='exercise_name'>
-          <%= "#{h exercise.name}".html_safe %>
-          <%= link_to "delete", [@workout, exercise], method: :delete, 
+          <%= "#{h exer.name}".html_safe %>
+          <%= link_to "edit", edit_workout_exercise_path(@workout, exer) %> 
+          <%= link_to "delete", [@workout, exer], method: :delete, 
                                    data: { confirm: "Are you sure?"} %> 
         </h4>
 
-        <% if exercise.note.present? || exercise.e_sets.present? %> 
+        <% if exer.note.present? || exer.e_sets.present? %> 
           <ul class='exercise_note_and_sets'>
-            <% unless exercise.note.blank? %> 
-              <li><%= "Note: #{h exercise.note}".html_safe%></li>
+            <% unless exer.note.blank? %> 
+              <li><%= "Note: #{h exer.note}".html_safe%></li>
             <% end %> 
 
-            <% exercise.e_sets.each do |set| %> 
+            <% exer.e_sets.each do |set| %> 
               <li>
                 <% if set.pounds %> 
                   <%= "#{h set.pounds}".html_safe + " pounds"%> 
@@ -39,7 +40,7 @@
                   <%= "#{h set.reps}".html_safe + " reps"%> 
                 <% end %> 
 
-                <%= link_to "delete set", [@workout, exercise, set], method: :delete %> 
+                <%= link_to "delete set", [@workout, exer, set], method: :delete %> 
               </li>
             <% end %> 
           </ul>

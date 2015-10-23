@@ -59,11 +59,21 @@ class WorkoutExerciseRelationTest < ActionDispatch::IntegrationTest
   end
 
   test "e_set destruction" do
-    e = valid_exercise(@workout, save:true)
+    e = valid_exercise(@workout, save: true)
     s = valid_e_set(e, save: true)
     delete workout_exercise_e_set_path(@workout.id, e.id, s.id)
     assert_redirected_to workout_path(@workout.id)
     assert_not ESet.find_by(id: s.id)
+  end
+
+  test "exercise update" do
+    e = valid_exercise(@workout, save: true)
+    valid_e_set(e, save: true)
+
+    put workout_exercise_path(@workout.id, e.id), exercise: { note: "heh",
+                     e_sets_attributes: {0 => {pounds: 22, reps: 10}} }
+    assert_equal "heh", Exercise.find(e.id).note
+    assert_equal 2, e.e_sets.count
   end
 
 end

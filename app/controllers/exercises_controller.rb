@@ -7,12 +7,30 @@ class ExercisesController < ApplicationController
         flash[:error] << e
       end
     end
-    redirect_to workout_url(params['workout_id'])
+    redirect_to workout_url(params[:workout_id])
   end
 
   def destroy
     Exercise.find(params[:id]).destroy
     redirect_to workout_path(params[:workout_id])
+  end
+
+  def edit
+    @workout = Workout.find(params[:workout_id])
+    @exercise = Exercise.find(params[:id])
+  end
+
+  def update
+    @exercise = Exercise.find(params[:id])
+    if @exercise.update_attributes(exercise_params)
+      redirect_to workout_path(params[:workout_id])
+    else
+      flash[:error] = []
+      @exercise.errors.full_messages.each do |e|
+        flash[:error] << e
+      end
+      redirect_to edit_workout_exercise_path(@exercise.workout, @exercise)
+    end
   end
 
   private
