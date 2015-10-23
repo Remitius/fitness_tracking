@@ -7,13 +7,14 @@ class ActiveSupport::TestCase
   fixtures :all
 
   def valid_workout(save: false)
-    w = Workout.new(name: 'lower body', date: '2015-3-3')
+    w = Workout.new(name: 'valid note', date: '2015-1-1')
     w.save if save
     w
   end
 
   def valid_exercise(workout, save: false)
-    e = Exercise.new(name: 'barbell flies', note: 'hi', workout: workout)
+    e = Exercise.new(name: 'valid name', note: 'valid note', 
+                     workout: workout)
     e.save if save
     e
   end
