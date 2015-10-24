@@ -9,17 +9,17 @@ class WorkoutExerciseRelationTest < ActionDispatch::IntegrationTest
     post_via_redirect workout_exercises_path(@workout),
              exercise: { name: 'sprints', note: 'hi' }
     assert_template 'workouts/show'
-    assert_select "ul[class='exercise_note_and_sets']", count: 1
-    assert_select "h4[class='exercise_name']", count: 1
+    assert_select ".exercise_note_and_sets", count: 1
+    assert_select ".exercise_name", count: 1
   end
 
   test "invalid exercise creation - without e_sets" do
     post_via_redirect workout_exercises_path(@workout), 
               exercise: { name: "" }
     assert_template 'workouts/show'
-    assert_select "ul[class='exercise_note_and_sets']", count: 0
-    assert_select "h4[class='exercise_name']", count: 0
-    assert_select "div[class='flash_error']", /Name can't be blank/i
+    assert_select ".exercise_note_and_sets", count: 0
+    assert_select ".exercise_name", count: 0
+    assert_select ".flash_error", /Name can't be blank/i
   end
 
   test "valid exercise creation - with e_sets" do
