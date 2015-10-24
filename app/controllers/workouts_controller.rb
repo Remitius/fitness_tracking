@@ -35,11 +35,8 @@ class WorkoutsController < ApplicationController
 
   def update
     @workout = Workout.find(params[:id])
-    old_attr = @workout.attributes
     unless @workout.update_attributes(workout_params)
-      @workout.name = old_attr['name']
-      @workout.date = old_attr['date']
-      @workout.note = old_attr['note']
+      @workout.reload
       flash.now[:error] = []
       @workout.errors.full_messages.each do |e|
         flash.now[:error] << e
