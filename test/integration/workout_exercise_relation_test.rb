@@ -54,8 +54,8 @@ class WorkoutExerciseRelationTest < ActionDispatch::IntegrationTest
     e_sets_ids = e.e_sets.ids
 
     delete workout_exercise_path(@workout.id, e.id)
+    assert_redirected_to workout_path(@workout.id)
     e_sets_ids.each { |i| assert_not ESet.find_by(id: i) }
-    
   end
 
   test "e_set destruction" do
@@ -64,16 +64,22 @@ class WorkoutExerciseRelationTest < ActionDispatch::IntegrationTest
     delete workout_exercise_e_set_path(@workout.id, e.id, s.id)
     assert_redirected_to workout_path(@workout.id)
     assert_not ESet.find_by(id: s.id)
+    assert_select ".exercise_note_and_sets", false, /#{s.reps}/ 
   end
 
   test "exercise update" do
     e = valid_exercise(@workout, save: true)
-    valid_e_set(e, save: true)
+    s = valid_e_set(e, save: true)
 
-    put workout_exercise_path(@workout.id, e.id), exercise: { note: "heh",
+    put workout_exercise_path(@workout.id, e.id), 
+                     exercise: { note: "heh",
                      e_sets_attributes: {0 => {pounds: 22, reps: 10}} }
+    follow_redirect!
     assert_equal "heh", Exercise.find(e.id).note
     assert_equal 2, e.e_sets.count
+    assert_template "workouts/show"
+    assert_select ".exercise_note_and_sets", /22.0 pounds/
+    assert_select ".exercise_note_and_sets", /#{s.pounds}/
   end
 
 end
