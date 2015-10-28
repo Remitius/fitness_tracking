@@ -1,4 +1,7 @@
 <% provide(:title, @workout.name.first(13)) %> 
+<header class="page-header">
+  <%= render 'layouts/header_content' %> 
+</header>
 
 <% if @workout %>
   <ul class='workout_info'>
@@ -8,7 +11,7 @@
   </ul>
 
   <%= render 'workout_form' %>
-  <%= link_to "delete", @workout, method: :delete, 
+  <%= link_to "delete workout", @workout, method: :delete, 
                                   data: { confirm: "Are you sure?" }%> 
   <%= render 'exercises/exercise_form' %>
 <% end %> 
