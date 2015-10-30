@@ -69,9 +69,9 @@ class WorkoutsControllerTest < ActionController::TestCase
   end
 
   test "should get show" do
-    w = Workout.create(id: 101, name: 'a' * 14, date: 1.day.ago)
+    w = Workout.create(id: 101, name: 'a', date: 1.day.ago)
     get :show, id: w.id
-    assert_select 'title', "Tracking | #{'a' * 13}"
+    assert_select 'title', "Tracking | a"
     assert_response :success
   end  
 
