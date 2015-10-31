@@ -1,12 +1,14 @@
-<div class="exercise_form">
+<div id='exercise_form'>
   <% e = @exercise || @workout.exercises.build %> 
   <%= form_for [@workout, e] do |f| %> 
-    <%= f.label :name %> 
-    <%= f.text_field :name %> 
-    <br>
-    <%= f.label :note %> 
-    <%= f.text_field :note %> 
-    <br>
+    <div class="form-group">  
+      <%= f.label :name %> 
+      <%= f.text_field :name, class: 'form-control' %> 
+    </div>
+    <div class="form-group">    
+      <%= f.label :note %> 
+      <%= f.text_field :note, class: 'form-control' %> 
+    </div>
     <div class='e_sets'>
       <%= f.fields_for :e_sets, ESet.new do |s| %> 
         <%= link_to_add_association 'add set', f, :e_sets %>

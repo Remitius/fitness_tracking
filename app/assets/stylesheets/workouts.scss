@@ -2,3 +2,26 @@
   font-size: 22pt;
 }
 
+.workout_attributes{
+  font-size: 12pt;
+}
+
+#workout-info-and-forms, #standalone-exercise-form{
+  padding: 5px 2px 3px 2px;
+  float: left;
+  border-right: 1px solid #EEE;
+  border-bottom: 1px solid #EEE;
+  width: 26%;
+}
+
+#exercises{
+  float: left;
+}
+
+.exercise_note_and_sets{
+  list-style-type: none;
+}
+
+.form-group{
+  margin-bottom: 1px;
+}

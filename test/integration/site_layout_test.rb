@@ -5,7 +5,7 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
     @workout = valid_workout(save: true)
   end
 
-  test "universal header and footer" do
+  test "site header" do
     get new_path
     assert_select 'a[href="/"]', count: 1
   end

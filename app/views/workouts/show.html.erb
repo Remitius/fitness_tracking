@@ -2,26 +2,28 @@
 <header class="page-header">
   <%= render 'layouts/header_content' %> 
 </header>
-
-<% if @workout %>
-  <ul class='workout_info'>
-    <li>Name: <%= @workout.name %></li>
-    <li>Date: <%= @workout.date %></li>
-    <li>Note: <%= @workout.note %></li>
-  </ul>
-
-  <%= render 'workout_form' %>
-  <%= link_to "delete workout", @workout, method: :delete, 
+<div id="workout-info-and-forms">
+  <% if @workout %>
+    <div class='workout_attributes'>
+      <li>Name: <%= @workout.name %></li>
+      <li>Date: <%= @workout.date %></li>
+      <li>Note: <%= @workout.note %></li>
+    </div>
+    <%= link_to "delete workout", @workout, method: :delete, 
                                   data: { confirm: "Are you sure?" }%> 
-  <%= render 'exercises/exercise_form' %>
-<% end %> 
+    <hr style='margin:9px 0px;'>
+    <%= render 'workout_form' %>
+    <br>
+    <%= render 'exercises/exercise_form' %>
+  <% end %> 
+</div>
 
-<section>
+<ol id='exercises'>
   <% if (@workout.exercises).any? %>
       <% @workout.exercises.each do |exer| %>
         <% next unless exer.id %> 
         <h4 class='exercise_name'>
-          <%= "#{h exer.name}".html_safe %>
+          <li><%= "#{h exer.name}".html_safe %></li>
           <%= link_to "edit", edit_workout_exercise_path(@workout, exer) %> 
           <%= link_to "delete", [@workout, exer], method: :delete, 
                                    data: { confirm: "Are you sure?"} %> 
@@ -43,7 +45,7 @@
                   <%= "#{h set.reps}".html_safe + " reps"%> 
                 <% end %> 
 
-                <%= link_to "delete set", [@workout, exer, set], method: :delete %> 
+                <%= link_to "remove", [@workout, exer, set], method: :delete %> 
               </li>
             <% end %> 
           </ul>
@@ -53,4 +55,4 @@
   <% else %> 
     No exercises present
   <% end %> 
-</section> 
+</ol> 

@@ -17,7 +17,8 @@
 @import "bootstrap";
 
 body{
-  background-color: #2F4A26;
+  background-color: #294021;
+  font-family: 'Arial-black';
 }
 
 input{
@@ -28,7 +29,7 @@ select{
   color: black;
 }
 
-h1, h2, h3, h4, h5, h6, a, span, div, p, section, header, footer, ol, ul{
+*{
   color: white;
 }
 
@@ -36,7 +37,13 @@ a{
   font-weight: bold;
 }
 
+option{
+  color: black;
+}
+
 .page-header{
-  padding-top: 9px;
   margin-top: 0px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  margin-bottom: 0px;
 }
