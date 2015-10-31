@@ -117,7 +117,8 @@ class WorkoutsControllerTest < ActionController::TestCase
   test "destroy link should exist on show template" do
     get :show, id: @w.id
     assert_select 'a[data-method=delete]'
-    assert_select "a[href='/workouts/#{@w.id}']"
+
+    assert_select "a[href='#{workout_path(@w.id)}']"
   end
 
   test "destroy should remove workout from the database" do
