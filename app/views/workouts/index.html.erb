@@ -1,7 +1,7 @@
 <% provide(:title, 'Index') %> 
 
 <header class='page-header'>
-  <%= link_to 'Create workout', :new %> 
+  <%= link_to 'Create workout', workouts_new_path %> 
   <br>
   <% if params[:page] && params[:page].to_i > 1 %> 
     <%= link_to 'Previous Page', root_path(page: params[:page].to_i - 1)%> 

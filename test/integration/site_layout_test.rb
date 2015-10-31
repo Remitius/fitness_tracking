@@ -6,7 +6,7 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
   end
 
   test "site header" do
-    get new_path
+    get workouts_new_path
     assert_select 'a[href="/"]', count: 1
   end
 
