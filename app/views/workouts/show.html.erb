@@ -13,8 +13,9 @@
     <br>
     <%= link_to "delete workout", @workout, method: :delete, 
                                   data: { confirm: "Are you sure?" }%> 
-    <hr style='margin:9px 0px;'>
-    <br>
+    <hr>
+    <div class='text-center'>Add an exercise</div>
+    <hr>
     <%= render 'exercises/exercise_form' %>
   <% end %> 
 </div>
