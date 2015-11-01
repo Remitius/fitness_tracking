@@ -25,8 +25,12 @@ class WorkoutsController < ApplicationController
     end
   end
 
+  def edit
+    find_workout
+  end
+
   def show
-    @workout = Workout.find_by(id: params[:id])
+    find_workout
     unless @workout
       flash[:error] = "Workout not found"
       redirect_to :root
@@ -34,7 +38,7 @@ class WorkoutsController < ApplicationController
   end
 
   def update
-    @workout = Workout.find(params[:id])
+    find_workout
     unless @workout.update_attributes(workout_params)
       @workout.reload
       flash.now[:error] = []
@@ -50,8 +54,14 @@ class WorkoutsController < ApplicationController
     redirect_to :root
   end
   
+  private
+
   def workout_params
     params.require(:workout).permit(:name, :date, :note)
+  end
+
+  def find_workout
+    @workout = Workout.find_by(id: params[:id])
   end
 
 end

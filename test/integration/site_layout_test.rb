@@ -6,7 +6,7 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
   end
 
   test "site header" do
-    get workouts_new_path
+    get new_workout_path
     assert_select 'a[href="/"]', count: 1
   end
 
@@ -15,8 +15,8 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
     assert_select 'a[href="/"]', count: 0
   end
 
-  test "correct workout form elements on workouts#show" do
-    get workout_path(@workout)
+  test "correct workout form elements on workouts#edit" do
+    get edit_workout_path(@workout)
     assert_select "label[for='workout_name']", count: 1
     assert_select "label[for='workout_date']", count: 1
     assert_select "label[for='workout_note']", count: 1

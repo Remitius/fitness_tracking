@@ -78,9 +78,9 @@ class WorkoutsControllerTest < ActionController::TestCase
   test "show should include workout info if id param is correct" do
     get :show, id: @w.id
     assert_template :show
-    assert_select '#workout-info-and-forms', /#{@w.name}/i, count: 1
-    assert_select '#workout-info-and-forms', /#{@w.note}/i, count: 1
-    assert_select '#workout-info-and-forms', /#{@w.note}/i, count: 1
+    assert_select '.left-sidebar', /#{@w.name}/i, count: 1
+    assert_select '.left-sidebar', /#{@w.note}/i, count: 1
+    assert_select '.left-sidebar', /#{@w.note}/i, count: 1
   end
 
   test "show should redirect to root if id is invalid" do
@@ -104,8 +104,8 @@ class WorkoutsControllerTest < ActionController::TestCase
 
   test "saved attributes should display upon unsuccessful update" do
     put :update, id: @w.id, workout: { name: '', date: 'hi' }
-    assert_select '#workout-info-and-forms', /#{@w.name}/i, count: 1
-    assert_select '#workout-info-and-forms', /#{@w.date}/i, count: 1
+    assert_select '.left-sidebar', /#{@w.name}/i, count: 1
+    assert_select '.left-sidebar', /#{@w.date}/i, count: 1
   end
 
   test "proper form error messages should display on failed save" do

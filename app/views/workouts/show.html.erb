@@ -2,17 +2,18 @@
 <header class="page-header">
   <%= render 'layouts/header_content' %> 
 </header>
-<div id="workout-info-and-forms">
+<div class="left-sidebar">
   <% if @workout %>
     <div class='workout_attributes'>
       <li>Name: <%= @workout.name %></li>
       <li>Date: <%= @workout.date %></li>
       <li>Note: <%= @workout.note %></li>
     </div>
+    <%= link_to "edit workout",edit_workout_path(@workout), method: :get %> 
+    <br>
     <%= link_to "delete workout", @workout, method: :delete, 
                                   data: { confirm: "Are you sure?" }%> 
     <hr style='margin:9px 0px;'>
-    <%= render 'workout_form' %>
     <br>
     <%= render 'exercises/exercise_form' %>
   <% end %> 
