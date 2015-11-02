@@ -9,9 +9,9 @@
       <li>Date: <%= @workout.date %></li>
       <li>Note: <%= @workout.note %></li>
     </div>
-    <%= link_to "edit workout",edit_workout_path(@workout), method: :get %> 
-    <br>
-    <%= link_to "delete workout", @workout, method: :delete, 
+    <%= link_to "edit",edit_workout_path(@workout), method: :get %> 
+    &nbsp;&middot;&nbsp;
+    <%= link_to "delete", @workout, method: :delete, 
                                   data: { confirm: "Are you sure?" }%> 
     <hr>
     <div class='text-center'>Add an exercise</div>

@@ -15,11 +15,11 @@
 }
 
 .left-sidebar>div.text-center{
-  font-size: 13pt;
+  font-size: 11pt;
   font-weight: bold;
 }
 
-.left-sidebar>hr{
+hr{
   margin:9px 0px;
 }
 
@@ -35,3 +35,7 @@
   margin-bottom: 1px;
 }
 
+.pounds-field, .reps-field{
+  float: left;
+  width: 46%;
+}

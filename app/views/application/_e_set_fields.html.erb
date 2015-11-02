@@ -1,7 +1,13 @@
-<div class='nested-fields form-group'>
-  <%= f.label :pounds %> 
-  <%= f.text_field :pounds, class: 'form-control e-set-text-field' %> 
-  <%= f.label :reps %> 
-  <%= f.text_field :reps, class: 'form-control e-set-text-field' %> 
+<div class='nested-fields'>
+
+  <div class="pounds-field">
+    <%= f.label :pounds %> 
+    <%= f.text_field :pounds, class: 'form-control e-set-text-field' %> 
+  </div>
+  <div class="reps-field">  
+    <%= f.label :reps %> 
+    <%= f.text_field :reps, class: 'form-control e-set-text-field' %> 
+  </div>
+
   <%= link_to_remove_association "remove", f %>
 </div>

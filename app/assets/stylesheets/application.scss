@@ -19,11 +19,14 @@
 body{
   background-color: #294021;
   font-family: 'Arial-black';
+  word-wrap: break-word;
 }
+
+
 
 input{
   color: black;
-  height: 30px !important;
+  height: 27px !important;
 }
 
 select{
