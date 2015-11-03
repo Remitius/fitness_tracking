@@ -68,6 +68,11 @@ class WorkoutsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "edit should redirect to root if id is invalid" do
+    get :edit, id: 9000
+    assert_redirected_to :root 
+  end
+
   test "should get show" do
     w = Workout.create(id: 101, name: 'a', date: 1.day.ago)
     get :show, id: w.id

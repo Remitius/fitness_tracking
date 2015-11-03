@@ -27,6 +27,10 @@ class WorkoutsController < ApplicationController
 
   def edit
     find_workout
+    unless @workout
+      flash[:error] = "Workout not found"
+      redirect_to :root
+    end
   end
 
   def show
