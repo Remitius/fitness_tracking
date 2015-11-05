@@ -1,0 +1,7 @@
+<header class="page-header">
+  <% unless params[:action] =='index' && params[:controller] =='workouts' %>
+    <%= link_to "Home", :root  %>&nbsp;&nbsp;
+  <% end %> 
+
+  <%= yield %> 
+</header>

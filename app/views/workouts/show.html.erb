@@ -1,7 +1,7 @@
 <% provide(:title, @workout.name) %> 
-<header class="page-header">
-  <%= render 'layouts/header_content' %> 
-</header>
+<%= render layout: 'layouts/header' do %> 
+
+<% end %> 
 <div class="left-sidebar">
   <% if @workout %>
     <div class='workout_attributes'>

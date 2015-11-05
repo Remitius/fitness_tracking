@@ -1,6 +1,6 @@
-<% provide(:title, 'Index') %> 
+<% provide(:title, 'Index') %>
 
-<header class='page-header'>
+<%= render layout: 'layouts/header' do %> 
   <%= link_to 'Create workout', new_workout_path %> 
   <br>
   <% if params[:page] && params[:page].to_i > 1 %> 
@@ -10,7 +10,8 @@
     <span>Previous Page</span>
     <%= link_to 'Next Page', root_path(page: 2) %> 
   <% end %> 
-</header>
+<% end %> 
+
 
 <% if @workouts %>
   <section>

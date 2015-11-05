@@ -1,7 +1,8 @@
 <% provide(:title, 'New Workout') %> 
-<header class='page-header'>
-  <%= render 'layouts/header_content' %> 
-</header>
+
+<%= render layout: 'layouts/header' do %> 
+<% end %> 
+
 <div class="left-sidebar">
   <%= render 'workout_form' %>
 </div>
