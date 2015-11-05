@@ -43,17 +43,6 @@ class ExerciseTest < ActiveSupport::TestCase
     assert_not Exercise.find_by(id: @exercise.id)
   end
 
-  test "amount of sets should not be too large" do
-    @exercise.save
-
-    10.times { valid_e_set(@exercise, save: true) }
-    assert_equal 10, @exercise.e_sets.count
-
-    valid_e_set(@exercise, save: true)
-    assert_equal 10, @exercise.e_sets.count
-    assert @exercise.valid?
-  end
-
   test "nested e_sets" do
     assert_difference 'ESet.count', 1 do 
       Exercise.create(workout: @workout, name: 'x', e_sets_attributes: 

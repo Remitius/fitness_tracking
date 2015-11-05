@@ -1,13 +1,7 @@
 class ESetValidator < ActiveModel::Validator
   def validate(set)
     unless set.pounds || set.reps
-      set.errors[:base] << 'set must include pounds, reps, or both'
-    end
-
-    if set.exercise && Exercise.exists?(set.exercise.id)
-      unless set.exercise.e_sets.count < Exercise::MAX_SETS
-        set.errors[:base] << 'max number of sets reached'
-      end
+      set.errors[:_] << 'must include pounds, reps, or both'
     end
     
   end
