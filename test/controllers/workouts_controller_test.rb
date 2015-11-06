@@ -83,9 +83,9 @@ class WorkoutsControllerTest < ActionController::TestCase
   test "show should include workout info if id param is correct" do
     get :show, id: @w.id
     assert_template :show
-    assert_select '.left-sidebar', /#{@w.name}/i, count: 1
-    assert_select '.left-sidebar', /#{@w.note}/i, count: 1
-    assert_select '.left-sidebar', /#{@w.note}/i, count: 1
+    assert_select '#left-sidebar', /#{@w.name}/i, count: 1
+    assert_select '#left-sidebar', /#{@w.note}/i, count: 1
+    assert_select '#left-sidebar', /#{@w.note}/i, count: 1
   end
 
   test "show should redirect to root if id is invalid" do

@@ -22,7 +22,18 @@ body{
   word-wrap: break-word;
 }
 
+#left-sidebar{
+  padding: 5px 2px 3px 2px;
+  margin-right: 6px;
+  float: left;
+  border-right: 1px solid #EEE;
+  border-bottom: 1px solid #EEE;
+  width: 26%;
+}
 
+#left-sidebar>div.text-center{
+  font-weight: bold;
+}
 
 input{
   color: black;
