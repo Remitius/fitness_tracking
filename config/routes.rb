@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   root 'workouts#index'
+  get 'exercises/index'
   resources :workouts, path: "w" do
-    resources :exercises, only: [:create, :update, :destroy, :edit], 
+    resources :exercises, only: [:create,:update,:destroy,:edit], 
     path: "e" do
       resources :e_sets, only: [:destroy]
     end

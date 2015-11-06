@@ -33,6 +33,9 @@ class ExercisesController < ApplicationController
     end
   end
 
+  def index
+  end
+
   private
 
   def exercise_params

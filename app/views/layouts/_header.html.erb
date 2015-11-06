@@ -3,5 +3,9 @@
     <%= link_to "Home", :root  %>&nbsp;&nbsp;
   <% end %> 
 
+  <%unless params[:action] =='index' && params[:controller] =='exercises' %>
+    <%= link_to "Exercise Info", :exercises_index  %>&nbsp;&nbsp;
+  <% end %> 
+
   <%= yield %> 
 </header>

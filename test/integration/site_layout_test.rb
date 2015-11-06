@@ -8,6 +8,7 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
   test "site header" do
     get new_workout_path
     assert_select 'a[href="/"]', count: 1
+    assert_select "a[href='#{exercises_index_path}']", count: 1  
   end
 
   test "link to root path not present in root path's header" do
