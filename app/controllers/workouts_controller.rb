@@ -43,14 +43,16 @@ class WorkoutsController < ApplicationController
 
   def update
     find_workout
-    unless @workout.update_attributes(workout_params)
+    if @workout.update_attributes(workout_params)
+      render 'show'
+    else
       @workout.reload
       flash.now[:error] = []
       @workout.errors.full_messages.each do |e|
         flash.now[:error] << e
       end
+      render 'edit'
     end
-    render 'show'
   end
 
   def destroy

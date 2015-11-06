@@ -100,17 +100,11 @@ class WorkoutsControllerTest < ActionController::TestCase
     assert_template :show, id: @w.id
   end
 
-  test "unsuccessful update should render show template" do
+  test "unsuccessful update should render edit template" do
     old_name = @w.name
     put :update, id: @w.id, workout: { name: '' }
     assert_equal old_name, Workout.find(@w.id).name
-    assert_template :show, id: @w.id
-  end
-
-  test "saved attributes should display upon unsuccessful update" do
-    put :update, id: @w.id, workout: { name: '', date: 'hi' }
-    assert_select '.left-sidebar', /#{@w.name}/i, count: 1
-    assert_select '.left-sidebar', /#{@w.date}/i, count: 1
+    assert_template :edit, id: @w.id
   end
 
   test "proper form error messages should display on failed save" do
