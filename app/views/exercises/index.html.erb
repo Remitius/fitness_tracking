@@ -1,6 +1,29 @@
+<% provide(:title, params[:name]) if @data %> 
 <%= render layout: 'layouts/header' do %>  
 <% end %> 
 
-<div id="left-sidebar">
+<div id="left-sidebar" class='exercises-index'>
+  <% if @exercise_names %> 
+  <div id="exercise-select-form">
 
+    <form action="<%= exercises_index_url %>">
+      <%= select_tag(:name, options_for_select(@exercise_names, 1), class: 'form-control') %>
+      <input type="submit" value="Retrieve">
+    </form>
+
+  </div>
+  <% end %> 
 </div>
+<div id='exercise-index-content'>
+
+<% if @data %> 
+<div id="exercise-info">
+  <h1><%= params[:name] %></h1>
+  <% @data.values.each do |v| %> 
+    <%= v %> 
+    <br>
+  <% end %> 
+</div>
+<% end %> 
+
+</div id='exercise-index-content'>
