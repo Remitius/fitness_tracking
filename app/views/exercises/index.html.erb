@@ -14,16 +14,15 @@
   </div>
   <% end %> 
 </div>
-<div id='exercise-index-content'>
 
 <% if @data %> 
 <div id="exercise-info">
+
   <h1><%= params[:name] %></h1>
   <% @data.values.each do |v| %> 
     <%= v %> 
     <br>
   <% end %> 
+  
 </div>
 <% end %> 
-
-</div id='exercise-index-content'>
