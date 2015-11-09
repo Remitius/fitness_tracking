@@ -58,26 +58,25 @@ class ExercisesController < ApplicationController
   def gather_exercise_data(exercises)
     @data = {}
 
+    @data[:number_of_instances] = exercises.count
+
     @data[:first_instance], @data[:last_instance] =
            find_first_and_last_instances(exercises)
 
-    @data[:number_of_instances] = ActionController::Base.helpers
-                  .pluralize(exercises.count, "total occurrence")
-
-    @data[:lightest_instance], @data[:heaviest_instance] = 
-            find_lightest_and_heaviest_instances(exercises)
+    @data[:lightest_set], @data[:heaviest_set] = 
+            find_lightest_and_heaviest_sets(exercises)
   end
 
-  def find_lightest_and_heaviest_instances(exercises)
+  def find_lightest_and_heaviest_sets(exercises)
     sets = ESet.all.select{|s| s.exercise.name.downcase == params[:name] && s.pounds}
     return nil if sets.empty?
 
     lightest = heaviest = sets[0]
     sets.drop(1).each do |s|
-      lightest = s if s.pounds > lightest.pounds
-      heaviest = s if s.pounds < heaviest.pounds
+      lightest = s if s.pounds < lightest.pounds
+      heaviest = s if s.pounds > heaviest.pounds
     end
-    
+
     lightest_info = { pounds: lightest.pounds, date: lightest.exercise.workout.date }
     lightest_info[:reps] = lightest.reps if lightest.reps
     heaviest_info = { pounds: heaviest.pounds, date: heaviest.exercise.workout.date }
@@ -93,9 +92,7 @@ class ExercisesController < ApplicationController
       latest = e if e.workout.date > latest.workout.date
       first = e if e.workout.date < first.workout.date
     end
-
-    a = ["first occurrence: #{first.workout.date}"]
-    a << "latest occurrence: #{latest.workout.date}"
+    [first.workout.date, latest.workout.date]
   end
 
 end

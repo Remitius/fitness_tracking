@@ -41,9 +41,9 @@ class ExercisesControllerTest < ActionController::TestCase
     
     get :index, name: e.name
     @data = assigns(:data)
-    assert_match /#{early_workout.date}/, @data[:first_instance]
-    assert_match /#{recent_workout.date}/, @data[:last_instance]
-    assert_match /2[\s|.|,|"|']/  , @data[:number_of_instances]
+    assert_equal early_workout.date, @data[:first_instance]
+    assert_equal recent_workout.date, @data[:last_instance]
+    assert_equal 2, @data[:number_of_instances]
   end
 
   test "index action with a nonexistent specified exercise" do
