@@ -6,21 +6,20 @@ class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in a-z order
   fixtures :all
 
-  def valid_workout(save: false)
-    w = Workout.new(name: 'valid note', date: '2015-1-1')
+  def valid_workout(name: 'name123', date: 1.day.ago, note: nil, save: false)
+    w = Workout.new(name: name, date: date, note: note)
     w.save if save
     w
   end
 
-  def valid_exercise(workout, save: false)
-    e = Exercise.new(name: 'valid name', note: 'valid note', 
-                     workout: workout)
+  def valid_exercise(workout, name: 'name123', note: nil, save: false)
+    e = Exercise.new(workout: workout, name: name, note: note)
     e.save if save
     e
   end
 
-  def valid_e_set(exercise, save: false)
-    es = ESet.new(pounds: 500.5, reps: 1, exercise: exercise)
+  def valid_e_set(exercise, pounds: 500.5, reps: nil, save: false)
+    es = ESet.new(exercise: exercise, pounds: pounds, reps: reps)
     es.save if save
     es
   end

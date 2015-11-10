@@ -32,10 +32,10 @@
     </li>
     
 
-    <% if @data[:heaviest_set] %> 
+    <% if @data[:lightest_set] %> 
       <li id="lightest-set">
         lightest weight: <%= @data[:lightest_set][:pounds] %> lb
-        <%= "for #{@data[:lightest_set][:reps]} reps" if @data[:lightest_set][:reps] %> 
+        <%= "for #{pluralize(@data[:lightest_set][:reps], 'rep')}" if @data[:lightest_set][:reps] %> 
         on <%= @data[:lightest_set][:date] %> 
       </li> 
     <% end %> 
@@ -44,7 +44,7 @@
     <% if @data[:heaviest_set] %> 
       <li id="heaviest-set">
         heaviest weight: <%= @data[:heaviest_set][:pounds] %> lb
-        <%= "for #{@data[:heaviest_set][:reps]} reps" if @data[:heaviest_set][:reps] %> 
+        <%= "for #{pluralize(@data[:heaviest_set][:reps], 'rep')}" if @data[:heaviest_set][:reps] %> 
         on <%= @data[:heaviest_set][:date] %> 
       </li>
     <% end %> 
