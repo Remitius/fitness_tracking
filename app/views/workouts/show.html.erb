@@ -24,7 +24,7 @@
       <% @workout.exercises.each do |exer| %>
         <% next unless exer.id %> 
         <h4 class='exercise_name'>
-          <li><%= "#{h exer.name}".html_safe %></li>
+          <li><%= link_to("#{h exer.name}".html_safe, exercises_index_path(name: exer.name.downcase)) %> </li>
           <%= link_to "edit", edit_workout_exercise_path(@workout, exer) %> 
           <%= link_to "delete", [@workout, exer], method: :delete, 
                                    data: { confirm: "Are you sure?"} %> 

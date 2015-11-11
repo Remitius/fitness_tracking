@@ -11,6 +11,7 @@ class WorkoutExerciseRelationTest < ActionDispatch::IntegrationTest
     assert_template 'workouts/show'
     assert_select ".exercise_note_and_sets", count: 1
     assert_select ".exercise_name", count: 1
+    assert_select "a[href='#{exercises_index_path(name: 'sprints')}']"
   end
 
   test "invalid exercise creation - without e_sets" do
