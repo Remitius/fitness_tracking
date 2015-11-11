@@ -3,8 +3,10 @@ class WorkoutsController < ApplicationController
     if params['page'] && params['page'].to_i > 0
       p = params['page'].to_i * 10
       @workouts = Workout.order('date DESC')[(p-10)...p]
+      params[:next_page_valid] = true if Workout.count > p
     else
       @workouts = Workout.order('date DESC').first(10)
+      params[:next_page_valid] = true if Workout.count > 10
     end
   end
 

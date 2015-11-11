@@ -57,6 +57,12 @@ class WorkoutsControllerTest < ActionController::TestCase
     assert_select "a[href='#{root_path}?page=0']", false
   end
 
+  test 'last page of index should not contain a next page link' do
+    get :index, page: 3
+    assert_select "a[href='#{root_path}?page=4']", false
+    assert_select "a[href='#{root_path}?page=2']"
+  end
+
   test "index response should be valid if workout list is empty" do
     get :index, page: 5000
     assert_response :success 
