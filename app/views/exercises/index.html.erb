@@ -24,19 +24,20 @@
     </li>
 
     <li id="first-instance">
-      first occurrence: <%= @data[:first_instance] %> 
+      first occurrence: 
+      <%= link_to @data[:first_instance][:date], workout_path(@data[:first_instance][:workout_id]) %>
     </li>
 
     <li id="last-instance">
-      last occurrence: <%= @data[:last_instance] %> 
+      last occurrence: 
+      <%= link_to @data[:last_instance][:date], workout_path(@data[:last_instance][:workout_id]) %>
     </li>
-    
 
     <% if @data[:lightest_set] %> 
       <li id="lightest-set">
         lightest weight: <%= @data[:lightest_set][:pounds] %> lb
         <%= "for #{pluralize(@data[:lightest_set][:reps], 'rep')}" if @data[:lightest_set][:reps] %> 
-        on <%= @data[:lightest_set][:date] %> 
+        on <%= link_to @data[:lightest_set][:date], @data[:lightest_set][:workout_id] %> 
       </li> 
     <% end %> 
 
@@ -45,7 +46,7 @@
       <li id="heaviest-set">
         heaviest weight: <%= @data[:heaviest_set][:pounds] %> lb
         <%= "for #{pluralize(@data[:heaviest_set][:reps], 'rep')}" if @data[:heaviest_set][:reps] %> 
-        on <%= @data[:heaviest_set][:date] %> 
+        on <%= link_to @data[:heaviest_set][:date], @data[:heaviest_set][:workout_id] %> 
       </li>
     <% end %> 
 

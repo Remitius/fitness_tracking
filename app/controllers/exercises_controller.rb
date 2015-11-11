@@ -79,8 +79,10 @@ class ExercisesController < ApplicationController
 
     lightest_info = { pounds: lightest.pounds, date: lightest.exercise.workout.date }
     lightest_info[:reps] = lightest.reps if lightest.reps
+    lightest_info[:workout_id] = lightest.exercise.workout
     heaviest_info = { pounds: heaviest.pounds, date: heaviest.exercise.workout.date }
     heaviest_info[:reps] = heaviest.reps if heaviest.reps
+    heaviest_info[:workout_id] = heaviest.exercise.workout
 
     [lightest_info, heaviest_info]
   end
@@ -92,7 +94,9 @@ class ExercisesController < ApplicationController
       latest = e if e.workout.date > latest.workout.date
       first = e if e.workout.date < first.workout.date
     end
-    [first.workout.date, latest.workout.date]
-  end
+    a = []
+    a[0] = {date: first.workout.date, workout_id: first.workout.id}
+    a << {date: latest.workout.date, workout_id: latest.workout.id}
+ end
 
 end
