@@ -56,4 +56,13 @@ class WorkoutTest < ActiveSupport::TestCase
     assert @workout.valid?
 
   end  
+
+  test 'exercise update should succeed if exercise capacity is reached' do
+    @workout.save
+
+    e = valid_exercise(@workout, save: true)
+    11.times { valid_exercise(@workout, save: true) }
+    e.name = 'hi'
+    assert e.valid?
+  end
 end
