@@ -43,6 +43,8 @@ class ExercisesController < ApplicationController
 
     if params[:name]
       exercises = Exercise.all.select{|e| e.name.downcase == params[:name]}
+      @sets = ESet.all.select{|s| s.exercise.name.downcase == params[:name]}
+      @sets.sort! {|a,b| b.exercise.workout.date <=> a.exercise.workout.date}
       gather_exercise_data(exercises) if exercises.present?
     end
   end
@@ -68,7 +70,7 @@ class ExercisesController < ApplicationController
   end
 
   def find_lightest_and_heaviest_sets(exercises)
-    sets = ESet.all.select{|s| s.exercise.name.downcase == params[:name] && s.pounds}
+    sets = @sets.select { |s| s.pounds }
     return nil if sets.empty?
 
     lightest = heaviest = sets[0]
@@ -87,7 +89,6 @@ class ExercisesController < ApplicationController
     [lightest_info, heaviest_info]
   end
 
-
   def find_first_and_last_instances(exercises)
     first = latest = exercises[0]
     exercises.drop(1).each do |e|
@@ -95,8 +96,8 @@ class ExercisesController < ApplicationController
       first = e if e.workout.date < first.workout.date
     end
     a = []
-    a[0] = {date: first.workout.date, workout_id: first.workout.id}
-    a << {date: latest.workout.date, workout_id: latest.workout.id}
+    a[0] = {date: first.workout.date, workout_id: first.workout_id}
+    a << {date: latest.workout.date, workout_id: latest.workout_id}
  end
 
 end

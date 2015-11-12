@@ -22,17 +22,8 @@ body{
   word-wrap: break-word;
 }
 
-#left-sidebar{
-  padding: 5px 2px 3px 2px;
-  margin-right: 6px;
-  float: left;
-  border-right: 1px solid #EEE;
-  border-bottom: 1px solid #EEE;
-  width: 26%;
-}
-
-#left-sidebar>div.text-center{
-  font-weight: bold;
+*,body{
+  color: white;
 }
 
 input{
@@ -44,10 +35,6 @@ select{
   color: black;
 }
 
-*,body{
-  color: white;
-}
-
 a{
   font-weight: bold;
 }
@@ -56,9 +43,35 @@ option{
   color: black;
 }
 
+table{
+  margin-top: 18px;
+  margin-bottom: 18px;
+}
+
+table, th, td {
+  border: 1px solid white;
+}
+
+th, td{
+  text-align: center;
+}
+
 .page-header{
   margin-top: 0px;
   padding-top: 6px;
   padding-bottom: 6px;
   margin-bottom: 0px;
+}
+
+#left-sidebar{
+  padding: 5px 2px 3px 2px;
+  margin-right: 6px;
+  float: left;
+  border-right: 1px solid #EEE;
+  border-bottom: 1px solid #EEE;
+  width: 26%;
+}
+
+#left-sidebar>div.text-center{
+  font-weight: bold;
 }

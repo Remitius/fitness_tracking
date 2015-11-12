@@ -49,7 +49,34 @@
         on <%= link_to @data[:heaviest_set][:date], @data[:heaviest_set][:workout_id] %> 
       </li>
     <% end %> 
+    
+    <% if @sets.present? %> 
+      <table id='e-set-instances'>
+        <colgroup>
+          <col width="140">
+          <col width="90">
+          <col width="90">
+        </colgroup>
 
+        <tr>
+          <th>Date</th>
+          <th>Pounds</th>
+          <th>Reps</th>
+        </tr>
+
+        <% @sets.each do |s| %>
+        <tr>
+          <td><%= link_to(s.exercise.workout.date, workout_path(s.exercise.workout_id)) %></td>
+          <td><%= s.pounds %></td>
+          <td><%= s.reps %></td>
+        </tr>
+        <% end %> 
+      </table>
+
+    <% else %> 
+      No sets exist for this exercise
+    <% end %> 
   </ul>
 </div>
 <% end %> 
+

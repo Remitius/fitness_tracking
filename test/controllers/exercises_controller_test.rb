@@ -90,4 +90,21 @@ class ExercisesControllerTest < ActionController::TestCase
     assert_select '#exercise-info', false
   end
 
+  test 'index action - table of e_sets for particular exercise' do
+    e = valid_exercise(@workout, save: true)
+    s = valid_e_set(e, pounds: 2, reps: 3, save: true)
+    get :index, name: e.name
+
+    assert_select 'table#e-set-instances', count: 1
+    assert_select 'td', /#{s.reps}/, count: 1
+    assert_select 'td', /#{s.pounds}/, count: 1
+    assert_select "td>a[href='#{workout_path(e.workout_id)}']", count: 1
+  end
+
+  test "index action e_sets table shouldn't exist when there are none" do
+    e = valid_exercise(@workout, save: true)
+    get :index, name: e.name
+    assert_select 'table#e-set-instances', count: 0
+  end
+
 end
