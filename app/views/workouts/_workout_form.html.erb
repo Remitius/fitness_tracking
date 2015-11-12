@@ -2,7 +2,7 @@
   <%= form_for(@workout) do |f| %> 
   <div class="form-group">
     <%= f.label :name %> 
-    <%= f.text_field :name, class: 'form-control' %> 
+    <%= f.text_field :name, class: 'form-control', maxlength: Workout::MAX_NAME_LENGTH %> 
   </div>
   <div class="form-group">
     <%= f.label :date %> 
@@ -10,7 +10,7 @@
   </div>
   <div class="form-group">
     <%= f.label :note %> 
-    <%= f.text_area :note, class: 'form-control' %> 
+    <%= f.text_area :note, class: 'form-control', maxlength: Workout::MAX_NOTE_LENGTH %> 
   </div>
     <%= f.submit %> 
   <% end %> 

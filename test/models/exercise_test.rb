@@ -21,7 +21,7 @@ class ExerciseTest < ActiveSupport::TestCase
   end
 
   test "note should not be too long" do
-    @exercise.note = 'a' * 100
+    @exercise.note = 'a' * 101
     assert_not @exercise.valid?
   end
 
