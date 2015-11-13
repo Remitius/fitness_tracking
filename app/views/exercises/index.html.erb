@@ -1,4 +1,4 @@
-<% provide(:title, params[:name]) if @data %> 
+<% provide(:title, params[:name]) if @exercise_data %> 
 <%= render layout: 'layouts/header' do %>  
 <% end %> 
 
@@ -15,38 +15,38 @@
   <% end %> 
 </div>
 
-<% if @data %> 
+<% if @exercise_data %> 
 <div id="exercise-info">
   <h1><%= params[:name] %></h1>
   <ul>
     <li id='number-of-instances'>
-      <%= pluralize(@data[:number_of_instances], "total occurrence") %>
+      <%= pluralize(@exercise_data[:number_of_instances], "total occurrence") %>
     </li>
 
     <li id="first-instance">
       first occurrence: 
-      <%= link_to @data[:first_instance][:date], workout_path(@data[:first_instance][:workout_id]) %>
+      <%= link_to @exercise_data[:first_instance][:date], workout_path(@exercise_data[:first_instance][:workout_id]) %>
     </li>
 
     <li id="last-instance">
       last occurrence: 
-      <%= link_to @data[:last_instance][:date], workout_path(@data[:last_instance][:workout_id]) %>
+      <%= link_to @exercise_data[:last_instance][:date], workout_path(@exercise_data[:last_instance][:workout_id]) %>
     </li>
 
-    <% if @data[:lightest_set] %> 
+    <% if @exercise_data[:lightest_set] %> 
       <li id="lightest-set">
-        lightest weight: <%= @data[:lightest_set][:pounds] %> lb
-        <%= "for #{pluralize(@data[:lightest_set][:reps], 'rep')}" if @data[:lightest_set][:reps] %> 
-        on <%= link_to @data[:lightest_set][:date], @data[:lightest_set][:workout_id] %> 
+        lightest weight: <%= @exercise_data[:lightest_set][:pounds] %> lb
+        <%= "for #{pluralize(@exercise_data[:lightest_set][:reps], 'rep')}" if @exercise_data[:lightest_set][:reps] %> 
+        on <%= link_to @exercise_data[:lightest_set][:date], @exercise_data[:lightest_set][:workout_id] %> 
       </li> 
     <% end %> 
 
 
-    <% if @data[:heaviest_set] %> 
+    <% if @exercise_data[:heaviest_set] %> 
       <li id="heaviest-set">
-        heaviest weight: <%= @data[:heaviest_set][:pounds] %> lb
-        <%= "for #{pluralize(@data[:heaviest_set][:reps], 'rep')}" if @data[:heaviest_set][:reps] %> 
-        on <%= link_to @data[:heaviest_set][:date], @data[:heaviest_set][:workout_id] %> 
+        heaviest weight: <%= @exercise_data[:heaviest_set][:pounds] %> lb
+        <%= "for #{pluralize(@exercise_data[:heaviest_set][:reps], 'rep')}" if @exercise_data[:heaviest_set][:reps] %> 
+        on <%= link_to @exercise_data[:heaviest_set][:date], @exercise_data[:heaviest_set][:workout_id] %> 
       </li>
     <% end %> 
 
@@ -55,10 +55,11 @@
 
       <% if params[:view] == 'charts' %> 
         <%= link_to 'Change view', exercises_index_path(params[:id], name: params[:name]) %> 
-        <%= javascript_include_tag 'https://www.google.com/jsapi?autoload={%27modules%27:[{%27name%27:%27visualization%27,%27version%27:%271%27,%27packages%27:[%27corechart%27]}]}' %> 
 
-        <div id="sets-line-graph"></div>
+      <%= javascript_include_tag 'https://www.google.com/jsapi?autoload={%27modules%27:[{%27name%27:%27visualization%27,%27version%27:%271%27,%27packages%27:[%27corechart%27]}]}' %> 
 
+      <div id="sets-line-graph"></div>
+      
       <% else %> 
         <%= link_to 'Change view', exercises_index_path(params[:id], name: params[:name], view: 'charts') %> 
 

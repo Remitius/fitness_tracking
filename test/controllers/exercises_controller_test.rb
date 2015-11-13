@@ -39,7 +39,7 @@ class ExercisesControllerTest < ActionController::TestCase
     Exercise.create(workout: recent_workout, name: e.name)
     
     get :index, name: e.name
-    data = assigns(:data)
+    data = assigns(:exercise_data)
     assert_equal early_workout.date, data[:first_instance][:date]
     assert_equal recent_workout.date, data[:last_instance][:date]
     assert_select '#first-instance', count: 1
@@ -54,7 +54,7 @@ class ExercisesControllerTest < ActionController::TestCase
     valid_exercise(@workout, save: true)
     get :index, name: e.name
 
-    data = assigns(:data)
+    data = assigns(:exercise_data)
     assert_equal 2, data[:number_of_instances]
     assert_select '#number-of-instances'
   end
@@ -71,7 +71,7 @@ class ExercisesControllerTest < ActionController::TestCase
     valid_e_set(e2, pounds: 200, reps: 2, save: true)
     get :index, name: e1.name
 
-    data = assigns(:data)
+    data = assigns(:exercise_data)
     assert_equal 10, data[:lightest_set][:pounds]
     assert_equal nil, data[:lightest_set][:reps]
 
