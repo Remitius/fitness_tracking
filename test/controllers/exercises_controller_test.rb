@@ -101,10 +101,22 @@ class ExercisesControllerTest < ActionController::TestCase
     assert_select "td>a[href='#{workout_path(e.workout_id)}']", count: 1
   end
 
-  test "index action e_sets table shouldn't exist when there are none" do
+  test "index e_sets table shouldn't exist when no e_sets exist in db" do
     e = valid_exercise(@workout, save: true)
     get :index, name: e.name
     assert_select 'table#e-set-instances', count: 0
+  end
+
+  test 'index should display line graph or table based on view param' do
+    e = valid_exercise(@workout, save: true)
+    valid_e_set(e, save: true)
+    
+    get :index, name: e.name
+    assert_select '#sets-line-graph', false
+
+    get :index, name: e.name, view: 'charts'
+    assert_select '#sets-line-graph'
+
   end
 
 end

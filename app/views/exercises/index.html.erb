@@ -49,34 +49,45 @@
         on <%= link_to @data[:heaviest_set][:date], @data[:heaviest_set][:workout_id] %> 
       </li>
     <% end %> 
+
     
     <% if @sets.present? %> 
-      <table id='e-set-instances'>
-        <colgroup>
-          <col width="140">
-          <col width="90">
-          <col width="90">
-        </colgroup>
 
-        <tr>
-          <th>Date</th>
-          <th>Pounds</th>
-          <th>Reps</th>
-        </tr>
+      <% if params[:view] == 'charts' %> 
+        <%= link_to 'Change view', exercises_index_path(params[:id], name: params[:name]) %> 
+        <%= javascript_include_tag 'https://www.google.com/jsapi?autoload={%27modules%27:[{%27name%27:%27visualization%27,%27version%27:%271%27,%27packages%27:[%27corechart%27]}]}' %> 
 
-        <% @sets.each do |s| %>
-        <tr>
-          <td><%= link_to(s.exercise.workout.date, workout_path(s.exercise.workout_id)) %></td>
-          <td><%= s.pounds %></td>
-          <td><%= s.reps %></td>
-        </tr>
-        <% end %> 
-      </table>
+        <div id="sets-line-graph"></div>
 
+      <% else %> 
+        <%= link_to 'Change view', exercises_index_path(params[:id], name: params[:name], view: 'charts') %> 
+
+        <table id='e-set-instances'>
+          <colgroup>
+            <col width="140">
+            <col width="70">
+            <col width="70">
+          </colgroup>
+
+          <tr>
+            <th>Date</th>
+            <th>Pounds</th>
+            <th>Reps</th>
+          </tr>
+          
+          <% @sets.each do |s| %>
+          <tr>
+            <td><%= link_to(s.exercise.workout.date, workout_path(s.exercise.workout_id)) %></td>
+            <td><%= s.pounds %></td>
+            <td><%= s.reps %></td>
+          </tr>
+          <% end %> 
+        </table>
+
+      <% end %> 
     <% else %> 
       No sets exist for this exercise
     <% end %> 
   </ul>
 </div>
 <% end %> 
-
