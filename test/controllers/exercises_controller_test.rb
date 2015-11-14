@@ -112,10 +112,10 @@ class ExercisesControllerTest < ActionController::TestCase
     valid_e_set(e, save: true)
     
     get :index, name: e.name
-    assert_select '#sets-line-graph', false
+    assert_select '#line-graph', false
 
     get :index, name: e.name, view: 'charts'
-    assert_select '#sets-line-graph'
+    assert_select '#line-graph'
 
   end
 

@@ -17,30 +17,21 @@
 @import "bootstrap";
 
 body{
-  background-color: #294021;
+  background-color: #E3E3E3;
   font-family: 'Arial-black';
   word-wrap: break-word;
 }
 
-*,body{
-  color: white;
-}
-
 input{
-  color: black;
   height: 29px !important;
-}
-
-select{
-  color: black;
 }
 
 a{
   font-weight: bold;
 }
 
-option{
-  color: black;
+hr{
+  border-color: black;
 }
 
 table{
@@ -49,7 +40,7 @@ table{
 }
 
 table, th, td {
-  border: 1px solid white;
+  border: 1px solid black;
 }
 
 th, td{
@@ -61,14 +52,15 @@ th, td{
   padding-top: 6px;
   padding-bottom: 6px;
   margin-bottom: 0px;
+  border-color: black;
 }
 
 #left-sidebar{
   padding: 5px 2px 3px 2px;
   margin-right: 6px;
   float: left;
-  border-right: 1px solid #EEE;
-  border-bottom: 1px solid #EEE;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
   width: 26%;
 }
 

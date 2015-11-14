@@ -1,4 +1,7 @@
 <% provide(:title, params[:name]) if @exercise_data %> 
+<% content_for(:body_attributes) do %>
+  data-no-turbolink="true"
+<% end %>
 <%= render layout: 'layouts/header' do %>  
 <% end %> 
 
@@ -56,9 +59,7 @@
       <% if params[:view] == 'charts' %> 
         <%= link_to 'Change view', exercises_index_path(params[:id], name: params[:name]) %> 
 
-      <%= javascript_include_tag 'https://www.google.com/jsapi?autoload={%27modules%27:[{%27name%27:%27visualization%27,%27version%27:%271%27,%27packages%27:[%27corechart%27]}]}' %> 
-
-      <div id="sets-line-graph"></div>
+        <%= render 'line_graph' %> 
       
       <% else %> 
         <%= link_to 'Change view', exercises_index_path(params[:id], name: params[:name], view: 'charts') %> 

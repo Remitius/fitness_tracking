@@ -1,0 +1,26 @@
+<%= javascript_include_tag 'https://www.google.com/jsapi?autoload={%27modules%27:[{%27name%27:%27visualization%27,%27version%27:%271%27,%27packages%27:[%27corechart%27]}]}' %> 
+
+<script type="text/javascript">
+
+  google.setOnLoadCallback(drawChart);
+
+  function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+      ['Date', 'Pounds'],
+      ['2015-1-1',    20],
+      ['2015-3-3',    20],
+      ['2015-3-5',   25],
+      ['2015-5-1', 27.5]
+    ]);
+
+    var options = {
+      title: 'Weight over time',
+      legend: { position: 'bottom' }
+    };
+
+    var chart = new google.visualization.LineChart(document.getElementById('line-graph'));
+
+    chart.draw(data, options);
+  }
+</script>
+<div id="line-graph"></div>

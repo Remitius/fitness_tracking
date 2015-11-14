@@ -9,6 +9,7 @@
 
 #exercise-info{
   float: left;
+  width: 65%;
 }
 
 #exercise-info>ul{
@@ -16,3 +17,9 @@
   padding: 0;
   margin-bottom: 0;
  }
+
+#line-graph{
+  margin-top: 15px;
+  width: 600px;
+  height: 270px;
+}
