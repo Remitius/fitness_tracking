@@ -54,12 +54,12 @@
     <% end %> 
 
     
-    <% if @sets.present? %> 
+    <% if @exercise_data[:formatted_sets].present? %> 
 
       <% if params[:view] == 'charts' %> 
         <%= link_to 'Change view', exercises_index_path(params[:id], name: params[:name]) %> 
 
-        <%= render 'line_graph' %> 
+        <%= render partial: 'line_graph', locals: { formatted_sets: @exercise_data[:formatted_sets] } %> 
       
       <% else %> 
         <%= link_to 'Change view', exercises_index_path(params[:id], name: params[:name], view: 'charts') %> 
@@ -77,11 +77,11 @@
             <th>Reps</th>
           </tr>
           
-          <% @sets.each do |s| %>
+          <% @exercise_data[:formatted_sets].each do |s| %>
           <tr>
-            <td><%= link_to(s.exercise.workout.date, workout_path(s.exercise.workout_id)) %></td>
-            <td><%= s.pounds %></td>
-            <td><%= s.reps %></td>
+            <td><%= link_to(s[:date], workout_path(s[:workout_id])) %></td>
+            <td><%= s[:pounds] %></td>
+            <td><%= s[:reps] %></td>
           </tr>
           <% end %> 
         </table>

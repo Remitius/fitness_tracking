@@ -7,15 +7,15 @@
   function drawChart() {
     var data = google.visualization.arrayToDataTable([
       ['Date', 'Pounds'],
-      ['2015-1-1',    20],
-      ['2015-3-3',    20],
-      ['2015-3-5',   25],
-      ['2015-5-1', 27.5]
+      <% @exercise_data[:formatted_sets].reverse.each do |s| %>
+        ['<%= s[:date] %>', <%= s[:pounds] %>],
+      <% end %>
     ]);
 
     var options = {
-      title: 'Weight over time',
-      legend: { position: 'bottom' }
+      title: 'Highest weights for each day - mouseover for info',
+      legend: { position: 'none' },
+      vAxes: { 0: { viewWindow: {min:0} } }
     };
 
     var chart = new google.visualization.LineChart(document.getElementById('line-graph'));
