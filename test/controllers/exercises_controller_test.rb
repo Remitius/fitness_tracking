@@ -46,7 +46,6 @@ class ExercisesControllerTest < ActionController::TestCase
     assert_select '#last-instance', count: 1
     assert_select "a[href='#{workout_path(early_workout.id)}']", count: 1
     assert_select "a[href='#{workout_path(recent_workout.id)}']", count: 1
-
   end
 
   test "index info about exercise's number of occurences" do
@@ -82,7 +81,6 @@ class ExercisesControllerTest < ActionController::TestCase
     assert_select '#heaviest-set'
     assert_select "#lightest-set>a[href='#{workout_path(data[:lightest_set][:workout_id])}']"
     assert_select "#heaviest-set>a[href='#{workout_path(data[:heaviest_set][:workout_id])}']"
-
   end
 
   test "index action with a nonexistent specified exercise" do
@@ -116,7 +114,21 @@ class ExercisesControllerTest < ActionController::TestCase
 
     get :index, name: e.name, view: 'charts'
     assert_select '#line-graph'
+  end
 
+  test 'index with charts view should only display heaviest daily sets' do
+    e = valid_exercise(@workout, save: true)
+    heaviest = ESet.create(exercise: e, pounds: 3)
+    ESet.create(exercise: e, pounds: 1)
+    ESet.create(exercise: e, reps: 20)    
+    get :index, name: e.name, view: 'charts'
+
+    data = assigns(:exercise_data)
+    assert_equal 1, data[:formatted_sets].length
+    assert_not data[:formatted_sets][0][:reps]
+    assert_equal heaviest.pounds, data[:formatted_sets][0][:pounds]
+    assert_equal @workout.id, data[:formatted_sets][0][:workout_id]
+    assert_equal @workout.date.to_s, data[:formatted_sets][0][:date]
   end
 
 end

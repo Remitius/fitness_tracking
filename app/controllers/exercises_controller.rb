@@ -136,6 +136,6 @@ class ExercisesController < ApplicationController
     a = []
     a[0] = {date: first.workout.date, workout_id: first.workout_id}
     a << {date: latest.workout.date, workout_id: latest.workout_id}
- end
+  end
 
 end
