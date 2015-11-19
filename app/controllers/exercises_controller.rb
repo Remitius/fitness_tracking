@@ -84,7 +84,9 @@ class ExercisesController < ApplicationController
       h[:reps] = s.reps
       formatted_sets << h
     end
-    formatted_sets = get_heaviest_daily_sets(formatted_sets) if params[:view] == 'charts'
+    if params[:view] == nil || params[:view] == 'line'
+      formatted_sets = get_heaviest_daily_sets(formatted_sets) 
+    end
     formatted_sets
   end
 

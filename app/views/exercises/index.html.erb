@@ -27,18 +27,18 @@
     </li>
 
     <li id="first-instance">
-      first occurrence: 
+      First occurrence: 
       <%= link_to @exercise_data[:first_instance][:date], workout_path(@exercise_data[:first_instance][:workout_id]) %>
     </li>
 
     <li id="last-instance">
-      last occurrence: 
+      Last occurrence: 
       <%= link_to @exercise_data[:last_instance][:date], workout_path(@exercise_data[:last_instance][:workout_id]) %>
     </li>
 
     <% if @exercise_data[:lightest_set] %> 
       <li id="lightest-set">
-        lightest weight: <%= @exercise_data[:lightest_set][:pounds] %> lb
+        Lightest weight: <%= @exercise_data[:lightest_set][:pounds] %> lb
         <%= "for #{pluralize(@exercise_data[:lightest_set][:reps], 'rep')}" if @exercise_data[:lightest_set][:reps] %> 
         on <%= link_to @exercise_data[:lightest_set][:date], @exercise_data[:lightest_set][:workout_id] %> 
       </li> 
@@ -47,7 +47,7 @@
 
     <% if @exercise_data[:heaviest_set] %> 
       <li id="heaviest-set">
-        heaviest weight: <%= @exercise_data[:heaviest_set][:pounds] %> lb
+        Heaviest weight: <%= @exercise_data[:heaviest_set][:pounds] %> lb
         <%= "for #{pluralize(@exercise_data[:heaviest_set][:reps], 'rep')}" if @exercise_data[:heaviest_set][:reps] %> 
         on <%= link_to @exercise_data[:heaviest_set][:date], @exercise_data[:heaviest_set][:workout_id] %> 
       </li>
@@ -56,13 +56,13 @@
     
     <% if @exercise_data[:formatted_sets].present? %> 
 
-      <% if params[:view] == 'charts' %> 
-        <%= link_to 'Change view', exercises_index_path(params[:id], name: params[:name]) %> 
+      <% if params[:view] == nil || params[:view] == 'line' %> 
+        <%= link_to 'Change view', exercises_index_path(params[:id], name: params[:name], view: 'table') %> 
 
         <%= render partial: 'line_graph', locals: { formatted_sets: @exercise_data[:formatted_sets] } %> 
       
-      <% else %> 
-        <%= link_to 'Change view', exercises_index_path(params[:id], name: params[:name], view: 'charts') %> 
+      <% elsif params[:view] == 'table' %> 
+        <%= link_to 'Change view', exercises_index_path(params[:id], name: params[:name], view: 'line') %> 
 
         <table id='e-set-instances'>
           <colgroup>
@@ -87,6 +87,7 @@
         </table>
 
       <% end %> 
+      
     <% else %> 
       No sets exist for this exercise
     <% end %> 

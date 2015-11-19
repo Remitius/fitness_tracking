@@ -91,7 +91,7 @@ class ExercisesControllerTest < ActionController::TestCase
   test 'index action - table of e_sets for particular exercise' do
     e = valid_exercise(@workout, save: true)
     s = valid_e_set(e, pounds: 2, reps: 3, save: true)
-    get :index, name: e.name
+    get :index, name: e.name, view: 'table'
 
     assert_select 'table#e-set-instances', count: 1
     assert_select 'td', /#{s.reps}/, count: 1
@@ -110,18 +110,18 @@ class ExercisesControllerTest < ActionController::TestCase
     valid_e_set(e, save: true)
     
     get :index, name: e.name
-    assert_select '#line-graph', false
-
-    get :index, name: e.name, view: 'charts'
     assert_select '#line-graph'
+
+    get :index, name: e.name, view: 'table'
+    assert_select '#line-graph', false
   end
 
-  test 'index with charts view should only display heaviest daily sets' do
+  test 'index with line graph view should only display heaviest daily sets' do
     e = valid_exercise(@workout, save: true)
     heaviest = ESet.create(exercise: e, pounds: 3)
     ESet.create(exercise: e, pounds: 1)
     ESet.create(exercise: e, reps: 20)    
-    get :index, name: e.name, view: 'charts'
+    get :index, name: e.name, view: 'line'
 
     data = assigns(:exercise_data)
     assert_equal 1, data[:formatted_sets].length
