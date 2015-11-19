@@ -1,0 +1,21 @@
+<table id='e-set-instances'>
+  <colgroup>
+    <col width="140">
+    <col width="70">
+    <col width="70">
+  </colgroup>
+
+  <tr>
+    <th>Date</th>
+    <th>Pounds</th>
+    <th>Reps</th>
+  </tr>
+  
+  <% @exercise_data[:formatted_sets].each do |s| %>
+  <tr>
+    <td><%= link_to(s[:date], workout_path(s[:workout_id])) %></td>
+    <td><%= s[:pounds] %></td>
+    <td><%= s[:reps] %></td>
+  </tr>
+  <% end %> 
+</table>
