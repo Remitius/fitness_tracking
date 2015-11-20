@@ -2,7 +2,7 @@ require 'test_helper'
 
 class WorkoutsControllerTest < ActionController::TestCase
   def setup
-    @w = valid_workout(save: true)
+    @w = valid_workout
   end
 
   test "should get index" do

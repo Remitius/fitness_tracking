@@ -2,7 +2,7 @@ require 'test_helper'
 
 class SiteLayoutTest < ActionDispatch::IntegrationTest
   def setup
-    @workout = valid_workout(save: true)
+    @workout = valid_workout
   end
 
   test "site header" do
@@ -43,7 +43,7 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
   end
 
   test "exercise edit" do
-    exer = valid_exercise(@workout, save: true)
+    exer = valid_exercise(@workout)
     get edit_workout_exercise_path(@workout, exer)
     assert_template partial: '_exercise_form'    
     assert_select "a[href='#{workout_path(@workout.id)}']", count: 1

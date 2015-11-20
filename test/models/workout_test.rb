@@ -48,10 +48,10 @@ class WorkoutTest < ActiveSupport::TestCase
   test "amount of exercises should not be too large" do
     @workout.save
 
-    12.times { valid_exercise(@workout, save: true) }
+    12.times { valid_exercise(@workout) }
     assert_equal 12, @workout.exercises.count
 
-    valid_exercise(@workout, save: true)
+    valid_exercise(@workout)
     assert_equal 12, @workout.exercises.count
     assert @workout.valid?
 
@@ -60,8 +60,8 @@ class WorkoutTest < ActiveSupport::TestCase
   test 'exercise update should succeed if exercise capacity is reached' do
     @workout.save
 
-    e = valid_exercise(@workout, save: true)
-    11.times { valid_exercise(@workout, save: true) }
+    e = valid_exercise(@workout)
+    11.times { valid_exercise(@workout) }
     e.name = 'hi'
     assert e.valid?
   end

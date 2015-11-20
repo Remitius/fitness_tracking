@@ -2,8 +2,8 @@ require 'test_helper'
 
 class ExerciseTest < ActiveSupport::TestCase
   def setup
-    @workout = valid_workout(save: true)
-    @exercise = valid_exercise(@workout)
+    @workout = valid_workout
+    @exercise = valid_exercise(@workout, save: false)
   end
 
   test "should be valid" do
