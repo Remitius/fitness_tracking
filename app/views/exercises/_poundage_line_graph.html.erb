@@ -1,7 +1,6 @@
 <%= javascript_include_tag 'https://www.google.com/jsapi?autoload={%27modules%27:[{%27name%27:%27visualization%27,%27version%27:%271%27,%27packages%27:[%27corechart%27]}]}' %> 
 
 <script type="text/javascript">
-
   google.setOnLoadCallback(drawChart);
 
   function drawChart() {
@@ -15,7 +14,7 @@
     var options = {
       title: 'Highest weights for each day - mouseover for info',
       legend: { position: 'none' },
-      vAxes: { 0: { viewWindow: {min:0} } }
+      vAxes: { 0: {viewWindow: {min:0}} }
     };
 
     var chart = new google.visualization.LineChart(document.getElementById('line-graph'));
@@ -23,4 +22,12 @@
     chart.draw(data, options);
   }
 </script>
+
 <div id="line-graph"></div>
+
+  <form action="<%= exercises_index_url %>" id="start-date-select-form">
+    <input type="hidden" name="name" value="<%= params[:name] %>">
+    <input type="hidden" name="view" value="line">
+    <%= select_tag(:start_date, options_for_select(build_start_date_options), class: 'form-control') %>
+    <input type="submit" value="Change start date">
+  </form>

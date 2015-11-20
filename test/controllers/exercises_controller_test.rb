@@ -131,4 +131,28 @@ class ExercisesControllerTest < ActionController::TestCase
     assert_equal @workout.date.to_s, data[:formatted_sets][0][:date]
   end
 
+  test "index line graph's start date parameter (1 month)" do
+    recent_workout = valid_workout(date: 15.days.ago)
+    recent_set = valid_e_set(valid_exercise(recent_workout), pounds: 7)
+
+    valid_e_set(valid_exercise(valid_workout(date: 1.months.ago - 1.day)))
+
+    get :index, name: recent_set.exercise.name, view: 'line', start_date: 1
+    data = assigns(:exercise_data)
+    assert_equal 1, data[:formatted_sets].length
+    assert_equal recent_set.pounds, data[:formatted_sets][0][:pounds]
+  end
+
+  test "index line graph's start date parameter (1 year)" do
+    recent_workout = valid_workout(date: 15.days.ago)
+    recent_set = valid_e_set(valid_exercise(recent_workout), pounds: 7)
+
+    valid_e_set(valid_exercise(valid_workout(date: 12.months.ago - 1.day)))
+
+    get :index, name: recent_set.exercise.name, view: 'line', start_date: 12
+    data = assigns(:exercise_data)
+    assert_equal 1, data[:formatted_sets].length
+    assert_equal recent_set.pounds, data[:formatted_sets][0][:pounds]
+  end
+
 end

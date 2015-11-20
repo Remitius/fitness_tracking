@@ -74,9 +74,8 @@ class ExercisesController < ApplicationController
 
   def get_formatted_sets(_sets)
     sets = _sets.sort {|a,b| b.exercise.workout.date <=> a.exercise.workout.date}
-    if params[:view] == nil || params[:view] == 'line'
-      sets = get_heaviest_daily_sets(sets) 
-    end
+    sets = get_sets_within_start_date(sets)
+    sets = get_heaviest_daily_sets(sets) if !params[:view] || params[:view] == 'line'
 
     sets.map do |s|
       { pounds: s.pounds, reps: s.reps, workout_id: s.exercise.workout.id,
@@ -100,6 +99,12 @@ class ExercisesController < ApplicationController
       end
     end
     sets
+  end
+
+  def get_sets_within_start_date(sets)
+    return sets unless params[:start_date].present?
+    start_date = params[:start_date].to_i.months.ago
+    sets.select { |s| s.exercise.workout.date >= start_date }
   end
 
   def find_lightest_and_heaviest_sets(_sets)
