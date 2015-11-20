@@ -61,52 +61,45 @@ class ExercisesController < ApplicationController
 
   def gather_exercise_data(exercises)
     sets = ESet.all.select{|s| s.exercise.name.downcase == exercises[0].name}
-
     data = {}
+
     data[:number_of_instances] = exercises.count
     data[:first_instance], data[:last_instance] = 
         find_first_and_last_instances(exercises)
     data[:lightest_set], data[:heaviest_set] = 
         find_lightest_and_heaviest_sets(sets)
     data[:formatted_sets] = get_formatted_sets(sets)
-
     data
   end
 
-  def get_formatted_sets(sets)
-    sets = sets.sort! {|a,b| b.exercise.workout.date <=> a.exercise.workout.date}
-    formatted_sets = []
-    sets.each do |s|
-      h = {}
-      h[:date] = s.exercise.workout.date.to_s
-      h[:workout_id] = s.exercise.workout_id
-      h[:pounds] = s.pounds
-      h[:reps] = s.reps
-      formatted_sets << h
-    end
+  def get_formatted_sets(_sets)
+    sets = _sets.sort {|a,b| b.exercise.workout.date <=> a.exercise.workout.date}
     if params[:view] == nil || params[:view] == 'line'
-      formatted_sets = get_heaviest_daily_sets(formatted_sets) 
+      sets = get_heaviest_daily_sets(sets) 
     end
-    formatted_sets
+
+    sets.map do |s|
+      { pounds: s.pounds, reps: s.reps, workout_id: s.exercise.workout.id,
+        date: s.exercise.workout.date.to_s }
+    end
   end
 
-  def get_heaviest_daily_sets(_set_hashes)
-    set_hashes = _set_hashes.select { |s| s[:pounds] }
+  def get_heaviest_daily_sets(_sets_sorted_by_date)
+    sets = _sets_sorted_by_date.select { |s| s[:pounds] }
 
     current = 0
-    while (current < set_hashes.length-1)
-      if set_hashes[current][:date] == set_hashes[current+1][:date]
-        if (set_hashes[current][:pounds] < set_hashes[current+1][:pounds])
-          set_hashes.delete_at(current)
+    while (current < sets.length-1)
+      if sets[current].exercise.workout.date == sets[current+1].exercise.workout.date
+        if (sets[current].pounds < sets[current+1].pounds)
+          sets.delete_at(current)
         else
-          set_hashes.delete_at(current+1)
+          sets.delete_at(current+1)
         end
-
       else
         current += 1
       end
     end
-    set_hashes
+    sets
   end
 
   def find_lightest_and_heaviest_sets(_sets)
@@ -120,10 +113,10 @@ class ExercisesController < ApplicationController
     end
 
     lightest_info = {pounds: lightest.pounds, date: lightest.exercise.workout.date}
-    lightest_info[:reps] = lightest.reps if lightest.reps
+    lightest_info[:reps] = lightest.reps
     lightest_info[:workout_id] = lightest.exercise.workout
     heaviest_info = {pounds: heaviest.pounds, date: heaviest.exercise.workout.date}
-    heaviest_info[:reps] = heaviest.reps if heaviest.reps
+    heaviest_info[:reps] = heaviest.reps
     heaviest_info[:workout_id] = heaviest.exercise.workout
 
     [lightest_info, heaviest_info]
