@@ -51,11 +51,11 @@
 
   <% if @exercise_data[:formatted_sets].present? %> 
     <% if params[:view] == nil || params[:view] == 'line' %> 
-      <%= link_to 'Change view', exercises_index_path(params[:id], name: params[:name], view: 'table') %> 
+      <%= link_to 'Click to view table', exercises_index_path(params[:id], name: params[:name], view: 'table') %> 
       <%= render partial: 'poundage_line_graph', locals: { formatted_sets: @exercise_data[:formatted_sets] } %> 
     
     <% elsif params[:view] == 'table' %> 
-      <%= link_to 'Change view', exercises_index_path(params[:id], name: params[:name], view: 'line') %>
+      <%= link_to 'Click to view line graph', exercises_index_path(params[:id], name: params[:name], view: 'line') %>
       <%= render partial: 'poundage_table', locals: { formatted_sets: @exercise_data[:formatted_sets] } %> 
     <% end %> 
   <% else %> 
