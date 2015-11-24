@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151019015908) do
+ActiveRecord::Schema.define(version: 20151124044652) do
 
   create_table "e_sets", force: :cascade do |t|
     t.float    "pounds"
@@ -32,6 +32,12 @@ ActiveRecord::Schema.define(version: 20151019015908) do
   end
 
   add_index "exercises", ["workout_id"], name: "index_exercises_on_workout_id"
+
+  create_table "users", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "workouts", force: :cascade do |t|
     t.string   "name"
