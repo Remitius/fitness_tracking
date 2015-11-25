@@ -1,13 +1,16 @@
 Rails.application.routes.draw do
   root 'workouts#index'
   get 'exercises/index', path: 'e'
+  get 'users/new'
+  get 'users/edit'
+  get 'users/show'
+  
   resources :workouts, path: 'w' do
     resources :exercises, only: [:create,:update,:destroy,:edit], 
     path: 'e' do
       resources :e_sets, only: [:destroy]
     end
   end
-
 end
 
 # The priority is based upon order of creation: 

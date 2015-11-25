@@ -36,4 +36,24 @@ class UserTest < ActiveSupport::TestCase
     assert_not @user.valid?
   end
 
+  test 'password should be required' do
+    @user.password = @user.password_confirmation = nil
+    assert_not @user.valid?
+  end
+
+  test 'password should match password confirmation' do
+    @user.password = @user.password_confirmation + "h"
+    assert_not @user.valid?
+  end
+
+  test 'password should not be too short' do
+    @user.password = 'a' * 5
+    assert_not @user.valid?
+  end
+
+  test 'password should not be too long' do
+    @user.password = 'a' * 31
+    assert_not @user.valid?
+  end
+
 end

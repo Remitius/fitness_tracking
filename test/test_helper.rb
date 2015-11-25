@@ -24,8 +24,9 @@ class ActiveSupport::TestCase
     es
   end
 
-  def valid_user(username: 'username1', save: true)
-    u = User.new(username: username)
+  def valid_user(username: 'username1', password: 'abcd1234', save: true)
+    u = User.new(username: username, password: password,
+                 password_confirmation: password)
     u.save if save
     u
   end
