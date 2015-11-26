@@ -1,20 +1,16 @@
 Rails.application.routes.draw do
   root 'workouts#index'
-  get 'exercises/index', path: 'e'
-  get 'users/new'
-  get 'users/edit'
-  get 'users/show'
-  
   resources :workouts, path: 'w' do
     resources :exercises, only: [:create,:update,:destroy,:edit], 
     path: 'e' do
       resources :e_sets, only: [:destroy]
     end
   end
-end
 
-# The priority is based upon order of creation: 
-# first created -> highest priority.
+  get 'exercises/index', path: 'e'
+
+  resources :users, path: 'u', only: [:new,:edit,:show,:create,:update]
+end
 
 # Example of regular route:
 #   get 'products/:id' => 'catalog#view'
@@ -29,12 +25,6 @@ end
 #     collection do
 #       get 'sold'
 #     end
-#   end
-
-# Example resource route with sub-resources:
-#   resources :products do
-#     resources :comments, :sales
-#     resource :seller
 #   end
 
 # Example resource route with more complex sub-resources:

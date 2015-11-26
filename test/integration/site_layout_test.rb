@@ -49,5 +49,17 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
     assert_select "a[href='#{workout_path(@workout.id)}']", count: 1
   end
 
+  test 'presence of _user_form on users#edit and users#new' do
+    get new_user_path
+    assert_template 'users/_user_form'
+    get edit_user_path(valid_user.id)
+    assert_template 'users/_user_form'
+  end
+
+  test '_user_form elements' do
+    get new_user_path
+    assert_select "input[type='text']", count: 1
+    assert_select "input[type='password']", count: 2
+  end
 
 end
