@@ -100,17 +100,17 @@ class WorkoutsControllerTest < ActionController::TestCase
   end
 
   test "successful update should properly update attributes" do
-    put :update, id: @w.id, workout: {name: "HIT", date: 1.day.ago}
+    put :update, id: @w.id, workout: { name: "HIT", date: 1.day.ago }
     assert_equal 'HIT', Workout.find(@w.id).name
     assert_equal 1.day.ago.to_date, Workout.find(@w.id).date
-    assert_template :show, id: @w.id
+    assert_template :show
   end
 
   test "unsuccessful update should render edit template" do
     old_name = @w.name
     put :update, id: @w.id, workout: { name: '' }
     assert_equal old_name, Workout.find(@w.id).name
-    assert_template :edit, id: @w.id
+    assert_template :edit
   end
 
   test "proper form error messages should display on failed save" do
@@ -134,16 +134,14 @@ class WorkoutsControllerTest < ActionController::TestCase
   end
 
   test "valid creation" do
-    get :new
     Workout.destroy_all
     assert_difference 'Workout.count', 1 do
-      w = post :create, workout: { name: 'HIIT', date: '2015-1-1' }
+      post :create, workout: valid_workout(save: false).attributes
     end
     assert_redirected_to workout_path(Workout.first)
   end
 
   test "invalid creation" do
-    get :new
     assert_no_difference 'Workout.count' do 
       post :create, workout: { date: '2040-1-1' }
     end
