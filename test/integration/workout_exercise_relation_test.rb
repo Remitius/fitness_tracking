@@ -18,8 +18,8 @@ class WorkoutExerciseRelationTest < ActionDispatch::IntegrationTest
     post_via_redirect workout_exercises_path(@workout), 
               exercise: { name: "" }
     assert_template 'workouts/show'
-    assert_select ".exercise_note_and_sets", count: 0
-    assert_select ".exercise_name", count: 0
+    assert_select ".exercise_note_and_sets", false
+    assert_select ".exercise_name", false
     assert_select "#flash_error", /Name can't be blank/i
   end
 
@@ -57,6 +57,20 @@ class WorkoutExerciseRelationTest < ActionDispatch::IntegrationTest
     delete workout_exercise_path(@workout.id, e.id)
     assert_redirected_to workout_path(@workout.id)
     e_sets_ids.each { |i| assert_not ESet.find_by(id: i) }
+  end
+
+  test 'exercises#edit should redirect to workout if invalid id' do
+    get edit_workout_exercise_path(@workout.id, 9999)
+    assert_redirected_to workout_path(@workout.id)
+    follow_redirect!
+    assert_select '#flash_error'
+  end
+
+  test 'exercises#edit should redirect to root if invalid workout id' do
+    get edit_workout_exercise_path(4333, 9999)
+    assert_redirected_to :root
+    follow_redirect!
+    assert_select '#flash_error'
   end
 
   test "e_set destruction" do

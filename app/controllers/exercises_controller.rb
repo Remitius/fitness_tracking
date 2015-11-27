@@ -11,17 +11,24 @@ class ExercisesController < ApplicationController
   end
 
   def destroy
-    Exercise.find(params[:id]).destroy
+    find_exercise.destroy
     redirect_to workout_path(params[:workout_id])
   end
 
   def edit
-    @workout = Workout.find(params[:workout_id])
-    @exercise = Exercise.find(params[:id])
+    @workout = Workout.find_by(id: params[:workout_id])
+    find_exercise
+    if @workout.nil?
+      flash[:error] = "Workout not found"
+      redirect_to :root
+    elsif @exercise.nil?
+      flash[:error] = "Exercise not found"
+      redirect_to workout_path(params[:workout_id])
+    end
   end
 
   def update
-    @exercise = Exercise.find(params[:id])
+    find_exercise  
     if @exercise.update_attributes(exercise_params)
       redirect_to workout_path(params[:workout_id])
     else
@@ -35,7 +42,6 @@ class ExercisesController < ApplicationController
 
   def index
     @exercise_names = gather_exercise_names
-
     if Exercise.find_by(name: params[:name])
       exercises = Exercise.all.select{|e| e.name.downcase == params[:name]}
       @exercise_data = gather_exercise_data(exercises)
@@ -43,6 +49,10 @@ class ExercisesController < ApplicationController
   end
 
   private
+
+  def find_exercise
+    @exercise = Exercise.find_by(params[:id])
+  end
 
   def exercise_params
     params.require(:exercise).permit(:name, :note, 
