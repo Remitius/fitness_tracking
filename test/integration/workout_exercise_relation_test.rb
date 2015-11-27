@@ -20,7 +20,7 @@ class WorkoutExerciseRelationTest < ActionDispatch::IntegrationTest
     assert_template 'workouts/show'
     assert_select ".exercise_note_and_sets", count: 0
     assert_select ".exercise_name", count: 0
-    assert_select ".flash_error", /Name can't be blank/i
+    assert_select "#flash_error", /Name can't be blank/i
   end
 
   test "valid exercise creation - with e_sets" do

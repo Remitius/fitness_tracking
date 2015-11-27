@@ -115,8 +115,8 @@ class WorkoutsControllerTest < ActionController::TestCase
 
   test "proper form error messages should display on failed save" do
     put :update, id: @w.id, workout: { name: '', note: 'a' * 301 }
-    assert_select "div.flash_error", /Name can't be blank/i
-    assert_select "div.flash_error", /Note is too long/i
+    assert_select "#flash_error", /Name can't be blank/i
+    assert_select "#flash_error", /Note is too long/i
   end
 
   test "destroy link should exist on show template" do
@@ -146,8 +146,8 @@ class WorkoutsControllerTest < ActionController::TestCase
       post :create, workout: { date: '2040-1-1' }
     end
     assert_template :new
-    assert_select ".flash_error", /Name can't be blank/i
-    assert_select ".flash_error", /Date must be on or/i
+    assert_select "#flash_error", /Name can't be blank/i
+    assert_select "#flash_error", /Date must be on or/i
   end
 
 end
