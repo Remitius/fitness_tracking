@@ -19,10 +19,7 @@ class WorkoutsController < ApplicationController
     if @workout.save
       redirect_to @workout
     else
-      flash.now[:error] = []
-      @workout.errors.full_messages.each do |e|
-        flash.now[:error] << e
-      end
+      fill_flash_now_with_workout_errors
       render 'new'
     end
   end
@@ -49,10 +46,7 @@ class WorkoutsController < ApplicationController
       render 'show'
     else
       @workout.reload
-      flash.now[:error] = []
-      @workout.errors.full_messages.each do |e|
-        flash.now[:error] << e
-      end
+      fill_flash_now_with_workout_errors
       render 'edit'
     end
   end
@@ -70,6 +64,13 @@ class WorkoutsController < ApplicationController
 
   def find_workout
     @workout = Workout.find_by(id: params[:id])
+  end
+
+  def fill_flash_now_with_workout_errors
+    flash.now[:error] = []
+    @workout.errors.full_messages.each do |e|
+      flash.now[:error] << e
+    end
   end
 
 end
