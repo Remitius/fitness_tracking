@@ -1,9 +1,5 @@
 <% provide(:title, 'Index') %>
-
 <%= render layout: 'layouts/header' do %> 
-  <br>
-  <%= link_to 'Create workout', new_workout_path %> 
-  <br>
 <% end %> 
 
 <% page = params[:page].to_i unless params[:page].nil? %> 
