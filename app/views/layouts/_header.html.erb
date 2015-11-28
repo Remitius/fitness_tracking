@@ -1,21 +1,27 @@
 <header class="page-header">
-  <% unless params[:action] =='index' && params[:controller] =='workouts' %>
+  <% unless params[:controller] == 'users' && params[:action] == 'new' %>
+    <div>
+      <%= link_to "Create Account", new_user_path %>
+    </div>
+  <% end %>
+
+  <% unless params[:controller] == 'workouts' && params[:action] == 'index' %>
     <div>
       <%= link_to "Home", :root  %>
     </div>
-  <% end %> 
+  <% end %>
   
-  <% unless params[:action] == 'new' && params[:controller] = 'workouts' %> 
+  <% unless params[:controller] == 'workouts' && params[:action] == 'new' %>
     <div>
-      <%= link_to 'Create workout', new_workout_path %>
+      <%= link_to 'Create Workout', new_workout_path %>
     </div>
-  <% end %> 
+  <% end %>
 
-  <%unless params[:action] =='index' && params[:controller] =='exercises' %>
+  <% unless params[:controller] == 'exercises' && params[:action] == 'index' %>
     <div>
       <%= link_to "Exercise Info", :exercises_index  %>&nbsp;&nbsp;
     </div>
-  <% end %> 
+  <% end %>
 
-  <%= yield %> 
+  <%= yield %>
 </header>
