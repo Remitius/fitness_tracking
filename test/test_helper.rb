@@ -30,4 +30,11 @@ class ActiveSupport::TestCase
     u.save if save
     u
   end
+
+  def log_in_user(user)
+    post_via_redirect login_path, session: { username: user.username, 
+                                             password: user.password }
+
+  end
+
 end

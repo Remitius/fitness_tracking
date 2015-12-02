@@ -1,26 +1,13 @@
-<header class="page-header">
-  <% unless params[:controller] == 'users' && params[:action] == 'new' %>
-    <div>
-      <%= link_to "Create Account", new_user_path %>
-    </div>
-  <% end %>
+<header class="page-header">  
 
   <% unless params[:controller] == 'workouts' && params[:action] == 'index' %>
-    <div>
-      <%= link_to "Home", :root  %>
-    </div>
-  <% end %>
-  
-  <% unless params[:controller] == 'workouts' && params[:action] == 'new' %>
-    <div>
-      <%= link_to 'Create Workout', new_workout_path %>
-    </div>
+    <div><%= link_to "Home", :root %></div>
   <% end %>
 
-  <% unless params[:controller] == 'exercises' && params[:action] == 'index' %>
-    <div>
-      <%= link_to "Exercise Info", :exercises_index  %>&nbsp;&nbsp;
-    </div>
+  <% if logged_in? %> 
+    <%= render 'layouts/logged_in_header_links' %> 
+  <% else %> 
+    <%= render 'layouts/logged_out_header_links' %> 
   <% end %>
 
   <%= yield %>

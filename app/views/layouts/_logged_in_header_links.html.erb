@@ -1,0 +1,14 @@
+<% unless params[:controller] == 'workouts' && params[:action] == 'new' %>
+  <div><%= link_to 'Create Workout', new_workout_path %></div>
+<% end %>
+
+<% unless params[:controller] == 'exercises' && params[:action] == 'index' %>
+  <div><%= link_to "Exercise Info", :exercises_index %>&nbsp;&nbsp;</div>
+<% end %> 
+
+<% unless params[:controller] == 'users' && params[:action] == 'show' %>
+  <div><%= link_to "Profile", current_user %>&nbsp;&nbsp;</div>
+<% end %> 
+
+
+<%= link_to 'Log out', logout_path, method: :delete %> 

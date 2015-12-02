@@ -1,0 +1,7 @@
+<% unless params[:controller] == 'users' && params[:action] == 'new' %>
+  <div><%= link_to "Create Account", new_user_path %></div>
+<% end %>
+
+<% unless params[:controller] == 'sessions' && params[:action] == 'new' %>
+  <div><%= link_to "Log in", login_path %></div>
+<% end %>

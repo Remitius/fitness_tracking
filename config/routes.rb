@@ -10,6 +10,9 @@ Rails.application.routes.draw do
   get 'exercises/index', path: 'e'
 
   resources :users, path: 'u', only: [:new,:edit,:show,:create,:update]
+  get    'login'   => 'sessions#new'
+  post   'login'   => 'sessions#create'
+  delete 'logout'  => 'sessions#destroy'
 end
 
 # Example of regular route:
