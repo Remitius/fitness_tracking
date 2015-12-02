@@ -6,13 +6,13 @@
 #exercise-info{
   float: left;
   width: 65%;
-}
 
-#exercise-info>ul{
-  list-style-type: none;
-  padding: 0;
-  margin-bottom: 0;
- }
+  ul{
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 0;    
+  }
+}
 
 #line-graph{
   margin-top: 15px;
@@ -22,13 +22,13 @@
 
 #start-date-select-form{
   margin-top: 8px;
-}
 
-#start-date-select-form>select{
-  float: left;
-  width: 200px;
-}
-
-#start-date-select-form>input{
-  margin-left: 5px;
+  select{
+    float: left;
+    width: 200px;
+  }
+  
+  input{
+    margin-left: 5px;
+  }
 }

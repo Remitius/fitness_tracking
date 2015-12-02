@@ -53,6 +53,14 @@ th, td{
   padding-bottom: 6px;
   margin-bottom: 0px;
   border-color: black;
+  div{
+    padding-right: 3px;
+    display: inline;
+    border-right: 1px black solid;
+  }
+  div:last-of-type{
+    border: none;
+  }
 }
 
 #left-sidebar{
@@ -62,8 +70,9 @@ th, td{
   border-right: 1px solid black;
   border-bottom: 1px solid black;
   width: 26%;
+
+  div.text-center{
+    font-weight: bold;
+  }
 }
 
-#left-sidebar>div.text-center{
-  font-weight: bold;
-}

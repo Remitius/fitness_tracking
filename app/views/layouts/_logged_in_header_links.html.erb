@@ -3,12 +3,11 @@
 <% end %>
 
 <% unless params[:controller] == 'exercises' && params[:action] == 'index' %>
-  <div><%= link_to "Exercise Info", :exercises_index %>&nbsp;&nbsp;</div>
+  <div><%= link_to "Exercise Info", :exercises_index %></div>
 <% end %> 
 
 <% unless params[:controller] == 'users' && params[:action] == 'show' %>
-  <div><%= link_to "Profile", current_user %>&nbsp;&nbsp;</div>
+  <div><%= link_to "Profile", current_user %></div>
 <% end %> 
 
-
-<%= link_to 'Log out', logout_path, method: :delete %> 
+<div><%= link_to 'Log out', logout_path, method: :delete %></div>
