@@ -1,6 +1,5 @@
 <% provide(:title, params[:name]) if @exercise_data %> 
 <% content_for(:body_attributes) do %>data-no-turbolink="true"<% end %>
-<%= render layout: 'layouts/header' do %><% end %>
 
 <div id="left-sidebar" class='exercises-index'>
   <% if @exercise_names %> 

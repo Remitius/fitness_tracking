@@ -1,5 +1,4 @@
 <header class="page-header">  
-
   <% unless params[:controller] == 'workouts' && params[:action] == 'index' %>
     <div><%= link_to "Home", :root %></div>
   <% end %>
@@ -9,6 +8,4 @@
   <% else %> 
     <%= render 'layouts/logged_out_header_links' %> 
   <% end %>
-
-  <%= yield %>
 </header>

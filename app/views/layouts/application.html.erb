@@ -7,13 +7,11 @@
   <%= csrf_meta_tags %>
 </head>
 <body <%= yield(:body_attributes) if content_for?(:body_attributes) %>>
+
+<%= render 'layouts/header' %> 
 <%= render 'layouts/flash_error' %> 
 
 <%= yield %>
-
-<% if Rails.env.development? %> 
-  <div style='float:left;clear:both;'><%= debug(params) %></div>
-<% end %> 
 
 </body>
 </html>
