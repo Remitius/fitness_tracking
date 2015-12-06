@@ -1,7 +1,7 @@
 <% provide(:title, params[:name]) if @exercise_data %> 
 <% content_for(:body_attributes) do %>data-no-turbolink="true"<% end %>
 
-<div id="left-sidebar" class='exercises-index'>
+<div id="left-sidebar" class='thin-sidebar'>
   <% if @exercise_names %> 
     <div id="exercise-select-form">
       <form action="<%= exercises_index_url %>">

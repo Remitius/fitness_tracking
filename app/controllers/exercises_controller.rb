@@ -143,9 +143,8 @@ class ExercisesController < ApplicationController
       latest = e if e.workout.date > latest.workout.date
       first = e if e.workout.date < first.workout.date
     end
-    a = []
-    a[0] = {date: first.workout.date, workout_id: first.workout_id}
-    a << {date: latest.workout.date, workout_id: latest.workout_id}
+    return [{date: first.workout.date, workout_id: first.workout_id}, 
+            {date: latest.workout.date, workout_id: latest.workout_id}]
   end
 
 end
