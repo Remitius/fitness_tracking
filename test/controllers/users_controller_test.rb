@@ -10,11 +10,6 @@ class UsersControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should get edit" do
-    get :edit, id: @user.id
-    assert_response :success
-  end
-
   test "should get show" do
     get :show, id: @user.id
     assert_response :success
@@ -23,7 +18,6 @@ class UsersControllerTest < ActionController::TestCase
   test 'content of show action' do
     get :show, id: @user.id
     assert_select 'title', /#{@user.username}/
-    assert_select "a[href='#{edit_user_path(@user.id)}']", count: 1
   end
 
   test 'valid creation' do
@@ -42,21 +36,6 @@ class UsersControllerTest < ActionController::TestCase
     assert_template :new
   end
 
-  test 'valid update' do
-    new_username = 'new_name'
-    id = @user.id
-    put :update, id: id, user: { username: new_username, password: 
-                              'jjj111', password_confirmation: 'jjj111' }
-    assert_equal new_username, User.find(id).username
-  end
-
-  test 'invalid update' do
-    old_username = @user.username
-    id = @user.id
-    put :update, id: id, user: { username: '2' }
-    assert_equal old_username, User.find(id).username
-  end
-
   test 'show should redirect to root if invalid id given' do
     get :show, id: 49999
     assert_redirected_to :root
@@ -66,4 +45,11 @@ class UsersControllerTest < ActionController::TestCase
     get :edit, id: 49999
     assert_redirected_to :root
   end
+
+  test 'edit should redirect to root if user is not logged in' do
+    get :edit, id: @user.id
+    assert_redirected_to :root
+    assert_not flash.empty?
+  end
+
 end

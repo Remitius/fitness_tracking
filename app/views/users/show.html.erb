@@ -1,3 +1,16 @@
 <%= provide(:title, @user.username) %>
-<h1>Users#show</h1>
-<%= link_to "Edit Account Info", edit_user_path %> 
+<div id="left-sidebar" class='thin-sidebar'>
+</div>
+
+<div id="user-info">
+  <h1><%= @user.username %>'s profile</h1>
+
+  <ul>
+    <% if logged_in_as_user?(@user) %> 
+      <li><%= link_to "Edit Account Info", edit_user_path %></li>
+    <% end %> 
+    
+    <li>Last updated: <%= @user.updated_at.to_date.to_s %></li>
+    <li>Date created: <%= @user.created_at.to_date.to_s %> </li>
+  </ul>
+</div>

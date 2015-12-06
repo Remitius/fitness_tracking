@@ -51,7 +51,9 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
   test 'presence of _user_form on users#edit and users#new' do
     get new_user_path
     assert_template 'users/_user_form'
-    get edit_user_path(valid_user.id)
+    u = valid_user
+    log_in_user(u)
+    get edit_user_path(u.id)
     assert_template 'users/_user_form'
   end
 
