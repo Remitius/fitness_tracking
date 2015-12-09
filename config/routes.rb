@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'static_pages/home'
+
   root 'workouts#index'
   resources :workouts, path: 'w' do
     resources :exercises, only: [:create,:update,:destroy,:edit], 
