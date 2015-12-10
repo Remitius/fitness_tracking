@@ -12,6 +12,7 @@
     <%= f.label :note %> 
     <%= f.text_area :note, class: 'form-control', maxlength: Workout::MAX_NOTE_LENGTH %> 
   </div>
-    <%= f.submit %> 
+  <%= hidden_field_tag 'workout[user_id]', current_user.id %>
+  <%= f.submit %> 
   <% end %> 
 </div>
