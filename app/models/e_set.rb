@@ -1,7 +1,7 @@
 class ESetValidator < ActiveModel::Validator
   def validate(set)
     unless set.pounds || set.reps
-      set.errors[:_] << 'must include pounds, reps, or both'
+      set.errors[:_] << 'Must include pounds, reps, or both'
     end
     
   end
