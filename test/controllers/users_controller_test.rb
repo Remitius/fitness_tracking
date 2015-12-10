@@ -26,7 +26,7 @@ class UsersControllerTest < ActionController::TestCase
       post :create, user: { username: 'user12', password: 'hah1234', 
                             password_confirmation: 'hah1234'} 
     end
-    assert_redirected_to user_path(User.first)
+    assert_redirected_to :root
   end
 
   test 'invalid creation' do
