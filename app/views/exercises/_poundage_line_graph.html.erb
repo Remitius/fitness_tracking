@@ -27,6 +27,6 @@
   <form action="<%= exercises_index_url %>" id="start-date-select-form">
     <input type="hidden" name="name" value="<%= params[:name] %>">
     <input type="hidden" name="view" value="line">
-    <%= select_tag(:start_date, options_for_select(build_start_date_options), class: 'form-control') %>
+    <%= select_tag(:start_date, options_for_select(build_graph_start_date_options), class: 'form-control') %>
     <input type="submit" value="Change start date">
   </form>
