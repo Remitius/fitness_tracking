@@ -11,6 +11,15 @@ module SessionsHelper
     @current_user ||= User.find_by(id: session[:user_id])
   end
 
+  def current_user_exercises
+    return nil unless current_user
+    exercises = []
+    current_user.workouts.each do |w|
+      w.exercises.each { |e| exercises << e }
+    end
+    exercises
+  end
+
   def logged_in?
     !current_user.nil?
   end
@@ -23,4 +32,5 @@ module SessionsHelper
     session.delete(:user_id)
     @current_user = nil
   end
+
 end

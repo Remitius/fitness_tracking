@@ -6,8 +6,8 @@ class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in a-z order
   fixtures :all
 
-  def valid_workout(name: 'name1', date: 1.day.ago, note: nil, save: true)
-    w = Workout.new(name: name, date: date, note: note)
+  def valid_workout(user: valid_user, name: 'name1', date: 1.day.ago, note: nil, save: true)
+    w = Workout.new(user: user, name: name, date: date, note: note)
     w.save if save
     w
   end
@@ -24,7 +24,8 @@ class ActiveSupport::TestCase
     es
   end
 
-  def valid_user(username: 'username1', password: 'abcd1234', save: true)
+  def valid_user(username: nil, password: 'abcd1234', save: true)
+    username ||= 'valid_username1234'.split('').shuffle.join
     u = User.new(username: username, password: password,
                  password_confirmation: password)
     u.save if save
@@ -34,7 +35,6 @@ class ActiveSupport::TestCase
   def log_in_user(user)
     post_via_redirect login_path, session: { username: user.username, 
                                              password: user.password }
-
   end
 
 end

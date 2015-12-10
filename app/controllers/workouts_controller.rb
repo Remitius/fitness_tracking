@@ -1,12 +1,16 @@
 class WorkoutsController < ApplicationController
+  before_action :verify_user, except: [:index]
+
   def index
-    if params['page'] && params['page'].to_i > 0
+    if current_user.nil?
+      render 'static_pages/home'
+    elsif params['page'] && params['page'].to_i > 0
       p = params['page'].to_i * 10
-      @workouts = Workout.order('date DESC')[(p-10)...p]
-      params[:next_page_valid] = true if Workout.count > p
+      @workouts = current_user.workouts.order('date DESC')[(p-10)...p]
+      params[:next_page_valid] = true if current_user.workouts.count > p
     else
-      @workouts = Workout.order('date DESC').first(10)
-      params[:next_page_valid] = true if Workout.count > 10
+      @workouts = current_user.workouts.order('date DESC').first(10)
+      params[:next_page_valid] = true if current_user.workouts.count > 10
     end
   end
 
@@ -58,8 +62,18 @@ class WorkoutsController < ApplicationController
   
   private
 
+  def verify_user
+    if current_user.nil?
+      flash[:error] = 'You are not logged in'
+      redirect_to :root
+    elsif find_workout && current_user.id != find_workout.user_id
+      flash[:error] = 'You are not logged in as that user'
+      redirect_to :root
+    end
+  end
+
   def workout_params
-    params.require(:workout).permit(:name, :date, :note)
+    params.require(:workout).permit(:name, :date, :note, :user_id)
   end
 
   def find_workout

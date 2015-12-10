@@ -1,4 +1,6 @@
 class ExercisesController < ApplicationController
+  before_action :verify_user, except: [:index]
+
   def create
     @exercise = Exercise.new(exercise_params)
     unless @exercise.save
@@ -41,14 +43,31 @@ class ExercisesController < ApplicationController
   end
 
   def index
-    @exercise_names = gather_exercise_names
-    if Exercise.find_by(name: params[:name])
-      exercises = Exercise.all.select{|e| e.name.downcase == params[:name]}
-      @exercise_data = gather_exercise_data(exercises)
+    if !logged_in?
+      flash[:error] = 'You are not logged in'
+      redirect_to :root
+    else
+      @current_user_exercises = current_user_exercises
+      @exercise_names = gather_exercise_names(@current_user_exercises)
+
+      exercises = current_user_exercises.select{|e| e.name.downcase == params[:name]}
+      if exercises.present?
+        @exercise_data = gather_exercise_data(exercises)
+      end
     end
   end
 
   private
+
+  def verify_user
+    if current_user.nil?
+      flash[:error] = 'You are not logged in'
+      redirect_to :root
+    elsif find_exercise && current_user.id != find_exercise.workout.user_id
+      flash[:error] = 'You are not logged in as that user'
+      redirect_to :root
+    end
+  end
 
   def find_exercise
     @exercise = Exercise.find_by(params[:id])
@@ -57,12 +76,12 @@ class ExercisesController < ApplicationController
   def exercise_params
     params.require(:exercise).permit(:name, :note, 
     e_sets_attributes: [:id, :_destroy, :pounds, :reps])
-    .merge({workout_id: params[:workout_id]})
+    .merge({ workout_id: params[:workout_id] })
   end 
 
-  def gather_exercise_names
+  def gather_exercise_names(exercises)
     names = []
-    Exercise.all.each do |e| 
+    exercises.each do |e| 
       n = e.name.downcase
       names << n unless names.include?(n)
     end

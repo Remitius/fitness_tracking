@@ -1,12 +1,13 @@
 require 'test_helper'
 
-class WorkoutExerciseRelationTest < ActionDispatch::IntegrationTest
+class WorkoutExercisesTest < ActionDispatch::IntegrationTest
   def setup
-    @workout = valid_workout
+    @w = valid_workout
+    log_in_user(@w.user)
   end
 
   test "valid exercise creation - without e_sets" do
-    post_via_redirect workout_exercises_path(@workout),
+    post_via_redirect workout_exercises_path(@w),
              exercise: { name: 'sprints', note: 'hi' }
     assert_template 'workouts/show'
     assert_select ".exercise_note_and_sets", count: 1
@@ -15,7 +16,7 @@ class WorkoutExerciseRelationTest < ActionDispatch::IntegrationTest
   end
 
   test "invalid exercise creation - without e_sets" do
-    post_via_redirect workout_exercises_path(@workout), 
+    post_via_redirect workout_exercises_path(@w), 
               exercise: { name: "" }
     assert_template 'workouts/show'
     assert_select ".exercise_note_and_sets", false
@@ -25,7 +26,7 @@ class WorkoutExerciseRelationTest < ActionDispatch::IntegrationTest
 
   test "valid exercise creation - with e_sets" do
     assert_difference 'ESet.count', 1 do
-      post_via_redirect workout_exercises_path(@workout),
+      post_via_redirect workout_exercises_path(@w),
                         exercise: { name: 'sprints', note: 'hi',
                         e_sets_attributes: 
                         { 0 => {pounds: 22, reps: 10} } }
@@ -35,7 +36,7 @@ class WorkoutExerciseRelationTest < ActionDispatch::IntegrationTest
 
   test "invalid exercise creation - with e_sets" do
     assert_no_difference 'ESet.count' do
-      post_via_redirect workout_exercises_path(@workout),
+      post_via_redirect workout_exercises_path(@w),
                         exercise: { note: 'hi', e_sets_attributes: 
                         { 0 => {pounds: 22, reps: 10} } }
     end
@@ -43,25 +44,25 @@ class WorkoutExerciseRelationTest < ActionDispatch::IntegrationTest
   end
 
   test "valid exercise destruction - without e_sets" do
-    e = valid_exercise(@workout)
-    delete workout_exercise_path(@workout.id, e.id)
-    assert_redirected_to workout_path(@workout.id)
+    e = valid_exercise(@w)
+    delete workout_exercise_path(@w.id, e.id)
+    assert_redirected_to workout_path(@w.id)
     assert_not Exercise.find_by(id: e.id)
   end
 
   test "valid exercise destruction - with e_sets" do
-    e = valid_exercise(@workout)
+    e = valid_exercise(@w)
     3.times { valid_e_set(e) }
     e_sets_ids = e.e_sets.ids
 
-    delete workout_exercise_path(@workout.id, e.id)
-    assert_redirected_to workout_path(@workout.id)
+    delete workout_exercise_path(@w.id, e.id)
+    assert_redirected_to workout_path(@w.id)
     e_sets_ids.each { |i| assert_not ESet.find_by(id: i) }
   end
 
   test 'exercises#edit should redirect to workout if invalid id' do
-    get edit_workout_exercise_path(@workout.id, 9999)
-    assert_redirected_to workout_path(@workout.id)
+    get edit_workout_exercise_path(@w.id, 9999)
+    assert_redirected_to workout_path(@w.id)
     follow_redirect!
     assert_select '#flash_error'
   end
@@ -74,19 +75,19 @@ class WorkoutExerciseRelationTest < ActionDispatch::IntegrationTest
   end
 
   test "e_set destruction" do
-    e = valid_exercise(@workout)
+    e = valid_exercise(@w)
     s = valid_e_set(e)
-    delete workout_exercise_e_set_path(@workout.id, e.id, s.id)
-    assert_redirected_to workout_path(@workout.id)
+    delete workout_exercise_e_set_path(@w.id, e.id, s.id)
+    assert_redirected_to workout_path(@w.id)
     assert_not ESet.find_by(id: s.id)
     assert_select ".exercise_note_and_sets", false, /#{s.reps}/ 
   end
 
   test "exercise update" do
-    e = valid_exercise(@workout)
+    e = valid_exercise(@w)
     s = valid_e_set(e)
 
-    put workout_exercise_path(@workout.id, e.id), 
+    put workout_exercise_path(@w.id, e.id), 
                      exercise: { note: "heh",
                      e_sets_attributes: {0 => {pounds: 22, reps: 10}} }
     follow_redirect!

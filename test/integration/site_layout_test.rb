@@ -2,7 +2,8 @@ require 'test_helper'
 
 class SiteLayoutTest < ActionDispatch::IntegrationTest
   def setup
-    @workout = valid_workout
+    @w = valid_workout
+    log_in_user(@w.user)
   end
 
   test "site header" do
@@ -16,7 +17,7 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
   end
 
   test "form elements on _workout_form partial" do
-    get edit_workout_path(@workout)
+    get edit_workout_path(@w)
     assert_template partial: '_workout_form'
     assert_select "label[for='workout_name']", count: 1
     assert_select "label[for='workout_date']", count: 1
@@ -24,28 +25,28 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
   end
 
   test 'link back to workouts#show page from workouts#edit' do
-    get edit_workout_path(@workout)
-    assert_select "a[href='#{workout_path(@workout.id)}']", count: 1
+    get edit_workout_path(@w)
+    assert_select "a[href='#{workout_path(@w.id)}']", count: 1
   end
 
   test "exercise form elements onn _exercise_form partial" do
-    get workout_path(@workout)
+    get workout_path(@w)
     assert_template partial: '_exercise_form'    
     assert_select "label[for='exercise_name']", count: 1
     assert_select "label[for='exercise_note']", count: 1
   end
 
   test "e_set form elements on workouts#show" do
-    get workout_path(@workout)
+    get workout_path(@w)
     assert_select "#e-set-fields"
     assert_select "a", "add set", count: 1
   end
 
   test "exercise edit" do
-    exer = valid_exercise(@workout)
-    get edit_workout_exercise_path(@workout, exer)
+    exer = valid_exercise(@w)
+    get edit_workout_exercise_path(@w, exer)
     assert_template partial: '_exercise_form'    
-    assert_select "a[href='#{workout_path(@workout.id)}']", count: 1
+    assert_select "a[href='#{workout_path(@w.id)}']", count: 1
   end
 
   test 'presence of _user_form on users#edit and users#new' do
