@@ -48,11 +48,11 @@ class ExercisesController < ApplicationController
       redirect_to :root
     else
       @current_user_exercises = current_user_exercises
-      @exercise_names = gather_exercise_names(@current_user_exercises)
+      @exercise_names = get_exercise_names(@current_user_exercises)
 
       exercises = current_user_exercises.select{|e| e.name.downcase == params[:name]}
       if exercises.present?
-        @exercise_data = gather_exercise_data(exercises)
+        @exercise_data = get_exercise_data(exercises)
       end
     end
   end
@@ -79,7 +79,7 @@ class ExercisesController < ApplicationController
     .merge({ workout_id: params[:workout_id] })
   end 
 
-  def gather_exercise_names(exercises)
+  def get_exercise_names(exercises)
     names = []
     exercises.each do |e| 
       n = e.name.downcase
@@ -88,10 +88,10 @@ class ExercisesController < ApplicationController
     names.sort!
   end
 
-  def gather_exercise_data(exercises)
-    sets = ESet.all.select{|s| s.exercise.name.downcase == exercises[0].name}
-    data = {}
+  def get_exercise_data(exercises)
+    sets = get_e_sets(exercises)
 
+    data = {}
     data[:number_of_instances] = exercises.count
     data[:first_instance], data[:last_instance] = 
         find_first_and_last_instances(exercises)
@@ -99,6 +99,13 @@ class ExercisesController < ApplicationController
         find_lightest_and_heaviest_sets(sets)
     data[:formatted_sets] = get_formatted_sets(sets)
     data
+  end
+
+  def get_e_sets(exercises)
+    return nil unless current_user
+    sets = []
+    exercises.each { |e| e.e_sets.each { |s| sets << s } }
+    sets
   end
 
   def get_formatted_sets(_sets)
