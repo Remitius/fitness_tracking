@@ -82,7 +82,7 @@ class WorkoutExercisesTest < ActionDispatch::IntegrationTest
     assert_select ".exercise_note_and_sets", false, /#{s.reps}/ 
   end
 
-  test "exercise update" do
+  test "exercise update and ensure extraneous decimals removed" do
     e = valid_exercise(@w)
     s = valid_e_set(e)
 
@@ -93,7 +93,7 @@ class WorkoutExercisesTest < ActionDispatch::IntegrationTest
     assert_equal "heh", Exercise.find(e.id).note
     assert_equal 2, e.e_sets.count
     assert_template "workouts/show"
-    assert_select ".exercise_note_and_sets", /22.0 pounds/
+    assert_select ".exercise_note_and_sets", /22 pounds/
     assert_select ".exercise_note_and_sets", /#{s.pounds}/
   end
 

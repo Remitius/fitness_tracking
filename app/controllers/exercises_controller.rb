@@ -153,10 +153,12 @@ class ExercisesController < ApplicationController
       heaviest = s if s.pounds > heaviest.pounds
     end
 
-    lightest_info = {pounds: lightest.pounds, date: lightest.exercise.workout.date}
+    lightest_info = { pounds: remove_extraneous_decimal(lightest.pounds) }
+    lightest_info[:date] = lightest.exercise.workout.date
     lightest_info[:reps] = lightest.reps
     lightest_info[:workout_id] = lightest.exercise.workout
-    heaviest_info = {pounds: heaviest.pounds, date: heaviest.exercise.workout.date}
+    heaviest_info = { pounds: remove_extraneous_decimal(heaviest.pounds) }
+    heaviest_info[:date] = heaviest.exercise.workout.date
     heaviest_info[:reps] = heaviest.reps
     heaviest_info[:workout_id] = heaviest.exercise.workout
 

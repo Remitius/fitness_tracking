@@ -36,7 +36,8 @@
             <% exer.e_sets.each do |set| %> 
               <li>
                 <% if set.pounds %> 
-                  <%= "#{h set.pounds}".html_safe + " pounds"%> 
+                  <% pounds = remove_extraneous_decimal(set.pounds) %> 
+                  <%= "#{h pounds}".html_safe + " pounds" %>
                 <% end %> 
 
                 <% if set.reps %> 
