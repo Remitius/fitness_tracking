@@ -17,7 +17,7 @@ class LoggedInTest < ActionDispatch::IntegrationTest
     assert flash.present?
   end
 
-  test 'users#create should fail if logged in' do
+  test 'users#create should fail' do
     assert_no_difference 'User.count' do 
       post users_path, user: { username: 'user12', password: 'hah1234',
                                password_confirmation: 'hah1234' }
@@ -32,7 +32,7 @@ class LoggedInTest < ActionDispatch::IntegrationTest
     assert flash.present?
   end
 
-  test 'sessions#create should fail if logged in' do
+  test 'sessions#create should fail' do
     post_via_redirect login_path, session: { username: @w.user.username, 
                                 password: @w.user.password }                      
     assert_template 'workouts/index'

@@ -45,8 +45,8 @@ class WorkoutExercisesTest < ActionDispatch::IntegrationTest
 
   test "valid exercise destruction - without e_sets" do
     e = valid_exercise(@w)
-    delete workout_exercise_path(@w.id, e.id)
-    assert_redirected_to workout_path(@w.id)
+    delete workout_exercise_path(@w, e)
+    assert_redirected_to workout_path(@w)
     assert_not Exercise.find_by(id: e.id)
   end
 
@@ -55,30 +55,29 @@ class WorkoutExercisesTest < ActionDispatch::IntegrationTest
     3.times { valid_e_set(e) }
     e_sets_ids = e.e_sets.ids
 
-    delete workout_exercise_path(@w.id, e.id)
-    assert_redirected_to workout_path(@w.id)
+    delete workout_exercise_path(@w, e)
+    assert_redirected_to workout_path(@w)
     e_sets_ids.each { |i| assert_not ESet.find_by(id: i) }
   end
 
   test 'exercises#edit should redirect to workout if invalid id' do
-    get edit_workout_exercise_path(@w.id, 9999)
-    assert_redirected_to workout_path(@w.id)
+    get edit_workout_exercise_path(@w, 9999)
+    assert_redirected_to workout_path(@w)
     follow_redirect!
     assert_select '#flash_error'
   end
 
   test 'exercises#edit should redirect to root if invalid workout id' do
-    get edit_workout_exercise_path(4333, 9999)
-    assert_redirected_to :root
-    follow_redirect!
+    get_via_redirect edit_workout_exercise_path(4333, 9999)
+    assert_template 'workouts/index'
     assert_select '#flash_error'
   end
 
   test "e_set destruction" do
     e = valid_exercise(@w)
     s = valid_e_set(e)
-    delete workout_exercise_e_set_path(@w.id, e.id, s.id)
-    assert_redirected_to workout_path(@w.id)
+    delete workout_exercise_e_set_path(@w, e, s)
+    assert_redirected_to workout_path(@w)
     assert_not ESet.find_by(id: s.id)
     assert_select ".exercise_note_and_sets", false, /#{s.reps}/ 
   end
@@ -87,7 +86,7 @@ class WorkoutExercisesTest < ActionDispatch::IntegrationTest
     e = valid_exercise(@w)
     s = valid_e_set(e)
 
-    put workout_exercise_path(@w.id, e.id), 
+    put workout_exercise_path(@w, e), 
                      exercise: { note: "heh",
                      e_sets_attributes: {0 => {pounds: 22, reps: 10}} }
     follow_redirect!
