@@ -7,7 +7,7 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
 
   test 'login with valid information' do
     log_in_user(@user)
-    assert_template 'users/show'
+    assert_template 'workouts/index'
     assert_select "a[href=?]", login_path, count: 0
     assert_select "a[href=?]", logout_path
   end
@@ -54,7 +54,7 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     log_in_user(@user)
     new_username = 'new_name'
     id = @user.id
-    put user_path, id: id, user: { username: new_username, password: 
+    put user_path(@user), user: { username: new_username, password: 
                               'jjj111', password_confirmation: 'jjj111' }
     assert_equal new_username, User.find(id).username
   end
@@ -63,7 +63,7 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     log_in_user(@user)
     old_username = @user.username
     id = @user.id
-    put user_path, id: id, user: { username: '2' }
+    put user_path(@user), user: { username: '2' }
     assert_equal old_username, User.find(id).username
   end
 
