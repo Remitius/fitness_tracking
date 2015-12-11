@@ -48,6 +48,9 @@ class UsersController < ApplicationController
     find_user
     if logged_in_as_user?(@user) && @user.update_attributes(user_params)
       redirect_to @user
+    elsif !logged_in_as_user?(@user)
+      flash[:error] = 'You are not logged in as that user'
+      redirect_to :root
     else
       flash.now[:error] = []
       @user.errors.full_messages.each { |e| flash.now[:error] << e }
