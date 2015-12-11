@@ -67,13 +67,22 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     assert_equal old_username, User.find(id).username
   end
 
-  test 'users#show link to users#edit exists only if logged in as the user' do
+  test 'users#show link to users#edit/destroy only if logged in as user' do
     get user_path(@user)
     assert_select "a[href='#{edit_user_path(@user)}']", false
+    assert_select "a[href='#{user_path(@user)}']", false    
 
     log_in_user(@user)
     get user_path(@user)
     assert_select "a[href='#{edit_user_path(@user)}']"
+    assert_select "a[href='#{user_path(@user)}']"
+  end
+
+  test 'users#destroy' do
+    log_in_user(@user)
+    delete user_path(@user)
+    assert_not User.find_by(id: @user.id)
+    assert_redirected_to :root
   end
 
 end

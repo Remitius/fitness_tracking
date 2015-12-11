@@ -8,6 +8,7 @@
   <ul>
     <% if logged_in_as_user?(@user) %> 
       <li><%= link_to "Edit Account Info", edit_user_path %></li>
+      <li><%= link_to "Delete Account", user_path, method: :delete,             data: { confirm: "Are you sure?" }%></li>
     <% end %> 
     
     <li>Last updated: <%= @user.updated_at.to_date.to_s %></li>

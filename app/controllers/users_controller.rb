@@ -58,6 +58,18 @@ class UsersController < ApplicationController
     end
   end
 
+  def destroy
+    find_user
+    if logged_in_as_user?(@user)
+      log_out
+      @user.destroy
+      redirect_to :root
+    else
+      flash[:error] = 'You are not logged in as that user'
+      redirect_to :root
+    end
+  end
+
   private
 
   def find_user

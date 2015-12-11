@@ -2,8 +2,9 @@ require 'test_helper'
 
 class LoggedInTest < ActionDispatch::IntegrationTest  
   def setup
-    @w = valid_workout
-    log_in_user(@w.user)
+    @u = valid_user
+    @w = valid_workout(user: @u)
+    log_in_user(@u)
   end
 
   test 'root should redirect to workouts index' do
@@ -33,8 +34,8 @@ class LoggedInTest < ActionDispatch::IntegrationTest
   end
 
   test 'sessions#create should fail' do
-    post_via_redirect login_path, session: { username: @w.user.username, 
-                                password: @w.user.password }                      
+    post_via_redirect login_path, session: { username: @u.username, 
+                                password: @u.password }                      
     assert_template 'workouts/index'
     assert flash.present?
   end

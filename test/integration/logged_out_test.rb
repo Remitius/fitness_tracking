@@ -92,4 +92,11 @@ class LoggedOutTest < ActionDispatch::IntegrationTest
     assert_equal old_username, user.reload.username
   end
 
+  test 'users#destroy should fail' do
+    delete user_path(@w.user)
+    assert User.find_by(id: @w.user.id)
+    assert_redirected_to :root
+    assert flash.present?
+  end
+
 end
