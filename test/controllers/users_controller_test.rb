@@ -46,10 +46,4 @@ class UsersControllerTest < ActionController::TestCase
     assert_redirected_to :root
   end
 
-  test 'edit should redirect to root if user is not logged in' do
-    get :edit, id: @user.id
-    assert_redirected_to :root
-    assert_not flash.empty?
-  end
-
 end
