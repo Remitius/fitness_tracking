@@ -1,14 +1,14 @@
 class SessionsController < ApplicationController
   def new
     if logged_in?
-      flash[:error] = 'You cannot create an account while logged in'
+      flash[:error] = 'You are already logged in'
       redirect_to :root
     end
   end
 
   def create
     if logged_in?
-      flash[:error] = 'You cannot create an account while logged in'
+      flash[:error] = 'You are already logged in'
       redirect_to :root
     else
       user = User.find_by(username: params[:session][:username])
