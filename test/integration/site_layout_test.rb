@@ -50,6 +50,7 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
   end
 
   test 'presence of _user_form on users#edit and users#new' do
+    delete logout_path
     get new_user_path
     assert_template 'users/_user_form'
     u = valid_user
@@ -59,6 +60,7 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
   end
 
   test '_user_form elements' do
+    delete logout_path
     get new_user_path
     assert_select "input[type='text']", count: 1
     assert_select "input[type='password']", count: 2

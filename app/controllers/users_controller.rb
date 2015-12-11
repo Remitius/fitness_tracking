@@ -1,6 +1,11 @@
 class UsersController < ApplicationController
   def new
-    @user = User.new
+    if logged_in?
+      flash[:error] = 'You cannot create an account while logged in'
+      redirect_to :root
+    else
+      @user = User.new
+    end
   end
 
   def show
@@ -12,14 +17,19 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params)
-    if @user.save
-      log_in(@user)
+    if logged_in?
+      flash[:error] = 'You cannot create an account while logged in'
       redirect_to :root
     else
-      flash.now[:error] = []
-      @user.errors.full_messages.each { |e| flash.now[:error] << e }
-      render 'new'
+      @user = User.new(user_params)
+      if @user.save
+        log_in(@user)
+        redirect_to :root
+      else
+        flash.now[:error] = []
+        @user.errors.full_messages.each { |e| flash.now[:error] << e }
+        render 'new'
+      end
     end
   end
     
@@ -36,7 +46,7 @@ class UsersController < ApplicationController
 
   def update
     find_user
-    if logged_in? && @user.update_attributes(user_params)
+    if logged_in_as_user?(@user) && @user.update_attributes(user_params)
       redirect_to @user
     else
       flash.now[:error] = []
