@@ -8,7 +8,9 @@
 </head>
 <body <%= yield(:body_attributes) if content_for?(:body_attributes) %>>
 
-<%= render 'layouts/header' %> 
+<% unless params[:disable_header] %> 
+  <%= render 'layouts/header' %> 
+<% end %> 
 <%= render 'layouts/flash_error' %> 
 
 <%= yield %>

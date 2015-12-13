@@ -3,6 +3,7 @@ class WorkoutsController < ApplicationController
 
   def index
     if current_user.nil?
+      params[:disable_header] = true
       render 'static_pages/home'
     elsif params['page'] && params['page'].to_i > 0
       p = params['page'].to_i * 10

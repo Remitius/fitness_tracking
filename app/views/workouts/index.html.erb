@@ -8,12 +8,15 @@
   <%= link_to 'Next Page', root_path(page: 2) if params[:next_page_valid] %> 
 <% end %> 
 
-
-<% if @workouts %>
-  <section>
-    <% @workouts.each do |w| %>
-    <h4 class='workout_name'><%= link_to w.name, w, class: 'workout_name_link' %>&nbsp;
-        <%= w.date.strftime("%a, %b %d, %Y") %></h4>
-    <% end %>
-  </section>
+<section>
+<% if @workouts.present? %>
+  <% @workouts.each do |w| %>
+  <h4 class='workout_name'><%= link_to w.name, w, class: 'workout_name_link' %>&nbsp;
+      <%= w.date.strftime("%a, %b %d, %Y") %></h4>
+  <% end %>
+<% else %> 
+  <h4>
+    <b>No workouts exist</b>
+  </h4>
 <% end %> 
+</section>
