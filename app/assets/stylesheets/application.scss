@@ -17,7 +17,6 @@
 @import "bootstrap";
 
 body{
-  background-color: #D0D0D0;
   font-family: 'Arial-black';
   word-wrap: break-word;
 }
@@ -31,7 +30,6 @@ a{
 }
 
 hr{
-  border-color: black;
 }
 
 table{
@@ -45,22 +43,6 @@ table, th, td {
 
 th, td{
   text-align: center;
-}
-
-.page-header{
-  margin-top: 0px;
-  padding-top: 6px;
-  padding-bottom: 6px;
-  margin-bottom: 0px;
-  border-color: black;
-  div{
-    padding-right: 3px;
-    display: inline;
-    border-right: 1px black solid;
-  }
-  div:last-of-type{
-    border: none;
-  }
 }
 
 #left-sidebar{
