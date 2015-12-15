@@ -6,11 +6,9 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
-<body <%= yield(:body_attributes) if content_for?(:body_attributes) %>>
+<body <%= yield(:body_attributes) if content_for?(:body_attributes) %> >
 
-<% unless params[:disable_header] %> 
-  <%= render 'layouts/header' %> 
-<% end %> 
+<%= render 'layouts/header' if logged_in? %> 
 <%= render 'layouts/flash_error' %> 
 
 <%= yield %>

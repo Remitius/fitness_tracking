@@ -6,6 +6,11 @@ class LoggedOutTest < ActionDispatch::IntegrationTest
     @e = valid_exercise(@w)
   end
   
+  test 'header should not appear when logged out' do
+    get root_path
+    assert_select 'header', false
+  end
+
   test 'root should redirect to static_pages#home' do
     get root_path
     assert_template 'static_pages/home'

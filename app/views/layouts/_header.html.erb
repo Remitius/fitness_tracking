@@ -1,13 +1,10 @@
 <header class="navbar navbar-default navbar-static-top">  
   <ul class='nav navbar-nav'>
     <li><%= link_to_unless_current "Home", :root %></li>
-    
-    <% if logged_in? %> 
-      <li><%= link_to_unless_current 'Create Workout', new_workout_path %> </li>
-      <li><%= link_to_unless_current "Exercise Info", :exercises_index %></li>
-      <li><%= link_to_unless_current "Profile", current_user %></li>
-      <li><%= link_to_unless_current 'Log out', logout_path, method: :delete %></li>
-      <li>Logged in as <%= @current_user.username %></li>
-    <% end %> 
+    <li><%= link_to_unless_current 'Create Workout', new_workout_path %> </li>
+    <li><%= link_to_unless_current "Exercise Info", :exercises_index %></li>
+    <li><%= link_to_unless_current "Profile", current_user %></li>
+    <li><%= link_to_unless_current 'Log out', logout_path, method: :delete %></li>
+    <li>Logged in as <%= @current_user.username %></li>
   
 </header>
