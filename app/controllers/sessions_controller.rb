@@ -1,11 +1,4 @@
 class SessionsController < ApplicationController
-  def new
-    if logged_in?
-      flash[:error] = 'You are already logged in'
-      redirect_to :root
-    end
-  end
-
   def create
     if logged_in?
       flash[:error] = 'You are already logged in'
@@ -16,8 +9,8 @@ class SessionsController < ApplicationController
         log_in user
         redirect_to :root      
       else
-        flash.now[:error] = 'Invalid username/password'
-        render 'new'
+        flash[:error] = 'Invalid username/password'
+        redirect_to :root
       end
     end
   end

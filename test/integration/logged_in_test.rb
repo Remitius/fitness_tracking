@@ -27,12 +27,6 @@ class LoggedInTest < ActionDispatch::IntegrationTest
     assert flash.present?
   end
 
-  test 'sessions#new redirects to root' do
-    get login_path
-    assert_redirected_to :root
-    assert flash.present?
-  end
-
   test 'sessions#create should fail' do
     post_via_redirect login_path, session: { username: @u.username, 
                                 password: @u.password }                      
