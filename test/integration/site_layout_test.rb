@@ -6,14 +6,16 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
     log_in_user(@w.user)
   end
 
-  test "site header" do
+  test "sitewide header" do
     get new_workout_path
     assert_select 'a[href="/"]', count: 1
   end
 
-  test "link to root path not present in root path's header" do
-    get root_path
-    assert_select 'a[href="/"]', false
+  test "header links shouldn't exist if they are the current page" do
+    get exercises_index_path
+    assert_select "a[href='#{exercises_index_path}']", false
+    get_via_redirect root_path
+    assert_select "a[href='#{exercises_index_path}']"
   end
 
   test "form elements on _workout_form partial" do
