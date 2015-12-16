@@ -12,7 +12,7 @@ class ESetsController < ApplicationController
   end
 
   def find_e_set
-    @exercise = ESet.find_by(params[:id])
+    @exercise = ESet.find_by(id: params[:id])
   end
 
 end

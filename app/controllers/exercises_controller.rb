@@ -1,15 +1,23 @@
 class ExercisesController < ApplicationController
-  before_action :verify_user, except: [:index]
+  before_action :verify_user, except: [:index,:create]
 
   def create
-    @exercise = Exercise.new(exercise_params)
-    unless @exercise.save
-      flash[:error] = []
-      @exercise.errors.full_messages.each do |e| 
-        flash[:error] << e
+    if current_user.nil?
+      flash[:error] = 'You are not logged in'
+      redirect_to :root
+    elsif !logged_in_as_user?(Workout.find(params[:workout_id]).user)
+      flash[:error] = 'You are not logged in as that user'
+      redirect_to :root
+    else
+      @exercise = Exercise.new(exercise_params)
+      unless @exercise.save
+        flash[:error] = []
+        @exercise.errors.full_messages.each do |e| 
+          flash[:error] << e
+        end
       end
+      redirect_to workout_url(params[:workout_id]) 
     end
-    redirect_to workout_url(params[:workout_id])
   end
 
   def destroy
@@ -63,14 +71,15 @@ class ExercisesController < ApplicationController
     if current_user.nil?
       flash[:error] = 'You are not logged in'
       redirect_to :root
-    elsif find_exercise && current_user.id != find_exercise.workout.user_id
+    elsif find_exercise && !logged_in_as_user?(find_exercise.workout.user)
       flash[:error] = 'You are not logged in as that user'
-      redirect_to :root
+      render text: Exercise.find(params[:id]).attributes
+      # redirect_to :root
     end
   end
 
   def find_exercise
-    @exercise = Exercise.find_by(params[:id])
+    @exercise = Exercise.find_by(id: params[:id])
   end
 
   def exercise_params
