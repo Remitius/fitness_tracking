@@ -27,3 +27,11 @@ hr{
   float: left;
   width: 60%;
 }
+
+section#workout-list{
+  margin: 0;
+}
+
+section#workout-list>div{
+  margin-bottom: 10px;  
+}

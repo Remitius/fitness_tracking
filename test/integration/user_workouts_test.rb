@@ -21,28 +21,28 @@ class UserWorkoutsTest < ActionDispatch::IntegrationTest
   test "should get first page of index if invalid page param given" do
     9.times { valid_workout(user: @w.user) }
     get workouts_path, page: -2
-    assert_select '.workout_name', count: 10
-    assert_select '.workout_name>a', @w.name
+    assert_select '.workout-entry', count: 10
+    assert_select '.workout-entry>a', /#{@w.name}/
 
     get workouts_path, page: 'hah'
-    assert_select '.workout_name', count: 10
-    assert_select '.workout_name>a', @w.name
+    assert_select '.workout-entry', count: 10
+    assert_select '.workout-entry>a', /#{@w.name}/
   end
 
   test "index should show first 10 workouts by default" do
     15.times { valid_workout(user: @w.user) }
     get workouts_path
     assert_response :success
-    assert_select '.workout_name', count: 10
-    assert_select '.workout_name>a', @w.name
+    assert_select '.workout-entry', count: 10
+    assert_select '.workout-entry>a', /#{@w.name}/
   end
 
   test "index should show workouts based on page parameter" do
     21.times { valid_workout(user: @w.user) }
     get workouts_path, page: 2
-    assert_select '.workout_name', count: 10
+    assert_select '.workout-entry', count: 10
     get workouts_path, page: 3
-    assert_select '.workout_name', count: 2
+    assert_select '.workout-entry', count: 2
   end
 
   test "index should contain links to previous and next page" do
