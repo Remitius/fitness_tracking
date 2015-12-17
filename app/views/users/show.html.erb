@@ -1,14 +1,18 @@
 <%= provide(:title, @user.username) %>
-<div id="user-info">
-  <h1><%= @user.username %>'s profile</h1>
+<div id="user-info" class='container'>
+  <div class="jumbotron">
+    <h1><%= @user.username %>'s profile</h1>
 
-  <ul>
-    <% if logged_in_as_user?(@user) %> 
-      <li><%= link_to "Edit Account Info", edit_user_path %></li>
-      <li><%= link_to "Delete Account", user_path, method: :delete,             data: { confirm: "Are you sure?" }%></li>
-    <% end %> 
-    
-    <li>Last updated: <%= @user.updated_at.to_date.to_s %></li>
-    <li>Date created: <%= @user.created_at.to_date.to_s %> </li>
-  </ul>
+    <ul>
+      <li>Date created: <%= @user.created_at.to_date.to_s %> </li>
+      <li>Last updated: <%= @user.updated_at.to_date.to_s %></li>
+      <li>Workouts: <%= @user.workouts.count %> </li>
+      <li>Exercises: <%= @user.exercise_count %> (non-unique)</li>
+      <% if logged_in_as_user?(@user) %> 
+        <li><%= link_to "Edit Account Info", edit_user_path %></li>
+        <li><%= link_to "Delete Account", user_path, method: :delete,             data: { confirm: "Are you sure?" }%></li>
+      <% end %> 
+      
+    </ul>
+  </div>
 </div>

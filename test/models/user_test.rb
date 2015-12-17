@@ -56,4 +56,13 @@ class UserTest < ActiveSupport::TestCase
     assert_not @user.valid?
   end
 
+  test 'exercise_count should return an appropriate number' do
+    @user.save
+    user_workout = valid_workout(user: @user)
+    other_workout = valid_workout
+    6.times { valid_exercise(user_workout) }
+    3.times { valid_exercise(other_workout) }
+    assert_equal 6, @user.exercise_count
+  end
+
 end
