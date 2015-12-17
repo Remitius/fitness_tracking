@@ -22,15 +22,35 @@ body{
   word-wrap: break-word;
 }
 
+header{
+  background-color: #EEE !important;
+  li.active>*{
+    background-color: #CCC !important;
+  }
+}
+
+.jumbotron{
+  background-color: #EEE;
+  padding-top: 10px;
+  padding-bottom: 30px;
+  margin-bottom: 5px;
+}
+
+.jumbotron.big{
+  margin-bottom: 15px;
+}
+
+.container#form{
+  margin-bottom: 5px;
+  padding-bottom: 3px;
+}
+
 input{
   height: 29px !important;
 }
 
 a{
   font-weight: bold;
-}
-
-hr{
 }
 
 table{
@@ -44,23 +64,4 @@ table, th, td {
 
 th, td{
   text-align: center;
-}
-
-#left-sidebar{
-  padding: 5px 2px 3px 2px;
-  margin-right: 6px;
-  float: left;
-  border-right: 1px solid black;
-  border-bottom: 1px solid black;
-  width: 26%;
-
-  div.text-center{
-    font-weight: bold;
-  }
-
-}
-
-#left-sidebar.thin-sidebar{
-  width: 20%;
-  margin-right: 13px;
 }

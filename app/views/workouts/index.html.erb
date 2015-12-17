@@ -9,18 +9,18 @@
 <% end %> 
 
 <section id='workout-list' class='container'>
-<% if @workouts.present? %>
-  <% @workouts.each do |w| %>
-    <div class='workout-entry'>
-      <a href='<%= workout_path(w) %>'>
-        <h2 style='display:inline;'><%= w.name %></h2>
-        <%= w.date.strftime("%a, %b %d, %Y") %> 
-      </a>
-    </div>
-  <% end %>
-<% else %> 
-  <h3>
-    <%= link_to 'Click to create a workout', new_workout_path %> 
-  </h3>
-<% end %> 
+  <% if @workouts.present? %>
+    <% @workouts.each do |w| %>
+      <div class='workout-entry'>
+        <a href='<%= workout_path(w) %>'>
+          <h2 style='display:inline;'><%= w.name %></h2>&nbsp;
+          <%= w.date.strftime("%a, %b %d, %Y") %> 
+        </a>
+      </div>
+    <% end %>
+  <% else %> 
+    <h3>
+      <%= link_to 'Click to create a workout', new_workout_path %> 
+    </h3>
+  <% end %> 
 </section>

@@ -1,6 +1,8 @@
 <% provide(:title, "Edit Workout") %> 
-<div id="left-sidebar">
-  <div class='text-center'>Edit Workout Info</div>  
-  <%= render 'workout_form' %>
+<div class="container" id='form' style='max-width: 450px'>
+  <div class='jumbotron'>
+    <div class='text-center'>Edit Workout Info</div>
+    <%= render 'workout_form' %>
+  </div>
+  <%= link_to "Go back", workout_path(params[:id]) %> 
 </div>
-<%= link_to "Go back", workout_path(params[:id]) %> 

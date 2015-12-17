@@ -9,7 +9,7 @@
     <%= f.date_select :date, start_year: 2012, end_year: 1.year.from_now.year %>
   </div>
   <div class="form-group">
-    <%= f.label :note %> 
+    <%= f.label 'Note (optional)' %> 
     <%= f.text_area :note, class: 'form-control', maxlength: Workout::MAX_NOTE_LENGTH %> 
   </div>
   <%= hidden_field_tag 'workout[user_id]', current_user.id %>

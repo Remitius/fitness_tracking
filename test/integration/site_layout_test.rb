@@ -23,7 +23,6 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
     assert_template partial: '_workout_form'
     assert_select "label[for='workout_name']", count: 1
     assert_select "label[for='workout_date']", count: 1
-    assert_select "label[for='workout_note']", count: 1
   end
 
   test 'link back to workouts#show page from workouts#edit' do
@@ -35,7 +34,6 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
     get workout_path(@w)
     assert_template partial: '_exercise_form'    
     assert_select "label[for='exercise_name']", count: 1
-    assert_select "label[for='exercise_note']", count: 1
   end
 
   test "e_set form elements on workouts#show" do

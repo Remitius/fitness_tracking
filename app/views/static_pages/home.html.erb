@@ -1,33 +1,30 @@
-<div class="jumbotron">
+<div class="jumbotron big">
   <div class="text-center">
-  <h1>Welcome</h1>
-  <%= link_to 'Create a new account', new_user_path %> 
-  <br>
+    <h1>Welcome</h1>
+    <%= link_to 'Create a new account', new_user_path %> 
+    <br>
   </div>
   <br>
   <div class='form-inline text-center'>
-  <%= form_for(:session, url: login_path) do |f| %>
-    <div class="form-group">    
-    <%= f.label :username %>
-    <%= f.text_field :username, class: 'form-control' %>
-    </div>
+    <%= form_for(:session, url: login_path) do |f| %>
+      <div class="form-group">    
+        <%= f.label :username %>
+        <%= f.text_field :username, class: 'form-control' %>
+      </div>
 
-    <div class="form-group">
-    <%= f.label :password %>
-    <%= f.password_field :password, class: 'form-control' %>
-    </div>
-    <%= f.submit "Log in" %>
-  <% end %>
-</div>
+      <div class="form-group">
+        <%= f.label :password %>
+        <%= f.password_field :password, class: 'form-control' %>
+      </div>
+      <%= f.submit "Log in" %>
+    <% end %>
+  </div>
 </div>
 
 <div class="container">
-
   <div class="jumbotron">
-    <h2 class='text-center'>You can do </h2>
-    <p>This example is a.</p>
-    <p>To see the, just scroll.</p>
+      <h2 class='text-center'>You can do </h2>
+      <p>This example is a.</p>
+      <p>To see the, just scroll.</p>
   </div>
-doin reel good
-
 </div>

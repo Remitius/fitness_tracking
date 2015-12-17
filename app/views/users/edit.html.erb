@@ -1,5 +1,9 @@
 <%= provide(:title, 'Update Account') %>
-<div id="left-sidebar">
-  <div class='text-center'>Update Account Info</div>
-  <%= render partial: 'user_form', locals: { submit_text: 'Update Account' } %> 
+<div class="container" id='form' style='max-width: 400px'>
+  <div class='jumbotron'>
+    <div class='text-center'>Update Account Info</div>
+    <%= render partial: 'user_form', locals: { submit_text: 'Update Account' } %>
+  </div>
+  <%= link_to 'Go back', current_user %> 
 </div>
+

@@ -1,4 +1,9 @@
 <%= provide(:title, 'Account Creation') %>
-<div id="left-sidebar">
-  <%= render partial: 'user_form', locals: { submit_text: 'Create Account' } %> 
+<br>
+<div class="container" id='form' style='max-width: 400px'>
+  <div class='jumbotron'>
+    <div class='text-center'>Create an Account</div>
+     <%= render partial: 'user_form', locals: { submit_text: 'Create Account' } %>
+  </div>
+  <%= link_to 'Go back', root_path %> 
 </div>
