@@ -27,7 +27,7 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
 
   test 'link back to workouts#show page from workouts#edit' do
     get edit_workout_path(@w)
-    assert_select "a[href='#{workout_path(@w.id)}']", count: 1
+    assert_select "a[href='#{workout_path(@w)}']", count: 1
   end
 
   test "exercise form elements onn _exercise_form partial" do
@@ -46,7 +46,7 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
     exer = valid_exercise(@w)
     get edit_workout_exercise_path(@w, exer)
     assert_template partial: '_exercise_form'    
-    assert_select "a[href='#{workout_path(@w.id)}']", count: 1
+    assert_select "a[href='#{workout_path(@w)}']", count: 1
   end
 
   test 'presence of _user_form on users#edit and users#new' do
@@ -55,7 +55,7 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
     assert_template 'users/_user_form'
     u = valid_user
     log_in_user(u)
-    get edit_user_path(u.id)
+    get edit_user_path(u)
     assert_template 'users/_user_form'
   end
 

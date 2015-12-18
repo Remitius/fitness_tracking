@@ -45,8 +45,8 @@ class ExercisesIndexTest < ActionDispatch::IntegrationTest
     assert_equal recent_workout.date, data[:last_instance][:date]
     assert_select '#first-instance', count: 1
     assert_select '#last-instance', count: 1
-    assert_select "a[href='#{workout_path(early_workout.id)}']", count: 1
-    assert_select "a[href='#{workout_path(recent_workout.id)}']", count: 1
+    assert_select "a[href='#{workout_path(early_workout)}']", count: 1
+    assert_select "a[href='#{workout_path(recent_workout)}']", count: 1
   end
 
   test "index info about exercise's number of occurences" do

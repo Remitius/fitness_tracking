@@ -87,17 +87,17 @@ class UserWorkoutsTest < ActionDispatch::IntegrationTest
 
   test "should get show" do
     w = Workout.create(name: 'a', date: 1.day.ago, user: @w.user)
-    get workout_path(w.id)
+    get workout_path(w)
     assert_select 'title', "Tracking | a"
     assert_response :success
   end  
 
   test "show should include workout info if id param is correct" do
-    get workout_path(@w.id)
+    get workout_path(@w)
     assert_template 'workouts/show'
-    assert_select '#left-sidebar', /#{@w.name}/i, count: 1
-    assert_select '#left-sidebar', /#{@w.note}/i, count: 1
-    assert_select '#left-sidebar', /#{@w.note}/i, count: 1
+    assert_select '#workout_attributes>li', /#{@w.name}/i, count: 1
+    assert_select '#workout_attributes>li', /#{@w.note}/i, count: 1
+    assert_select '#workout_attributes>li', /#{@w.note}/i, count: 1
   end
 
   test "show should redirect to root if id is invalid" do
@@ -126,10 +126,10 @@ class UserWorkoutsTest < ActionDispatch::IntegrationTest
   end
 
   test "destroy link should exist on show template" do
-    get workout_path(@w.id)
+    get workout_path(@w)
     assert_select 'a[data-method=delete]'
 
-    assert_select "a[href='#{workout_path(@w.id)}']"
+    assert_select "a[href='#{workout_path(@w)}']"
   end
 
   test "destroy should remove workout from the database" do
