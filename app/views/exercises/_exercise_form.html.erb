@@ -9,7 +9,6 @@
       <%= f.label 'Note (optional)' %> 
       <%= f.text_field :note, class: 'form-control', maxlength: Exercise::MAX_NOTE_LENGTH %> 
     </div>
-    <hr>
     <div id='e-set-fields'>
       <%= f.fields_for :e_sets, ESet.new do |s| %> 
         <%= link_to_add_association 'add set', f, :e_sets %>

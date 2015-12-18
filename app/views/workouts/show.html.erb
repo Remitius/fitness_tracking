@@ -1,27 +1,11 @@
 <% provide(:title, @workout.name) %> 
-<div id="left-sidebar">
-  <% if @workout %>
-    <div class='workout_attributes'>
-      <li>Name: <%= @workout.name %></li>
-      <li>Date: <%= @workout.date %></li>
-      <li>Note: <%= @workout.note %></li>
-    </div>
-    <%= link_to "edit",edit_workout_path(@workout), method: :get %> 
-    &nbsp;&middot;&nbsp;
-    <%= link_to "delete", @workout, method: :delete, 
-                                  data: { confirm: "Are you sure?" }%> 
-    <hr>
-    <div class='text-center'>Add an exercise</div>
-    <%= render 'exercises/exercise_form' %>
-  <% end %> 
-</div>
 
-<ol id='exercises'>
+<div class="jumbotron">
   <% if (@workout.exercises).any? %>
       <% @workout.exercises.each do |exer| %>
         <% next unless exer.id %> 
         <h4 class='exercise_name'>
-          <li><%= link_to("#{h exer.name}".html_safe, exercises_index_path(name: exer.name.downcase)) %> </li>
+          <%= link_to("#{h exer.name}".html_safe, exercises_index_path(name: exer.name.downcase), data: { no_turbolink: true }) %> 
           <%= link_to "edit", edit_workout_exercise_path(@workout, exer) %> 
           <%= link_to "delete", [@workout, exer], method: :delete, 
                                    data: { confirm: "Are you sure?"} %> 
@@ -54,4 +38,32 @@
   <% else %> 
     No exercises present
   <% end %> 
-</ol> 
+</div> 
+
+<div class="container">
+  <div class="row">
+
+    <div class="col-md-5 col-md-offset-1 jumbotron" id='workout-info'>
+      <% if @workout %>
+        <div id='workout_attributes'>
+          <div>Name: <%= @workout.name %></div>
+          <div>Date: <%= @workout.date %></div>
+          <div>Note: <%= @workout.note %></div>
+        </div>
+        <br>
+        <%= link_to "edit",edit_workout_path(@workout), method: :get %> 
+        &nbsp;&middot;&nbsp;
+        <%= link_to "delete", @workout, method: :delete, 
+                                      data: { confirm: "Are you sure?" }%> 
+      <% end %> 
+    </div>
+
+    <div class="container" id='form'>
+      <div class="col-md-5 jumbotron">
+          <div class='text-center'>Add an exercise</div>
+          <%= render 'exercises/exercise_form' %>
+      </div>
+    </div>
+
+  </div>
+</div>

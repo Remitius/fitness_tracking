@@ -1,3 +1,8 @@
+#workout-info{
+  padding: 3px 5px 3px 5px;
+  margin-right: 5px;
+}
+
 .workout_name_link{
   font-size: 22pt;
 }
@@ -6,26 +11,13 @@
   font-size: 12pt;
 }
 
-hr{
-  margin:9px 0px;
-}
-
 .exercise_note_and_sets{
   list-style-type: none;
-}
-
-.form-group{
-  margin-bottom: 1px;
 }
 
 .pounds-field, .reps-field{
   float: left;
   width: 46%;
-}
-
-#exercises{
-  float: left;
-  width: 60%;
 }
 
 section#workout-list{
@@ -35,3 +27,8 @@ section#workout-list{
 section#workout-list>div{
   margin-bottom: 10px;  
 }
+
+#form>.jumbotron{
+  padding-bottom: 3px;
+}
+
