@@ -1,5 +1,6 @@
 <div class="col-md-4">
   <h4 class='exercise_name'>
+    <%= heading_number %>.
     <%= link_to("#{h exer.name}".html_safe, exercises_index_path(name: exer.name.downcase), data: { no_turbolink: true }) %> 
     - 
     <%= link_to "edit", edit_workout_exercise_path(@workout, exer) %>

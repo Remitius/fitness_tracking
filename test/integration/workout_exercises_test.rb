@@ -93,7 +93,7 @@ class WorkoutExercisesTest < ActionDispatch::IntegrationTest
     assert_equal "heh", Exercise.find(e.id).note
     assert_equal 2, e.e_sets.count
     assert_template "workouts/show"
-    assert_select ".exercise_note_and_sets", /22 pounds/
+    assert_select ".exercise_note_and_sets", /22 lbs/
     assert_select ".exercise_note_and_sets", /#{s.pounds}/
   end
 
