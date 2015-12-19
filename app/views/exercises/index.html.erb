@@ -1,65 +1,75 @@
 <% provide(:title, params[:name]) if @exercise_data %> 
 <% content_for(:body_attributes) do %>data-no-turbolink="true"<% end %>
 
-<div id="left-sidebar" class='thin-sidebar'>
+<div>
   <% if @exercise_names %> 
-    <div id="exercise-select-form">
+    <div id="exercise-select-form" style='max-width: 300px;'>
       <form action="<%= exercises_index_url %>">
         <%= select_tag(:name, options_for_select(@exercise_names), class: 'form-control') %>
-        <input type="submit" value="Retrieve">
+        <input type="submit" value="Select Exercise">
       </form>
     </div>
   <% end %> 
 </div>
 
 <% if @exercise_data %> 
-<div id="exercise-info">
-  <h1><%= params[:name] %></h1>
-  <ul>
-    <li id='number-of-instances'>
-      <%= pluralize(@exercise_data[:number_of_instances], "total occurrence") %>
-    </li>
+<div class='container'>
+  <div class="row">
 
-    <li id="first-instance">
-      First occurrence: 
-      <%= link_to @exercise_data[:first_instance][:date], workout_path(@exercise_data[:first_instance][:workout_id]) %>
-    </li>
+    <div class='col-md-6 jumbotron' id="exercise-info">
+      <h2 class='text-center'><%= params[:name] %></h2>
+      <div id='number-of-instances'>
+        <%= pluralize(@exercise_data[:number_of_instances], "total occurrence") %>
+      </div>
 
-    <li id="last-instance">
-      Last occurrence: 
-      <%= link_to @exercise_data[:last_instance][:date], workout_path(@exercise_data[:last_instance][:workout_id]) %>
-    </li>
+      <div id="first-instance">
+        First occurrence: 
+        <%= link_to @exercise_data[:first_instance][:date], workout_path(@exercise_data[:first_instance][:workout_id]) %>
+      </div>
 
-    <% if @exercise_data[:lightest_set] %> 
-      <li id="lightest-set">
-        Lightest weight: <%= @exercise_data[:lightest_set][:pounds] %> lb
-        <%= "for #{pluralize(@exercise_data[:lightest_set][:reps], 'rep')}" if @exercise_data[:lightest_set][:reps] %> 
-        on <%= link_to @exercise_data[:lightest_set][:date], @exercise_data[:lightest_set][:workout_id] %> 
-      </li> 
-    <% end %> 
+      <div id="last-instance">
+        Last occurrence: 
+        <%= link_to @exercise_data[:last_instance][:date], workout_path(@exercise_data[:last_instance][:workout_id]) %>
+      </div>
 
-    <% if @exercise_data[:heaviest_set] %> 
-      <li id="heaviest-set">
-        Heaviest weight: <%= @exercise_data[:heaviest_set][:pounds] %> lb
-        <%= "for #{pluralize(@exercise_data[:heaviest_set][:reps], 'rep')}" if @exercise_data[:heaviest_set][:reps] %> 
-        on <%= link_to @exercise_data[:heaviest_set][:date], @exercise_data[:heaviest_set][:workout_id] %> 
-      </li>
-    <% end %> 
-  </ul>
+      <% if @exercise_data[:lightest_set] %> 
+        <div id="lightest-set">
+          Lightest weight: <%= @exercise_data[:lightest_set][:pounds] %> lb
+          <%= "for #{pluralize(@exercise_data[:lightest_set][:reps], 'rep')}" if @exercise_data[:lightest_set][:reps] %> 
+          on <%= link_to @exercise_data[:lightest_set][:date], @exercise_data[:lightest_set][:workout_id] %> 
+        </div> 
+      <% end %> 
 
+      <% if @exercise_data[:heaviest_set] %> 
+        <div id="heaviest-set">
+          Heaviest weight: <%= @exercise_data[:heaviest_set][:pounds] %> lb
+          <%= "for #{pluralize(@exercise_data[:heaviest_set][:reps], 'rep')}" if @exercise_data[:heaviest_set][:reps] %> 
+          on <%= link_to @exercise_data[:heaviest_set][:date], @exercise_data[:heaviest_set][:workout_id] %> 
+        </div>
+      <% end %> 
+      
+      <% if params[:view] == nil || params[:view] == 'line' %> 
+        <%= link_to 'Click to view table', exercises_index_path(params[:id], name: params[:name], view: 'table') %> 
+      <% elsif params[:view] == 'table' %> 
+        <%= link_to 'Click to view line graph', exercises_index_path(params[:id], name: params[:name], view: 'line') %>
+      <% end %> 
+    </div>
 
-  <% if @exercise_data[:formatted_sets].present? %> 
-    <% if params[:view] == nil || params[:view] == 'line' %> 
-      <%= link_to 'Click to view table', exercises_index_path(params[:id], name: params[:name], view: 'table') %> 
-      <%= render partial: 'poundage_line_graph', locals: { formatted_sets: @exercise_data[:formatted_sets] } %> 
-    
-    <% elsif params[:view] == 'table' %> 
-      <%= link_to 'Click to view line graph', exercises_index_path(params[:id], name: params[:name], view: 'line') %>
-      <%= render partial: 'poundage_table', locals: { formatted_sets: @exercise_data[:formatted_sets] } %> 
-    <% end %> 
-  <% else %> 
-    No sets exist for this exercise
-  <% end %> 
-  
+    <div class="col-md-6">
+      <% if @exercise_data[:formatted_sets].present? %> 
+        <% if params[:view] == nil || params[:view] == 'line' %> 
+          <%= render partial: 'poundage_line_graph', 
+              locals: { formatted_sets: @exercise_data[:formatted_sets] } %> 
+        <% elsif params[:view] == 'table' %> 
+          <%= render partial: 'poundage_table', 
+              locals: { formatted_sets: @exercise_data[:formatted_sets] } %> 
+        <% end %> 
+
+      <% else %> 
+        No sets exist for this exercise
+      <% end %> 
+    </div>
+
+  </div>
 </div>
 <% end %> 
