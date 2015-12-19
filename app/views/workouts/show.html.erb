@@ -1,68 +1,41 @@
 <% provide(:title, @workout.name) %> 
 
-<div class="jumbotron">
+<div class="container jumbotron" style='padding-bottom: 2px'>
   <% if (@workout.exercises).any? %>
-      <% @workout.exercises.each do |exer| %>
-        <% next unless exer.id %> 
-        <h4 class='exercise_name'>
-          <%= link_to("#{h exer.name}".html_safe, exercises_index_path(name: exer.name.downcase), data: { no_turbolink: true }) %> 
-          <%= link_to "edit", edit_workout_exercise_path(@workout, exer) %> 
-          <%= link_to "delete", [@workout, exer], method: :delete, 
-                                   data: { confirm: "Are you sure?"} %> 
-        </h4>
 
-        <% if exer.note.present? || exer.e_sets.present? %> 
-          <ul class='exercise_note_and_sets'>
-            <% unless exer.note.blank? %> 
-              <li><%= "Note: #{h exer.note}".html_safe%></li>
-            <% end %> 
+      <% @workout.exercises.each_slice(3) do |e| %>
+      <div class="row" style='border-bottom: 1px #333 groove'>
+        <%= render partial: 'exercises/exercise_info', locals: { exer: e[0] } if e[0] && e[0].id %> 
+        <%= render partial: 'exercises/exercise_info', locals: { exer: e[1] } if e[1] && e[1].id %> 
+        <%= render partial: 'exercises/exercise_info', locals: { exer: e[2] } if e[2] && e[2].id %>
+      </div>
+     <% end %>
 
-            <% exer.e_sets.each do |set| %> 
-              <li>
-                <% if set.pounds %> 
-                  <% pounds = remove_extraneous_decimal(set.pounds) %> 
-                  <%= "#{h pounds}".html_safe + " pounds" %>
-                <% end %> 
-
-                <% if set.reps %> 
-                  <%= "#{h set.reps}".html_safe + " reps"%> 
-                <% end %> 
-
-                <%= link_to "remove", [@workout, exer, set], method: :delete %> 
-              </li>
-            <% end %> 
-          </ul>
-        <% end %> 
-
-      <% end %>
   <% else %> 
     No exercises present
   <% end %> 
 </div> 
+<br>
 
 <div class="container">
   <div class="row">
 
     <div class="col-md-5 col-md-offset-1 jumbotron" id='workout-info'>
-      <% if @workout %>
-        <div id='workout_attributes'>
-          <div>Name: <%= @workout.name %></div>
-          <div>Date: <%= @workout.date %></div>
-          <div>Note: <%= @workout.note %></div>
-        </div>
-        <br>
-        <%= link_to "edit",edit_workout_path(@workout), method: :get %> 
-        &nbsp;&middot;&nbsp;
-        <%= link_to "delete", @workout, method: :delete, 
-                                      data: { confirm: "Are you sure?" }%> 
-      <% end %> 
+      <div id='workout_attributes'>
+        <div>Name: <%= @workout.name %></div>
+        <div>Date: <%= @workout.date %></div>
+        <div>Note: <%= @workout.note %></div>
+      </div>
+      <br>
+      <%= link_to "edit",edit_workout_path(@workout), method: :get %> 
+      &nbsp;&middot;&nbsp;
+      <%= link_to "delete", @workout, method: :delete, 
+                                    data: { confirm: "Are you sure?" }%> 
     </div>
 
-    <div class="container" id='form'>
-      <div class="col-md-5 jumbotron">
-          <div class='text-center'>Add an exercise</div>
-          <%= render 'exercises/exercise_form' %>
-      </div>
+    <div class="col-md-5 jumbotron" style='padding-bottom: 7px'>
+        <div class='text-center'>Add an exercise</div>
+        <%= render 'exercises/exercise_form' %>
     </div>
 
   </div>

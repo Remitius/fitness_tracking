@@ -1,0 +1,33 @@
+<div class="col-md-4">
+  <h4 class='exercise_name'>
+    <%= link_to("#{h exer.name}".html_safe, exercises_index_path(name: exer.name.downcase), data: { no_turbolink: true }) %> 
+    - 
+    <%= link_to "edit", edit_workout_exercise_path(@workout, exer) %>
+    -
+    <%= link_to "delete", [@workout, exer], method: :delete, 
+                             data: { confirm: "Are you sure?"} %> 
+  </h4>
+
+  <% if exer.note.present? || exer.e_sets.present? %> 
+    <div class='exercise_note_and_sets'>
+      <% unless exer.note.blank? %> 
+        <div><%= "Note: #{h exer.note}".html_safe%></div>
+      <% end %> 
+
+      <% exer.e_sets.each do |set| %> 
+        <div>
+          <% if set.pounds %> 
+            <% pounds = remove_extraneous_decimal(set.pounds) %> 
+            <%= "#{h pounds}".html_safe + " lbs" %>
+          <% end %> 
+
+          <% if set.reps %> 
+            <%= "#{h set.reps}".html_safe + " reps"%> 
+          <% end %> 
+          
+          <%= link_to "remove", [@workout, exer, set], method: :delete %> 
+        </div>
+      <% end %> 
+    </div>
+  <% end %> 
+</div>
