@@ -1,11 +1,11 @@
 <% provide(:title, @workout.name) %> 
 <%= workout_page_background_color %>
 
-<div class="container jumbotron" style='padding-bottom: 2px'>
+<div class="container jumbotron" style='padding-bottom: 10px'>
   <% if @workout.exercises.any? %>
       <% heading_counter = 0 %> 
       <% @workout.exercises.each_slice(3) do |exercises| %>
-      <div class="row" style='border-bottom: 1px #333 groove'>
+      <div class="row" style='border-bottom: 1px rgba(30,30,30,.25) solid'>
         <% exercises.compact.each do |e| %>
           <%= render partial: 'exercises/exercise_info', locals: { exer: e, heading_number: heading_counter += 1 } if e.id %>
         <% end %>
