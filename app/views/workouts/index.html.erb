@@ -1,12 +1,8 @@
 <% provide(:title, 'Index') %>
+<style>
+  body{ background-image: url("/assets/congruent_outline.png"); }
+</style>
 
-<% page = params[:page].to_i unless params[:page].nil? %> 
-<% if page && page > 1 %> 
-  <%= link_to 'Previous Page', root_path(page: page-1)%> 
-  <%= link_to 'Next Page', root_path(page: page+1) if params[:next_page_valid] %> 
-<% else %> 
-  <%= link_to 'Next Page', root_path(page: 2) if params[:next_page_valid] %> 
-<% end %> 
 
 <section id='workout-list' class='container'>
   <% if @workouts.present? %>
@@ -23,4 +19,12 @@
       <%= link_to 'Click to create a workout', new_workout_path %> 
     </h3>
   <% end %> 
+
+<% page = params[:page].to_i unless params[:page].nil? %> 
+<% if page && page > 1 %> 
+  <%= link_to 'Previous Page', root_path(page: page-1)%> 
+  <%= link_to 'Next Page', root_path(page: page+1) if params[:next_page_valid] %> 
+<% else %> 
+  <%= link_to 'Next Page', root_path(page: 2) if params[:next_page_valid] %> 
+<% end %> 
 </section>

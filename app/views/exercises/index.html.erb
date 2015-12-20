@@ -1,5 +1,8 @@
 <% provide(:title, params[:name]) if @exercise_data %> 
 <% content_for(:body_attributes) do %>data-no-turbolink="true"<% end %>
+<style>
+  body{ background-image: url("/assets/congruent_outline.png"); }
+</style>
 
 <div>
   <% if @exercise_names %> 
