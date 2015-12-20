@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  get 'static_pages/home'
-
   root 'workouts#index'
   resources :workouts, path: 'w' do
     resources :exercises, only: [:create,:update,:destroy,:edit], 
@@ -10,6 +8,7 @@ Rails.application.routes.draw do
   end
 
   get 'exercises/index', path: 'e'
+  get 'static_pages/calculators', path: 'calc', as: 'calculators'
 
   resources :users, path: 'u', except: [:index]
   post   'login'   => 'sessions#create'

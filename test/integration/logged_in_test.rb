@@ -42,4 +42,10 @@ class LoggedInTest < ActionDispatch::IntegrationTest
     assert_select '#exercise-info', false
   end
 
+  test 'static_pages#calculators should succeed' do
+    get calculators_path
+    assert_response :success
+    assert_template 'static_pages/calculators'
+  end
+
 end

@@ -104,4 +104,9 @@ class LoggedOutTest < ActionDispatch::IntegrationTest
     assert flash.present?
   end
 
+  test 'static_pages#calculators should redirect to root' do
+    get calculators_path
+    assert_redirected_to :root
+    assert flash.present?
+  end
 end

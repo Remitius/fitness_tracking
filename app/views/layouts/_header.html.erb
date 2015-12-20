@@ -15,6 +15,7 @@
       <ul class="nav navbar-nav">
         <%= generate_header_link_list_item('Create Workout', :new_workout) %> 
         <%= generate_header_link_list_item('Exercise Info', :exercises_index) %> 
+        <%= generate_header_link_list_item('Calculators', :calculators) %> 
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <%= generate_header_link_list_item("Profile (#{current_user.username})", current_user) %> 
