@@ -15,7 +15,8 @@ module ApplicationHelper
       flag = true
       link_to(display_text, '#')
     end
-    flag ? "<li class='active'>#{anchor}</li>" : "<li>#{anchor}</li>"
+    li = flag ? "<li class='active'>#{anchor}</li>" : "<li>#{anchor}</li>"
+    li.html_safe
   end
 
 end
