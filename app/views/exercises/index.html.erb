@@ -52,9 +52,9 @@
       <% end %> 
       
       <% if params[:view] == nil || params[:view] == 'line' %> 
-        <%= link_to 'Click to view table', exercises_index_path(params[:id], name: params[:name], view: 'table') %> 
+        <%= link_to 'View table instead of graph', exercises_index_path(params[:id], name: params[:name], view: 'table') %> 
       <% elsif params[:view] == 'table' %> 
-        <%= link_to 'Click to view line graph', exercises_index_path(params[:id], name: params[:name], view: 'line') %>
+        <%= link_to 'View line graph instead of table', exercises_index_path(params[:id], name: params[:name], view: 'line') %>
       <% end %> 
     </div>
 
