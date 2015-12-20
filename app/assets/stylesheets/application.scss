@@ -17,7 +17,6 @@
 @import "bootstrap";
 
 body{
-  /*ba*/
   background-color: #850505;
   font-family: 'Arial-black';
   word-wrap: break-word;
@@ -36,6 +35,14 @@ input{
 
 .btn{
   background-color: #EEE;  
+}
+
+#flash_error{
+  color: #333;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border: none;
+  background-color: #EEE;
 }
 
 .jumbotron{
@@ -57,7 +64,6 @@ input{
 .form-group{
   margin-bottom: 1px;
 }
-
 
 a{
   font-weight: bold;
