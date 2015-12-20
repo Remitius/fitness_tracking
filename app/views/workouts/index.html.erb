@@ -3,7 +3,6 @@
   body{ background-image: url("/assets/congruent_outline.png"); }
 </style>
 
-
 <section id='workout-list' class='container'>
   <% if @workouts.present? %>
     <% @workouts.each do |w| %>
@@ -22,9 +21,9 @@
 
 <% page = params[:page].to_i unless params[:page].nil? %> 
 <% if page && page > 1 %> 
-  <%= link_to 'Previous Page', root_path(page: page-1)%> 
-  <%= link_to 'Next Page', root_path(page: page+1) if params[:next_page_valid] %> 
+  <%= link_to 'Previous Page', root_path(page: page-1), class: 'btn btn-default' %> 
+  <%= link_to 'Next Page', root_path(page: page+1), class: 'btn btn-default' if params[:next_page_valid] %> 
 <% else %> 
-  <%= link_to 'Next Page', root_path(page: 2) if params[:next_page_valid] %> 
+  <%= link_to 'Next Page', root_path(page: 2), class: 'btn btn-default' if params[:next_page_valid] %> 
 <% end %> 
 </section>

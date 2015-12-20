@@ -30,6 +30,14 @@ header{
   }
 }
 
+input{
+  height: 29px !important;
+}
+
+.btn{
+  background-color: #EEE;  
+}
+
 .jumbotron{
   background-color: #EEE;
   padding-top: 10px;
@@ -50,9 +58,6 @@ header{
   margin-bottom: 1px;
 }
 
-input{
-  height: 29px !important;
-}
 
 a{
   font-weight: bold;
