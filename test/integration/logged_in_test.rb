@@ -46,6 +46,10 @@ class LoggedInTest < ActionDispatch::IntegrationTest
     get calculators_path
     assert_response :success
     assert_template 'static_pages/calculators'
+    assert_select 'div#bmi'
+    assert_select 'div#wilks'
+    assert_select 'div#1rm'
+    assert_select 'form', count: 3
   end
 
 end
