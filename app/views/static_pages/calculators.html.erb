@@ -5,11 +5,12 @@
   <div class="row">
 
     <div class="col-md-4 jumbotron" id='bmi'>
-      <h2 class="text-center">Body Mass Index (BMI)</h2>
+      <h3 class="text-center">Body Mass Index</h3>
+      <h4 class="text-center">(BMI)</h4>
     </div>
 
     <div class="col-md-4 jumbotron" id='wilks'>
-      <h2 class="text-center">Wilks Score</h2>
+      <h3 class="text-center">Wilks Score</h3>
       <%= form_for(:wilks, url: calculate_path) do |f| %> 
         <div class="form-group">
           <%= f.label :gender, 'male' %> 
@@ -25,19 +26,34 @@
         </div>
         <div class="form-group">
           <%= f.label :bodyweight %> 
-          <%= f.text_field :bodyweight, size: 6 %> 
+          <%= f.text_field :bodyweight, size: 5 %> 
         </div>
         <div class="form-group">
           <%= f.label :total %> 
-          <%= f.text_field :total, size: 6 %> 
+          <%= f.text_field :total, size: 5 %> 
         </div>
         <%= f.submit "Submit" %> 
       <% end %> 
+      <br>
       <%= flash[:wilks] %>
     </div>
 
     <div class="col-md-4 jumbotron" id='1rm'>
-      <h2 class="text-center">1RM (</h2>
+      <h3 class="text-center">One Rep Max</h3>
+      <h4 class="text-center">(Brzycki)</h4>
+      <%= form_for(:one_rep_max, url: calculate_path) do |f| %> 
+        <div class="form-group">
+          <%= f.label :weight %> 
+          <%= f.text_field :weight, size: 5 %> 
+        </div>
+        <div class="form-group">
+          <%= f.label :reps %> 
+          <%= f.text_field :reps, size: 3 %> 
+        </div>
+        <%= f.submit 'Submit' %> 
+      <% end %> 
+      <br>
+      <%= flash[:one_rep_max] %>
     </div>
 
   </div>

@@ -1,4 +1,10 @@
 module StaticPagesHelper
+  def one_rep_max_brzycki(weight, reps)
+    w = weight.to_f
+    r = reps.to_i
+    w*(36.0/(37.0-r))
+  end
+
   def wilks_score(bodyweight, total, units, gender)
     return nil unless units == :lb || units == :kg
     total *= 0.453592909 if units == :lb

@@ -6,7 +6,8 @@ class StaticPagesController < ApplicationController
   end
 
   def calculate
-    wilks_message = calculate_wilks if params[:wilks]
+    find_wilks if params[:wilks]
+    find_one_rep_max if params[:one_rep_max]
     redirect_to calculators_path
   end
 
@@ -19,7 +20,15 @@ class StaticPagesController < ApplicationController
     end
   end
 
-  def calculate_wilks
+  def find_one_rep_max
+    weight = params[:one_rep_max][:weight].to_f
+    reps = params[:one_rep_max][:reps].to_i
+    max = one_rep_max_brzycki(weight, reps)
+    flash[:one_rep_max] = "#{weight} x #{reps} reps = #{max.round(2)}
+                           (units irrelevant)"
+  end
+
+  def find_wilks
     wilks = wilks_score(params[:wilks][:bodyweight].to_f,
       params[:wilks][:total].to_f, params[:wilks][:units].to_sym, 
       params[:wilks][:gender].to_sym)
