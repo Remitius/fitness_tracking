@@ -1,8 +1,17 @@
 module StaticPagesHelper
+  def bmi(weight, height, units)
+    case units.to_sym
+    when :imperial
+      703.0 * (weight.to_f / (height.to_f**2))
+    when :metric
+      weight.to_f / ((height.to_f/100)**2)
+    else
+      raise ArgumentError.new('Invalid argument given for units')
+    end
+  end
+
   def one_rep_max_brzycki(weight, reps)
-    w = weight.to_f
-    r = reps.to_i
-    w*(36.0/(37.0-r))
+    weight.to_f * (36.0 / (37.0-reps.to_i))
   end
 
   def wilks_score(bodyweight, total, units, gender)
@@ -14,7 +23,7 @@ module StaticPagesHelper
     elsif gender == :female 
       female_wilks_coefficient(bodyweight, units) * total
     else
-      raise TypeError.new('Invalid argument given for gender')
+      raise ArgumentError.new('Invalid argument given for gender')
     end
   end
 

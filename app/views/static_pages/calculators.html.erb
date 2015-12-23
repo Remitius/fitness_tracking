@@ -7,6 +7,25 @@
     <div class="col-md-4 jumbotron" id='bmi'>
       <h3 class="text-center">Body Mass Index</h3>
       <h4 class="text-center">(BMI)</h4>
+      <%= form_for(:bmi, url: calculate_path) do |f| %> 
+        <div class="form-group">
+          <%= f.label :units, 'lb/in.' %> 
+          <%= f.radio_button :units, :imperial, checked: true %> 
+          <%= f.label :units, 'kg/cm' %> 
+          <%= f.radio_button :units, :metric %> 
+        </div>
+        <div class="form-group">
+          <%= f.label :bodyweight %> 
+          <%= f.text_field :bodyweight, size: 5 %> 
+        </div>
+        <div class="form-group">
+          <%= f.label :height %> 
+          <%= f.text_field :height, size: 4 %> 
+        </div>
+        <%= f.submit 'Submit' %> 
+      <% end %> 
+      <br>
+      <%= flash[:bmi] %>
     </div>
 
     <div class="col-md-4 jumbotron" id='wilks'>
