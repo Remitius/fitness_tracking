@@ -1,23 +1,43 @@
 <%= provide(:title, 'Calculators') %> 
-<style>
-  body{ background-image: url("/assets/congruent_outline.png"); }
-</style>
+<style>body{background-image: url("/assets/congruent_outline.png");}</style>
 
 <div class="container">
   <div class="row">
 
-    <div class="col-md-4 jumbotron">
-      <h2 class="text-center">j</h2>
+    <div class="col-md-4 jumbotron" id='bmi'>
+      <h2 class="text-center">Body Mass Index (BMI)</h2>
     </div>
 
-
-    <div class="col-md-4 jumbotron">
-      <h2 class="text-center">j</h2>
+    <div class="col-md-4 jumbotron" id='wilks'>
+      <h2 class="text-center">Wilks Score</h2>
+      <%= form_for(:wilks, url: calculate_path) do |f| %> 
+        <div class="form-group">
+          <%= f.label :gender, 'male' %> 
+          <%= f.radio_button :gender, :male, checked: true %> 
+          <%= f.label :gender, 'female' %> 
+          <%= f.radio_button :gender, :female %> 
+        </div>
+        <div class="form-group">
+          <%= f.label :units, 'lb' %> 
+          <%= f.radio_button :units, :lb, checked: true %> 
+          <%= f.label :units, 'kg' %> 
+          <%= f.radio_button :units, :kg %> 
+        </div>
+        <div class="form-group">
+          <%= f.label :bodyweight %> 
+          <%= f.text_field :bodyweight, size: 6 %> 
+        </div>
+        <div class="form-group">
+          <%= f.label :total %> 
+          <%= f.text_field :total, size: 6 %> 
+        </div>
+        <%= f.submit "Submit" %> 
+      <% end %> 
+      <%= flash[:wilks] %>
     </div>
 
-
-    <div class="col-md-4 jumbotron">
-      <h2 class="text-center">j</h2>
+    <div class="col-md-4 jumbotron" id='1rm'>
+      <h2 class="text-center">1RM (</h2>
     </div>
 
   </div>

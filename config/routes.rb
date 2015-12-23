@@ -9,6 +9,8 @@ Rails.application.routes.draw do
 
   get 'exercises/index', path: 'e'
   get 'static_pages/calculators', path: 'calc', as: 'calculators'
+  post 'static_pages/calculate', path: 'calculate', as: 'calculate'
+
 
   resources :users, path: 'u', except: [:index]
   post   'login'   => 'sessions#create'
