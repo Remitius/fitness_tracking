@@ -1,6 +1,6 @@
 <div class="jumbotron big">
   <div class="text-center">
-    <h1>Welcome</h1>
+    <h1>Workout Log</h1>
     <%= link_to 'Create a new account', new_user_path %> 
     <br>
   </div>
@@ -22,9 +22,27 @@
 </div>
 
 <div class="container">
-  <div class="jumbotron">
-      <h2 class='text-center'>You can do </h2>
-      <p>This example is a.</p>
-      <p>To see the, just scroll.</p>
+  <div class="jumbotron text-center">
+    <div class='jumbotron-info'>
+      <p>Workout data can be stored and viewed in a concise layout.</p>
+      <a href='show_workout.png'>
+        <%= image_tag('/show_workout.png', width: '250', height: '150', alt: 'workout listing') %> 
+      </a>
+    </div>
+
+    <div class='jumbotron-info'>
+      <p>Analyses for individual exercises.</p>
+      <a href='exer_ind.png'>
+        <%= image_tag('/exer_ind.png', width: '250', height: '150', alt: 'exercise info') %> 
+      </a>
+    </div>
+      
+    <div class='jumbotron-info'>
+      <p>Calculators for metrics such as BMI.</p>
+      <a href='calc.png'>
+        <%= image_tag('/calc.png', width: '250', height: '150', alt: 'calculators') %> 
+      </a>
+    </div>
+
   </div>
 </div>
