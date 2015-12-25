@@ -10,8 +10,8 @@ body{
     <% @workouts.each do |w| %>
       <div class='workout-entry'>
         <a href='<%= workout_path(w) %>'>
-          <h2 class='workout-name'><%= w.name %></h2>&nbsp;&ndash;
-          <h3><%= w.date.strftime("%a, %b %d, %Y") %></h3>
+          <h2 class='workout-name'><%= w.name %></h2>
+          <h3>&middot; <%= w.date.strftime("%a, %b %d, %Y") %></h3>
         </a>
       </div>
     <% end %>
