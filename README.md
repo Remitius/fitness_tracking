@@ -1,1 +1,9 @@
-Stores workout information and provides analysis of workouts through the Google Charts JavaScript API.
+Stores workout information and provides analysis of workouts through the Google Charts JavaScript API. Also includes calculators for formulas such as 1 rep max and BMI.
+
+[Live link](https://workout--log.herokuapp.com)
+
+![show\_workout.png](/public/show_workout.png?raw=true =680x400)
+
+![calc.png](/public/calc.png?raw=true =680x400)
+
+![exer\_ind.png](/public/exer_ind.png?raw=true =680x400)
