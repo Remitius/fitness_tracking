@@ -12,3 +12,11 @@
 #exercise-info{
   margin-top: 14px;
 }
+
+.exercise-row{
+  border-bottom: 1px rgba(30,30,30,.25) solid;
+}
+
+.exercise-row:last-of-type{
+  border-bottom: none;
+}
