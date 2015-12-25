@@ -9,9 +9,8 @@ class UsersController < ApplicationController
   end
 
   def show
-    find_user
-    if @user.nil?
-      flash[:error] = "User not found"
+    unless find_user && logged_in_as_user?(@user)
+      flash[:error] = 'You are not logged in as that user'
       redirect_to :root
     end
   end

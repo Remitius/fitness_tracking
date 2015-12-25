@@ -46,6 +46,12 @@ class LoggedOutTest < ActionDispatch::IntegrationTest
     assert flash.present?
   end
 
+  test 'users#show redirects to root' do
+    get user_path(@w.user)
+    assert_redirected_to :root
+    assert flash.present?
+  end
+
   test 'users#edit redirects to root' do
     get edit_user_path(@w.user)
     assert_redirected_to :root

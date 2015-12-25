@@ -1,8 +1,10 @@
 require 'test_helper'
 
 class UsersControllerTest < ActionController::TestCase
+  include SessionsHelper
   def setup
     @user = valid_user
+
   end
 
   test "should get new" do
@@ -11,11 +13,13 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test "should get show" do
+    log_in(@user)
     get :show, id: @user.id
     assert_response :success
   end
 
   test 'content of show action' do
+    log_in(@user)
     get :show, id: @user.id
     assert_select 'title', /#{@user.username}/
   end
