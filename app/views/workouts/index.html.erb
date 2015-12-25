@@ -1,6 +1,8 @@
 <% provide(:title, 'Index') %>
 <style>
-  body{ background-image: url("/assets/congruent_outline.png"); }
+body{
+  background-image: url(<%= image_url('congruent_outline.png') %>);
+}
 </style>
 
 <section id='workout-list' class='container'>
