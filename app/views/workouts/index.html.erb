@@ -8,8 +8,8 @@
     <% @workouts.each do |w| %>
       <div class='workout-entry'>
         <a href='<%= workout_path(w) %>'>
-          <h2 style='display:inline;'><%= w.name %></h2>&nbsp;
-          <%= w.date.strftime("%a, %b %d, %Y") %> 
+          <h2 class='workout-name'><%= w.name %></h2>&nbsp;&ndash;
+          <h3><%= w.date.strftime("%a, %b %d, %Y") %></h3>
         </a>
       </div>
     <% end %>
@@ -19,11 +19,11 @@
     </h3>
   <% end %> 
 
-<% page = params[:page].to_i unless params[:page].nil? %> 
-<% if page && page > 1 %> 
-  <%= link_to 'Previous Page', root_path(page: page-1), class: 'btn btn-default' %> 
-  <%= link_to 'Next Page', root_path(page: page+1), class: 'btn btn-default' if params[:next_page_valid] %> 
-<% else %> 
-  <%= link_to 'Next Page', root_path(page: 2), class: 'btn btn-default' if params[:next_page_valid] %> 
-<% end %> 
+  <% page = params[:page].to_i unless params[:page].nil? %> 
+  <% if page && page > 1 %> 
+    <%= link_to 'Previous Page', root_path(page: page-1), class: 'btn btn-default' %> 
+    <%= link_to 'Next Page', root_path(page: page+1), class: 'btn btn-default' if params[:next_page_valid] %> 
+  <% else %> 
+    <%= link_to 'Next Page', root_path(page: 2), class: 'btn btn-default' if params[:next_page_valid] %> 
+  <% end %> 
 </section>

@@ -4,8 +4,12 @@
   margin-right: 5px;
 }
 
-.workout_name_link{
-  font-size: 22pt;
+.workout-entry{
+  margin-bottom: 7px !important;
+
+  *{
+    display: inline;
+  }
 }
 
 .workout_attributes{
